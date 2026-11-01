@@ -1,0 +1,4 @@
+<resources>
+    <string name="settings_control_only_media_session">Controles multimedia sin audio (experimental)</string>
+    <string name="settings_control_only_media_session_description">Publica una sesión multimedia sin audio local ni foco de audio. Requiere audio CarPlay por Bluetooth del vehículo. Se aplica en la próxima conexión. La compatibilidad del cuadro Bluetooth requiere pruebas reales.</string>
+</resources>

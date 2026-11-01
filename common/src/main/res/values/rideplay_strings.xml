@@ -1,0 +1,4 @@
+<resources>
+    <string name="settings_control_only_media_session">Audio-free media controls (experimental)</string>
+    <string name="settings_control_only_media_session_description">Publish a media session without local audio or audio focus. Requires CarPlay audio through vehicle Bluetooth. Applies on the next connection. Bluetooth instrument compatibility needs device testing.</string>
+</resources>

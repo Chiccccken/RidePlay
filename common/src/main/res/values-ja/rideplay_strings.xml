@@ -1,0 +1,4 @@
+<resources>
+    <string name="settings_control_only_media_session">音声なしのメディア操作（実験的機能）</string>
+    <string name="settings_control_only_media_session_description">ローカル音声やオーディオフォーカスなしでメディアセッションを公開します。車両の Bluetooth 経由で CarPlay 音声を再生する設定が必要です。次回の接続から適用されます。Bluetooth メーターとの互換性は実機での検証が必要です。</string>
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="settings_control_only_media_session">Керування медіа без звуку (експериментально)</string>
+    <string name="settings_control_only_media_session_description">Публікує медіасеанс без локального звуку й аудіофокусу. Потрібен звук CarPlay через Bluetooth автомобіля. Застосовується під час наступного підключення. Сумісність панелі приладів Bluetooth потребує перевірки на пристрої.</string>
+</resources>

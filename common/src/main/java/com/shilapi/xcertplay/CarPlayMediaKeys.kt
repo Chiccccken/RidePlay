@@ -65,6 +65,7 @@ internal object CarPlayMediaKeys {
     private var transientFocusInterrupted = false
     private var appContext: Context? = null
     private var mediaAudioActive = false
+    private var controlOnly = false
     private var nowPlaying = CarPlayNowPlaying()
     private var elapsedUpdatedAt = 0L
     private var artwork: Bitmap? = null
@@ -72,10 +73,11 @@ internal object CarPlayMediaKeys {
     private var placeholder: Bitmap? = null
 
     @Synchronized
-    fun attach(context: Context, next: CarPlayController) {
+    fun attach(context: Context, next: CarPlayController, audioOutputDisabled: Boolean = false) {
         if (controller !== next) {
             releaseLocked()
             artworkOwner = artworkQueue.newSession()
+            controlOnly = audioOutputDisabled && AirPlayPersistence.loadControlOnlyMediaSession(context)
         }
         appContext = context.applicationContext
         controller = next
@@ -107,7 +109,10 @@ internal object CarPlayMediaKeys {
 
     /** Called when CarPlay music starts or stops; may run on any thread. */
     fun onMediaAudioChanged(active: Boolean) {
-        mainHandler.post { synchronized(this) { updateLocked(active) } }
+        val expected = synchronized(this) { controller } ?: return
+        mainHandler.post { synchronized(this) {
+            if (controller === expected) updateLocked(active)
+        } }
     }
 
     /** The iPhone started or stopped playing; may run on any thread. */
@@ -145,6 +150,7 @@ internal object CarPlayMediaKeys {
                 if (nowPlaying.elapsedMillis != update.elapsedMillis) elapsedUpdatedAt = SystemClock.elapsedRealtime()
                 val metadataChanged = metadataChanged(nowPlaying, update) || artwork !== previousArtwork
                 nowPlaying = update
+                if (controlOnly && session == null) appContext?.let(::start)
                 if (metadataChanged) ClusterMusicState.publish(update, artwork)
                 updateInitialAlbumRecovery(expected)
                 // The iPhone repeats NowPlayingUpdate about twice a second for the position alone.
@@ -294,7 +300,7 @@ internal object CarPlayMediaKeys {
 
     private fun start(context: Context) {
         val expectedController = controller ?: return
-        val focusDisabled = AirPlayPersistence.loadDisableMediaKeyAudioFocus(context)
+        val focusDisabled = controlOnly || AirPlayPersistence.loadDisableMediaKeyAudioFocus(context)
         transientFocusInterrupted = false
         val granted = if (focusDisabled) {
             // Some OEMs route physical volume buttons to the focus owner. Keep an active
@@ -386,6 +392,7 @@ internal object CarPlayMediaKeys {
             it.release()
         }
         session = null
+        controlOnly = false
         mediaAudioActive = false
         nowPlaying = CarPlayNowPlaying()
         artwork = null
@@ -398,7 +405,7 @@ internal object CarPlayMediaKeys {
     }
 
     private fun publishPlaybackStateLocked() {
-        val playing = if (nowPlaying.elapsedMillis != null || nowPlaying.title != null) {
+        val playing = if (controlOnly || nowPlaying.elapsedMillis != null || nowPlaying.title != null) {
             nowPlaying.playing
         } else {
             mediaAudioActive

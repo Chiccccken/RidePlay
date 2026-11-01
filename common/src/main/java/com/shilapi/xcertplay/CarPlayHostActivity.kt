@@ -5712,7 +5712,7 @@ open class CarPlayHostActivity : ComponentActivity() {
         controller = next
         resetSidePanel() // a new session starts without the side panel
         updateClusterMapShown()
-        CarPlayMediaKeys.attach(this, next)
+        CarPlayMediaKeys.attach(this, next, audioOutputDisabled = airPlayConfig.disableAudioOutput)
         if (airPlayConfig.videoInCar) CarPlayVideo.attach(this, next)
         val display = CarPlaySessionDisplay(
             airPlayConfig.main.widthPixels, airPlayConfig.main.heightPixels,

@@ -1,0 +1,4 @@
+<resources>
+    <string name="settings_control_only_media_session">Sessiz medya denetimleri (deneysel)</string>
+    <string name="settings_control_only_media_session_description">Yerel ses veya ses odağı olmadan medya oturumu sunar. Araç Bluetooth üzerinden CarPlay sesi gerektirir. Sonraki bağlantıda uygulanır. Bluetooth gösterge uyumluluğu gerçek cihazda test edilmelidir.</string>
+</resources>

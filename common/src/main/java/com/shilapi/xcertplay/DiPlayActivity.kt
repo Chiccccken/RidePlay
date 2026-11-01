@@ -2079,6 +2079,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
                 AirPlayPersistence.saveCarBluetoothAudio(this, it)
                 reconnectIfRunning()
             }
+            controlOnlyMediaControls(card)
         }
         filteredSection(content, SettingsSection.CAR_BUTTON,
             getString(R.string.car_button_in_carplay), R.drawable.ic_dp_car) { card -> carButtonCard = card; carButtonControls(card) }
@@ -6228,6 +6229,15 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
         if (page == "settings") normalizeSpacing(card)
         parent.addView(card, LinearLayout.LayoutParams(-1, -2).apply { bottomMargin = dp(SETTINGS_BLOCK_GAP_DP) })
     }
+    private fun controlOnlyMediaControls(card: LinearLayout) {
+        toggle(card, getString(R.string.settings_control_only_media_session),
+            getString(R.string.settings_control_only_media_session_description),
+            AirPlayPersistence.loadControlOnlyMediaSession(this)) {
+            AirPlayPersistence.saveControlOnlyMediaSession(this, it)
+            markReconnectNeeded()
+        }
+    }
+
     private fun audioFocusControls(parent: LinearLayout) {
         toggle(parent, getString(R.string.settings_disable_media_key_audio_focus),
             getString(R.string.settings_disable_media_key_audio_focus_description),

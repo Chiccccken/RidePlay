@@ -1,0 +1,4 @@
+<resources>
+    <string name="settings_control_only_media_session">無音訊媒體控制（實驗性）</string>
+    <string name="settings_control_only_media_session_description">不接收本機音訊、不要求音訊焦點，仍發佈媒體工作階段。須開啟透過車輛藍牙播放 CarPlay 音訊。下次連線生效，藍牙儀表相容性須實機驗證。</string>
+</resources>

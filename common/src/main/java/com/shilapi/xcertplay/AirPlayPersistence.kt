@@ -736,6 +736,15 @@ object AirPlayPersistence {
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putBoolean(KEY_CAR_BLUETOOTH_AUDIO, enabled).apply()
     }
 
+    /** Independent media control without local audio; sampled at the next CarPlay connection. */
+    fun loadControlOnlyMediaSession(context: Context): Boolean =
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getBoolean("rideplay_control_only_media_session", false)
+
+    fun saveControlOnlyMediaSession(context: Context, enabled: Boolean) {
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
+            .putBoolean("rideplay_control_only_media_session", enabled).apply()
+    }
+
     fun loadSmoothVideo(context: Context): Boolean =
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getBoolean(KEY_SMOOTH_VIDEO, false)
 
