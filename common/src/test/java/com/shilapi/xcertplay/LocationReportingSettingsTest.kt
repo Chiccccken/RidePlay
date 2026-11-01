@@ -117,9 +117,18 @@ class LocationReportingSettingsTest {
             Intent(context, DiPlayActivity::class.java).putExtra("page", "settings")).setup()
     }
 
-    private fun locationSwitch(): Switch = descendants(activity.window.decorView)
-        .filterIsInstance<Switch>()
-        .single { it.contentDescription == activity.getString(R.string.report_location_to_iphone) }
+    private fun locationSwitch(): Switch {
+        // Location reporting lives in Navigation; Overview now promotes orientation instead.
+        fun switches() = descendants(activity.window.decorView).filterIsInstance<Switch>()
+            .filter { it.contentDescription == activity.getString(R.string.report_location_to_iphone) }.toList()
+        if (switches().isEmpty()) {
+            descendants(activity.window.decorView).single {
+                it.contentDescription == activity.getString(R.string.settings_open_category,
+                    activity.getString(R.string.settings_navigation))
+            }.performClick()
+        }
+        return switches().single()
+    }
 
     private fun descendants(view: View): Sequence<View> = sequence {
         yield(view)
