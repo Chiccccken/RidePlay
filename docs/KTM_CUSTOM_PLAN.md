@@ -6,7 +6,7 @@ RidePlay 是基于 [DiPlay](https://github.com/shihabal3amri/DiPlay) 的个人�
 
 名称约定：Codex 项目名称为 `RidePlay`；当前完整标题为 `RidePlay · DiPlay for KTM`；GitHub 仓库保持 `Chiccccken/DiPlay`，开发分支保持 `custom`。Android 应用显示名称暂不修改，后续再决定。命名调整不改变 P1 优先级。
 
-核查日期：2026-11-01（Asia/Shanghai）。状态：方案阶段，P1–P3 均未在 KTM 实测。
+核查日期：2026-11-01（Asia/Shanghai）。状态：P1 实验实现已通过完整 Linux CI，用户反馈无音频连接及 Android 媒体卡片正常；P1–P3 均未在 KTM 实测。最新验证见 [RIDEPLAY_P1.md](RIDEPLAY_P1.md)。
 
 ## 1. 仓库与本轮范围
 
