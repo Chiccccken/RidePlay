@@ -1127,7 +1127,8 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
             }, LinearLayout.LayoutParams(dp(4), dp(34)).apply { marginEnd = dp(10) })
             addView(ImageView(this@DiPlayActivity).apply {
                 setImageResource(settingsCategoryIcon(category))
-                imageTintList = ColorStateList.valueOf(if (selected) ACCENT else TEXT)
+                imageTintList = if (category == SettingsCategory.VEHICLE) null
+                    else ColorStateList.valueOf(if (selected) ACCENT else TEXT)
                 importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
             }, LinearLayout.LayoutParams(dp(26), dp(26)).apply { marginEnd = dp(12) })
             addView(label(title, 16, if (selected) ACCENT else TEXT, true,
@@ -1145,7 +1146,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
         SettingsCategory.DISPLAY -> R.drawable.ic_dp_display
         SettingsCategory.AUDIO -> R.drawable.ic_dp_audio
         SettingsCategory.NAVIGATION -> R.drawable.ic_dp_navigation
-        SettingsCategory.VEHICLE -> R.drawable.ic_dp_car
+        SettingsCategory.VEHICLE -> R.drawable.ic_rideplay_ktm
         SettingsCategory.DIAGNOSTICS -> R.drawable.ic_dp_diagnostics
         SettingsCategory.ADVANCED -> R.drawable.ic_dp_advanced
         SettingsCategory.LANGUAGE -> R.drawable.ic_dp_language
@@ -1304,9 +1305,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
             AirPlayPersistence.saveHideBottomBar(this@DiPlayActivity, enabled)
             applyFullscreenMode()
         }
-        toggle(this, getString(R.string.report_location_to_iphone),
-            "${getString(R.string.location_reporting_reconnects)} ${getString(R.string.sends_precise_android_location_as_carplay_gps_data_when_th)}",
-            AirPlayPersistence.loadLocationReportingEnabled(this@DiPlayActivity), save = ::onLocationReportingChanged)
+        orientationLockChoice(this)
         Unit
     }
 
@@ -1334,7 +1333,8 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
             gravity = Gravity.CENTER_VERTICAL
             addView(ImageView(this@DiPlayActivity).apply {
                 setImageResource(settingsCategoryIcon(category))
-                imageTintList = ColorStateList.valueOf(if (warning) WARNING else ACCENT)
+                imageTintList = if (category == SettingsCategory.VEHICLE) null
+                    else ColorStateList.valueOf(if (warning) WARNING else ACCENT)
                 importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
             }, LinearLayout.LayoutParams(dp(24), dp(24)).apply { marginEnd = dp(20) })
             addView(column().apply {
@@ -6233,6 +6233,11 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
         parent.addView(card, LinearLayout.LayoutParams(-1, -2).apply { bottomMargin = dp(SETTINGS_BLOCK_GAP_DP) })
     }
     private fun orientationLockControls(card: LinearLayout) {
+        orientationLockChoice(card)
+        card.addView(label(getString(R.string.settings_orientation_lock_description), 14, MUTED))
+    }
+
+    private fun orientationLockChoice(card: LinearLayout) {
         val modes = RidePlayOrientation.Mode.entries
         choice(card, getString(R.string.settings_orientation_lock), listOf(
             getString(R.string.settings_orientation_auto),
@@ -6242,7 +6247,6 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
             RidePlayOrientation.save(this, modes[index])
             RidePlayOrientation.apply(this, android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
         }
-        card.addView(label(getString(R.string.settings_orientation_lock_description), 14, MUTED))
     }
 
     private fun controlOnlyMediaControls(card: LinearLayout) {

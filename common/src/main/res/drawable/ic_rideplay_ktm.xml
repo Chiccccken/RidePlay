@@ -1,0 +1,8 @@
+<!-- KTM silhouette traced from the user-provided reference; keep brand colours untinted. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="#FFFF6600" android:pathData="M0,0H24V24H0Z" />
+    <path android:fillColor="#FF000000" android:fillType="evenOdd"
+        android:pathData="M2.957,15.374L1.000,15.374L1.000,15.273L3.160,10.212L6.230,10.212L5.387,12.236L6.871,11.021L6.939,11.021L7.040,10.887L7.107,10.887L7.411,10.583L7.782,10.347L7.883,10.212L9.975,10.212L7.512,12.270L8.761,13.957L8.929,14.160L8.997,14.160L10.785,9.537L6.466,9.537L6.770,8.626L18.647,8.626L18.445,9.537L13.890,9.537L12.709,13.113L15.610,10.212L18.344,10.212L17.905,12.202L20.166,10.212L23.000,10.212L21.887,15.374L19.052,15.374L19.322,13.620L18.917,13.923L18.715,14.160L18.647,14.160L18.377,14.463L18.107,14.632L17.331,15.374L14.598,15.374L14.902,13.586L13.012,15.374L6.129,15.374L4.779,13.586L4.071,15.374Z" />
+</vector>
