@@ -8,4 +8,12 @@
     <string name="settings_orientation_lock_description">Fija la orientación de inicio, ajustes y CarPlay. Cambiar esta opción reconecta la sesión CarPlay activa tras confirmar. El modo automático restaura la rotación original.</string>
     <string name="settings_pinyin_metadata">Información musical en pinyin (experimental)</string>
     <string name="settings_pinyin_metadata_description">Convierte títulos y artistas chinos sin conexión. Las tarjetas Android también muestran pinyin; CarPlay conserva el original. La pronunciación puede ser incorrecta. Se aplica en la próxima conexión.</string>
+    <string name="settings_pinyin_album">Pinyin del álbum</string>
+    <string name="settings_pinyin_album_description">Convierte también el álbum al activar pinyin. Se aplica en la próxima conexión.</string>
+    <string name="settings_artist_rules">Alias de artistas</string>
+    <string name="settings_artist_rules_description">Requiere pinyin activado. Coincide con el nombre original completo del iPhone. El alias tiene prioridad sobre pinyin. Vacío elimina la regla. Próxima conexión.</string>
+    <string name="settings_artist_add">Añadir artista</string>
+    <string name="settings_artist_original">Nombre original</string>
+    <string name="settings_artist_replacement">Nombre mostrado (vacío elimina)</string>
+    <string name="settings_artist_invalid">Nombre válido: hasta 200 caracteres y 100 reglas.</string>
 </resources>

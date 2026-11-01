@@ -6254,6 +6254,74 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
             AirPlayPersistence.savePinyinMetadata(this, it)
             markReconnectNeeded()
         }
+        toggle(card, getString(R.string.settings_pinyin_album), getString(R.string.settings_pinyin_album_description),
+            AirPlayPersistence.loadPinyinAlbum(this)) {
+            AirPlayPersistence.savePinyinAlbum(this, it)
+            markReconnectNeeded()
+        }
+        val rulesTitle = getString(R.string.settings_artist_rules)
+        val manage = button("$rulesTitle · ${ArtistNameOverrides.load(this).size}", false) {}
+        manage.setOnClickListener {
+            showArtistRules {
+                manage.text = "$rulesTitle · ${ArtistNameOverrides.load(this).size}"
+                markReconnectNeeded()
+            }
+        }
+        card.addView(manage, matchButton())
+        card.addView(label(getString(R.string.settings_artist_rules_description), 14, MUTED))
+
+    }
+
+    private fun showArtistRules(changed: () -> Unit) {
+        val keys = ArtistNameOverrides.load(this).keys.toList()
+        appDialogBuilder().setTitle(getString(R.string.settings_artist_rules))
+            .setItems((keys + getString(R.string.settings_artist_add)).toTypedArray()) { _, index ->
+                editArtistRule(keys.getOrNull(index), changed)
+            }.setNegativeButton(getString(R.string.cancel), null).show()
+    }
+
+    private fun editArtistRule(key: String?, changed: () -> Unit) {
+        val rules = ArtistNameOverrides.load(this)
+        val fields = column().apply {
+            val inset = dp(SETTINGS_CONTROL_INSET_DP)
+            setPadding(inset, inset, inset, inset)
+        }
+        val original = EditText(appDialogContext()).apply {
+            setSingleLine(); maxLines = 1
+            contentDescription = getString(R.string.settings_artist_original)
+            setText(key.orEmpty())
+            isEnabled = key == null
+        }
+        val replacement = EditText(appDialogContext()).apply {
+            setSingleLine(); maxLines = 1
+            contentDescription = getString(R.string.settings_artist_replacement)
+            setText(key?.let { rules[it] }.orEmpty())
+        }
+        fields.addView(label(getString(R.string.settings_artist_original), 14, MUTED))
+        fields.addView(original)
+        fields.addView(label(getString(R.string.settings_artist_replacement), 14, MUTED))
+        fields.addView(replacement)
+        val dialog = appDialogBuilder().setTitle(getString(R.string.settings_artist_rules))
+            .setView(ScrollView(appDialogContext()).apply { addView(fields) })
+            .setPositiveButton(getString(R.string.save), null)
+            .setNegativeButton(getString(R.string.cancel), null).create()
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                val from = original.text.toString().trim()
+                val to = replacement.text.toString().trim()
+                val current = ArtistNameOverrides.load(this).toMutableMap()
+                if (from.isBlank() || from.length > ArtistNameOverrides.MAX_NAME || to.length > ArtistNameOverrides.MAX_NAME ||
+                    (to.isNotEmpty() && from !in current && current.size >= ArtistNameOverrides.MAX_RULES)) {
+                    replacement.error = getString(R.string.settings_artist_invalid)
+                    return@setOnClickListener
+                }
+                if (to.isEmpty()) current.remove(from) else current[from] = to
+                ArtistNameOverrides.save(this, current)
+                changed()
+                dialog.dismiss()
+            }
+        }
+        dialog.show()
     }
 
     private fun controlOnlyMediaControls(card: LinearLayout) {

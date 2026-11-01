@@ -8,4 +8,12 @@
     <string name="settings_orientation_lock_description">锁定首页、设置和 CarPlay 界面的方向。有 CarPlay 连接时，更改此设置会在确认后重新连接。自动模式恢复原有旋转行为。</string>
     <string name="settings_pinyin_metadata">歌曲信息拼音（实验性）</string>
     <string name="settings_pinyin_metadata_description">离线转换中文歌名和歌手。Android 媒体卡片也会显示拼音，CarPlay 保留原文。多音字和人名可能读错。下次连接生效。</string>
+    <string name="settings_pinyin_album">专辑名拼音</string>
+    <string name="settings_pinyin_album_description">启用歌曲信息拼音后，同时转换专辑名。下次连接生效。</string>
+    <string name="settings_artist_rules">歌手名称替换</string>
+    <string name="settings_artist_rules_description">需先开启歌曲信息拼音。填写 iPhone 显示的完整原歌手名，自定义显示名优先于自动拼音。显示名留空可删除规则。下次连接生效。</string>
+    <string name="settings_artist_add">添加歌手</string>
+    <string name="settings_artist_original">原歌手名称</string>
+    <string name="settings_artist_replacement">显示名称（留空删除）</string>
+    <string name="settings_artist_invalid">请填写有效名称：每项最多 200 字符，最多 100 条规则。</string>
 </resources>

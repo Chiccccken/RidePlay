@@ -8,4 +8,12 @@
     <string name="settings_orientation_lock_description">Фиксирует ориентацию главного экрана, настроек и CarPlay. Изменение переподключает активный CarPlay после подтверждения. Автоматический режим возвращает исходное поведение поворота.</string>
     <string name="settings_pinyin_metadata">Музыкальные данные пиньинь (экспериментально)</string>
     <string name="settings_pinyin_metadata_description">Преобразует китайские названия и исполнителей офлайн. Карточки Android тоже показывают пиньинь, CarPlay сохраняет оригинал. Произношение может быть неверным. Со следующего подключения.</string>
+    <string name="settings_pinyin_album">Пиньинь альбома</string>
+    <string name="settings_pinyin_album_description">Преобразует и альбом при включённом пиньинь. Со следующего подключения.</string>
+    <string name="settings_artist_rules">Имена исполнителей</string>
+    <string name="settings_artist_rules_description">Требуется включить пиньинь. Полное исходное имя с iPhone. Заданное имя важнее пиньинь. Пустое поле удаляет правило. Со следующего подключения.</string>
+    <string name="settings_artist_add">Добавить исполнителя</string>
+    <string name="settings_artist_original">Исходное имя</string>
+    <string name="settings_artist_replacement">Отображаемое имя (пусто — удалить)</string>
+    <string name="settings_artist_invalid">Введите имя: до 200 символов, не более 100 правил.</string>
 </resources>

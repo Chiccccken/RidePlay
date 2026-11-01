@@ -67,6 +67,8 @@ internal object CarPlayMediaKeys {
     private var mediaAudioActive = false
     private var controlOnly = false
     private var pinyinMetadata = false
+    private var pinyinAlbum = false
+    private var artistOverrides: Map<String, String> = emptyMap()
     private var nowPlaying = CarPlayNowPlaying()
     private var elapsedUpdatedAt = 0L
     private var artwork: Bitmap? = null
@@ -79,6 +81,8 @@ internal object CarPlayMediaKeys {
             releaseLocked()
             artworkOwner = artworkQueue.newSession()
             pinyinMetadata = AirPlayPersistence.loadPinyinMetadata(context)
+            pinyinAlbum = AirPlayPersistence.loadPinyinAlbum(context)
+            artistOverrides = if (pinyinMetadata) ArtistNameOverrides.load(context) else emptyMap()
             controlOnly = audioOutputDisabled && AirPlayPersistence.loadControlOnlyMediaSession(context)
         }
         appContext = context.applicationContext
@@ -396,6 +400,8 @@ internal object CarPlayMediaKeys {
         session = null
         controlOnly = false
         pinyinMetadata = false
+        pinyinAlbum = false
+        artistOverrides = emptyMap()
         mediaAudioActive = false
         nowPlaying = CarPlayNowPlaying()
         artwork = null
@@ -468,7 +474,8 @@ internal object CarPlayMediaKeys {
     private fun publishedMetadata(info: CarPlayNowPlaying): MediaMetadata = androidMetadata(
         if (pinyinMetadata) info.copy(
             title = KtmMetadataTransformer.convert(info.title),
-            artist = KtmMetadataTransformer.convert(info.artist),
+            artist = ArtistNameOverrides.displayed(info.artist, artistOverrides),
+            album = if (pinyinAlbum) KtmMetadataTransformer.convert(info.album) else info.album,
         ) else info,
         shownArtworkLocked(),
     )

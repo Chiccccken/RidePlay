@@ -59,6 +59,8 @@ class ControlOnlyMediaSessionTest {
     }
     @After fun cleanup() {
         owners.forEach(CarPlayMediaKeys::detach)
+        ArtistNameOverrides.save(app, emptyMap())
+        AirPlayPersistence.savePinyinAlbum(app, false)
         AirPlayPersistence.savePinyinMetadata(app, false)
         AirPlayPersistence.saveControlOnlyMediaSession(app, false)
         AirPlayPersistence.saveDisableMediaKeyAudioFocus(app, false)
@@ -80,6 +82,18 @@ class ControlOnlyMediaSessionTest {
         assertEquals("叶惠美", published.getString(MediaMetadata.METADATA_KEY_ALBUM))
         assertEquals("晴天", original.title)
         assertEquals(12000L, published.getLong(MediaMetadata.METADATA_KEY_DURATION))
+    }
+    @Test @Config(sdk = [33]) fun optionalAlbumAndArtistAliasOnlyChangePublishedMetadata() {
+        AirPlayPersistence.savePinyinMetadata(app, true)
+        AirPlayPersistence.savePinyinAlbum(app, true)
+        AirPlayPersistence.saveControlOnlyMediaSession(app, true)
+        ArtistNameOverrides.save(app, mapOf("想想XiangXiang" to "Xiang Xiang"))
+        val original = CarPlayNowPlaying(title = "晴天", artist = "想想XiangXiang", album = "音乐")
+        attach(owner(original))
+        assertEquals("Xiang Xiang", metadata(session()!!).getString(MediaMetadata.METADATA_KEY_ARTIST))
+        assertEquals("Yin Yue", metadata(session()!!).getString(MediaMetadata.METADATA_KEY_ALBUM))
+        assertEquals("想想XiangXiang", original.artist)
+        assertEquals("音乐", original.album)
     }
     @Test fun defaultIsOffAndAudioEnabledConnectionsKeepUpstreamBehaviour() {
         assertFalse(AirPlayPersistence.loadControlOnlyMediaSession(app))

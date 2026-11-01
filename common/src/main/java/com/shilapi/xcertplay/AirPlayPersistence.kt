@@ -737,6 +737,13 @@ object AirPlayPersistence {
     }
 
     /** Offline title/artist conversion for published Android metadata; opt-in at reconnect. */
+    fun loadPinyinAlbum(context: Context): Boolean =
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getBoolean("rideplay_pinyin_album", false)
+
+    fun savePinyinAlbum(context: Context, enabled: Boolean) {
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putBoolean("rideplay_pinyin_album", enabled).apply()
+    }
+
     fun loadPinyinMetadata(context: Context): Boolean =
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getBoolean("rideplay_pinyin_metadata", false)
 

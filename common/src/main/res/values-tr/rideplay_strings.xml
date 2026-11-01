@@ -8,4 +8,12 @@
     <string name="settings_orientation_lock_description">Ana ekran, ayarlar ve CarPlay yönünü kilitler. Değişiklik, onaydan sonra etkin CarPlay oturumunu yeniden bağlar. Otomatik mod özgün döndürme davranışını geri yükler.</string>
     <string name="settings_pinyin_metadata">Pinyin müzik bilgisi (deneysel)</string>
     <string name="settings_pinyin_metadata_description">Çince şarkı ve sanatçı adlarını çevrimdışı dönüştürür. Android medya kartları da pinyin gösterir; CarPlay özgün metni korur. Telaffuz yanlış olabilir. Sonraki bağlantıda uygulanır.</string>
+    <string name="settings_pinyin_album">Albüm pinyin</string>
+    <string name="settings_pinyin_album_description">Pinyin açıkken albümü de dönüştürür. Sonraki bağlantıda uygulanır.</string>
+    <string name="settings_artist_rules">Sanatçı adları</string>
+    <string name="settings_artist_rules_description">Pinyin açık olmalıdır. iPhone üzerindeki tam özgün adla eşleşir. Özel ad pinyinden önce gelir. Boş bırakırsanız kural silinir. Sonraki bağlantıda uygulanır.</string>
+    <string name="settings_artist_add">Sanatçı ekle</string>
+    <string name="settings_artist_original">Özgün sanatçı adı</string>
+    <string name="settings_artist_replacement">Görünen ad (boşsa silinir)</string>
+    <string name="settings_artist_invalid">Geçerli ad girin: ad başına 200 karakter, en fazla 100 kural.</string>
 </resources>
