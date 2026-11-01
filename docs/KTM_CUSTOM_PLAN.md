@@ -146,7 +146,7 @@ Android `ConnectionService` 官方说明支持自管理通话的蓝牙集成，�
 
 ## 5. 安装、签名与回退
 
-`mobile` Debug 包名已由上游设置为 `com.shihab.diplay.hudtest`，可以与正式包 `com.shihab.diplay` 共存；配置和配对不会自动共享。测试时只运行一个接收端，避免两个服务竞争。不要卸载原版来绕过签名问题。
+RidePlay 的 `mobile` 正式包名为 `com.chiccccken.rideplay`，Debug 包名为 `com.chiccccken.rideplay.debug`，可以与原版正式包 `com.shihab.diplay` 共存；配置和配对不会自动共享。测试时只运行一个接收端，避免两个服务竞争。不要卸载原版来绕过签名问题。
 
 `assembleDebug` 是不含认证材料的源码构建，能安装不代表能独立连接 iPhone。真正的连接测试遵守 [BUILD.md](BUILD.md) 的 `DIPLAY_AUTH_ASSETS_DIR` 与 `:mobile:assembleStandaloneDebug` 流程，认证目录和签名密钥留在 Git 外，不自动抓取或公开打包。现有正式 APK 的签名不能假设由本项目掌握。
 

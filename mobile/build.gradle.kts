@@ -14,7 +14,8 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.shihab.diplay"
+        // Keep the personal build installable alongside upstream DiPlay.
+        applicationId = "com.chiccccken.rideplay"
         minSdk = 24
         targetSdk = 37
         versionCode = 41
@@ -39,7 +40,7 @@ android {
 
     buildTypes {
         debug {
-            applicationIdSuffix = ".hudtest"
+            applicationIdSuffix = ".debug"
             versionNameSuffix = "-hud-test"
         }
         release {
