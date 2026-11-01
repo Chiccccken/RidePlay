@@ -47,16 +47,15 @@ class RidePlayOverviewShortcutsTest {
         assertEquals(4, all.count { it is Button || it is Switch })
         assertNotNull(direction(quick()))
     }
-    @Test fun ktmCategoryUsesBrandIconWithoutColourTint() {
-        assertEquals("KTM", screen.getString(R.string.settings_vehicle))
+    @Test fun vehicleCategoryRetainsItsGenericIcon() {
         val icon = ReflectionHelpers.callInstanceMethod<Int>(screen, "settingsCategoryIcon",
             ReflectionHelpers.ClassParameter.from(SettingsCategory::class.java, SettingsCategory.VEHICLE))
-        assertEquals(R.drawable.ic_rideplay_ktm, icon)
+        assertEquals(R.drawable.ic_dp_car, icon)
         val card = ReflectionHelpers.callInstanceMethod<LinearLayout>(screen, "settingsSummaryCard",
             ReflectionHelpers.ClassParameter.from(SettingsCategory::class.java, SettingsCategory.VEHICLE),
             ReflectionHelpers.ClassParameter.from(String::class.java, "KTM"))
         val image = views(card).filterIsInstance<ImageView>().single()
         assertNotNull(image.drawable)
-        assertNull(image.imageTintList)
+        assertNotNull(image.imageTintList)
     }
 }

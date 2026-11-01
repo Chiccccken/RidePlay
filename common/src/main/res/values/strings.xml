@@ -375,7 +375,7 @@
     <string name="settings_quick_settings">Quick settings</string>
     <string name="settings_display">Display</string>
     <string name="settings_navigation">Navigation</string>
-    <string name="settings_vehicle">KTM</string>
+    <string name="settings_vehicle">Vehicle</string>
     <string name="settings_advanced">Advanced</string>
     <string name="settings_more">More</string>
     <string name="settings_swipe_advanced">Advanced (experimental)</string>

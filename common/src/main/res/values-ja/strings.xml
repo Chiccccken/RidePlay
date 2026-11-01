@@ -373,7 +373,7 @@
     <string name="settings_quick_settings">クイック設定</string>
     <string name="settings_display">画面表示</string>
     <string name="settings_navigation">ナビゲーション</string>
-    <string name="settings_vehicle">KTM</string>
+    <string name="settings_vehicle">車両</string>
     <string name="settings_advanced">詳細設定</string>
     <string name="settings_more">その他</string>
     <string name="settings_swipe_advanced">詳細設定（実験的機能）</string>
