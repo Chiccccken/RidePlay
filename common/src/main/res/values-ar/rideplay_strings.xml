@@ -1,4 +1,9 @@
 <resources>
     <string name="settings_control_only_media_session">التحكم بالوسائط دون صوت (تجريبي)</string>
     <string name="settings_control_only_media_session_description">نشر جلسة وسائط دون صوت محلي أو تركيز صوتي. يتطلب تشغيل صوت CarPlay عبر بلوتوث السيارة. يسري عند الاتصال التالي. يلزم اختبار توافق لوحة العدادات على الجهاز.</string>
+    <string name="settings_orientation_lock">اتجاه الشاشة</string>
+    <string name="settings_orientation_auto">تلقائي</string>
+    <string name="settings_orientation_landscape">أفقي</string>
+    <string name="settings_orientation_portrait">عمودي</string>
+    <string name="settings_orientation_lock_description">يقفل اتجاه الشاشة الرئيسية والإعدادات وCarPlay. يؤدي تغيير الإعداد إلى إعادة اتصال جلسة CarPlay النشطة بعد التأكيد. يعيد الوضع التلقائي سلوك التدوير الأصلي.</string>
 </resources>

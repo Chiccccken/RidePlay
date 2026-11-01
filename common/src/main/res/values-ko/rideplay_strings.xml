@@ -1,4 +1,9 @@
 <resources>
     <string name="settings_control_only_media_session">오디오 없는 미디어 제어 (실험 기능)</string>
     <string name="settings_control_only_media_session_description">로컬 오디오나 오디오 포커스 없이 미디어 세션을 제공합니다. 차량 Bluetooth를 통한 CarPlay 오디오 재생이 필요합니다. 다음 연결부터 적용됩니다. Bluetooth 계기판 호환성은 실제 기기에서 확인해야 합니다.</string>
+    <string name="settings_orientation_lock">화면 방향</string>
+    <string name="settings_orientation_auto">자동</string>
+    <string name="settings_orientation_landscape">가로</string>
+    <string name="settings_orientation_portrait">세로</string>
+    <string name="settings_orientation_lock_description">홈, 설정 및 CarPlay 화면 방향을 고정합니다. 연결 중 변경하면 확인 후 CarPlay가 다시 연결됩니다. 자동 모드는 원래 회전 동작으로 복원합니다.</string>
 </resources>

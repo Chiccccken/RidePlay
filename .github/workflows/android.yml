@@ -34,6 +34,7 @@ jobs:
             common/build/reports/tests/
             common/build/reports/album-artwork-ui/
             common/build/reports/control-only-media-ui/
+            common/build/reports/orientation-lock-ui/
             mobile/build/reports/lint-results-debug.html
             samples/home/build/reports/tests/
             samples/home/build/reports/lint-results-debug.html

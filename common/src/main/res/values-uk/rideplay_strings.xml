@@ -1,4 +1,9 @@
 <resources>
     <string name="settings_control_only_media_session">Керування медіа без звуку (експериментально)</string>
     <string name="settings_control_only_media_session_description">Публікує медіасеанс без локального звуку й аудіофокусу. Потрібен звук CarPlay через Bluetooth автомобіля. Застосовується під час наступного підключення. Сумісність панелі приладів Bluetooth потребує перевірки на пристрої.</string>
+    <string name="settings_orientation_lock">Екран</string>
+    <string name="settings_orientation_auto">Авто</string>
+    <string name="settings_orientation_landscape">Альбомна</string>
+    <string name="settings_orientation_portrait">Книжкова</string>
+    <string name="settings_orientation_lock_description">Фіксує орієнтацію головного екрана, налаштувань і CarPlay. Зміна перепідключає активний CarPlay після підтвердження. Автоматичний режим відновлює початкову поведінку обертання.</string>
 </resources>

@@ -851,6 +851,7 @@ open class CarPlayHostActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        RidePlayOrientation.apply(this, android.content.pm.ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR)
         if (CarPlayScreen.forwarded(this)) {
             forwarded = true
             return
@@ -1204,6 +1205,7 @@ open class CarPlayHostActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        RidePlayOrientation.apply(this, android.content.pm.ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR)
         WheelKeyService.restoreIfNeeded(this)
         hostAppearanceResumed = true
         updateCallPopupGuard()

@@ -375,6 +375,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        RidePlayOrientation.apply(this, android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
         // Back on the home page finishes this activity while the session runs on, so the icon lands here.
         if (savedInstanceState == null && isLauncherIntent(intent) && CarPlayBackgroundSession.hasSession()) {
             openProjection(); finish(); return
@@ -522,6 +523,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
 
     override fun onResume() {
         super.onResume()
+        RidePlayOrientation.apply(this, android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
         WheelKeyService.restoreIfNeeded(this)
         applyFullscreenMode()
         // Returning from another activity can bring the head unit's own density back.
@@ -1851,6 +1853,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
         if (settingsSectionFilter?.contains(SettingsSection.BYD_ADB) != false) bydAdbSettings(content)
         filteredSection(content, SettingsSection.DISPLAY_AND_PERFORMANCE,
             getString(R.string.display_and_performance), R.drawable.ic_dp_display) { card ->
+            orientationLockControls(card)
             val appearances = AppAppearance.entries
             choice(
                 card,
@@ -6229,6 +6232,19 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
         if (page == "settings") normalizeSpacing(card)
         parent.addView(card, LinearLayout.LayoutParams(-1, -2).apply { bottomMargin = dp(SETTINGS_BLOCK_GAP_DP) })
     }
+    private fun orientationLockControls(card: LinearLayout) {
+        val modes = RidePlayOrientation.Mode.entries
+        choice(card, getString(R.string.settings_orientation_lock), listOf(
+            getString(R.string.settings_orientation_auto),
+            getString(R.string.settings_orientation_landscape),
+            getString(R.string.settings_orientation_portrait),
+        ), modes.indexOf(RidePlayOrientation.load(this))) { index ->
+            RidePlayOrientation.save(this, modes[index])
+            RidePlayOrientation.apply(this, android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+        }
+        card.addView(label(getString(R.string.settings_orientation_lock_description), 14, MUTED))
+    }
+
     private fun controlOnlyMediaControls(card: LinearLayout) {
         toggle(card, getString(R.string.settings_control_only_media_session),
             getString(R.string.settings_control_only_media_session_description),

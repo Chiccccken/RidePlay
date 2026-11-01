@@ -1,4 +1,9 @@
 <resources>
     <string name="settings_control_only_media_session">音声なしのメディア操作（実験的機能）</string>
     <string name="settings_control_only_media_session_description">ローカル音声やオーディオフォーカスなしでメディアセッションを公開します。車両の Bluetooth 経由で CarPlay 音声を再生する設定が必要です。次回の接続から適用されます。Bluetooth メーターとの互換性は実機での検証が必要です。</string>
+    <string name="settings_orientation_lock">画面方向</string>
+    <string name="settings_orientation_auto">自動</string>
+    <string name="settings_orientation_landscape">横向き</string>
+    <string name="settings_orientation_portrait">縦向き</string>
+    <string name="settings_orientation_lock_description">ホーム、設定、CarPlay 画面の向きを固定します。接続中に変更すると、確認後に CarPlay が再接続されます。自動では元の回転動作に戻ります。</string>
 </resources>

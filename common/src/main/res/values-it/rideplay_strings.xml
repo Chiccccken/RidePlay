@@ -1,4 +1,9 @@
 <resources>
     <string name="settings_control_only_media_session">Controlli multimediali senza audio (sperimentale)</string>
     <string name="settings_control_only_media_session_description">Pubblica una sessione multimediale senza audio locale né focus audio. Richiede audio CarPlay tramite Bluetooth del veicolo. Si applica alla prossima connessione. La compatibilità del quadro Bluetooth richiede prove sul dispositivo.</string>
+    <string name="settings_orientation_lock">Schermo</string>
+    <string name="settings_orientation_auto">Automatico</string>
+    <string name="settings_orientation_landscape">Orizzontale</string>
+    <string name="settings_orientation_portrait">Verticale</string>
+    <string name="settings_orientation_lock_description">Blocca le schermate iniziale, impostazioni e CarPlay. La modifica riconnette la sessione CarPlay attiva dopo la conferma. La modalità automatica ripristina la rotazione originale.</string>
 </resources>

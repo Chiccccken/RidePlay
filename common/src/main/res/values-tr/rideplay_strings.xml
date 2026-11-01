@@ -1,4 +1,9 @@
 <resources>
     <string name="settings_control_only_media_session">Sessiz medya denetimleri (deneysel)</string>
     <string name="settings_control_only_media_session_description">Yerel ses veya ses odağı olmadan medya oturumu sunar. Araç Bluetooth üzerinden CarPlay sesi gerektirir. Sonraki bağlantıda uygulanır. Bluetooth gösterge uyumluluğu gerçek cihazda test edilmelidir.</string>
+    <string name="settings_orientation_lock">Ekran</string>
+    <string name="settings_orientation_auto">Otomatik</string>
+    <string name="settings_orientation_landscape">Yatay</string>
+    <string name="settings_orientation_portrait">Dikey</string>
+    <string name="settings_orientation_lock_description">Ana ekran, ayarlar ve CarPlay yönünü kilitler. Değişiklik, onaydan sonra etkin CarPlay oturumunu yeniden bağlar. Otomatik mod özgün döndürme davranışını geri yükler.</string>
 </resources>

@@ -1,4 +1,9 @@
 <resources>
     <string name="settings_control_only_media_session">无音频媒体控制（实验性）</string>
     <string name="settings_control_only_media_session_description">不接收本地音频、不申请音频焦点，仍发布媒体会话。需开启通过车辆蓝牙播放 CarPlay 音频。下次连接生效，蓝牙仪表兼容性需真机验证。</string>
+    <string name="settings_orientation_lock">屏幕方向</string>
+    <string name="settings_orientation_auto">自动</string>
+    <string name="settings_orientation_landscape">横屏</string>
+    <string name="settings_orientation_portrait">竖屏</string>
+    <string name="settings_orientation_lock_description">锁定首页、设置和 CarPlay 界面的方向。有 CarPlay 连接时，更改此设置会在确认后重新连接。自动模式恢复原有旋转行为。</string>
 </resources>
