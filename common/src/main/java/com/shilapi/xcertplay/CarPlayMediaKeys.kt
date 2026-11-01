@@ -66,6 +66,7 @@ internal object CarPlayMediaKeys {
     private var appContext: Context? = null
     private var mediaAudioActive = false
     private var controlOnly = false
+    private var pinyinMetadata = false
     private var nowPlaying = CarPlayNowPlaying()
     private var elapsedUpdatedAt = 0L
     private var artwork: Bitmap? = null
@@ -77,6 +78,7 @@ internal object CarPlayMediaKeys {
         if (controller !== next) {
             releaseLocked()
             artworkOwner = artworkQueue.newSession()
+            pinyinMetadata = AirPlayPersistence.loadPinyinMetadata(context)
             controlOnly = audioOutputDisabled && AirPlayPersistence.loadControlOnlyMediaSession(context)
         }
         appContext = context.applicationContext
@@ -157,7 +159,7 @@ internal object CarPlayMediaKeys {
                 // Republishing the metadata each time sent a copy of the artwork through system_server
                 // to every media listener, and on a DiLink 5.0 Tang that exhausted memory within
                 // minutes. The position goes in the playback state.
-                if (metadataChanged) session?.setMetadata(androidMetadata(update, shownArtworkLocked()))
+                if (metadataChanged) session?.setMetadata(publishedMetadata(update))
                 publishPlaybackStateLocked()
             }
         }
@@ -194,7 +196,7 @@ internal object CarPlayMediaKeys {
             ClusterMusicState.publish(nowPlaying, artwork)
             controller?.let { com.shilapi.xcertplay.media.AmbientMusicController.albumColorChanged(it, result?.color) }
             controller?.let(::updateInitialAlbumRecovery)
-            session?.setMetadata(androidMetadata(nowPlaying, shownArtworkLocked()))
+            session?.setMetadata(publishedMetadata(nowPlaying))
         }
     }
 
@@ -330,7 +332,7 @@ internal object CarPlayMediaKeys {
         }
         session = MediaSession(context, "DiPlay CarPlay").apply {
             setCallback(callback, mainHandler)
-            setMetadata(androidMetadata(nowPlaying, shownArtworkLocked()))
+            setMetadata(publishedMetadata(nowPlaying))
             isActive = true
         }
         Log.i(TAG, "media keys active focusDisabled=$focusDisabled focusGranted=$granted")
@@ -393,6 +395,7 @@ internal object CarPlayMediaKeys {
         }
         session = null
         controlOnly = false
+        pinyinMetadata = false
         mediaAudioActive = false
         nowPlaying = CarPlayNowPlaying()
         artwork = null
@@ -461,6 +464,14 @@ internal object CarPlayMediaKeys {
     /** Whether [next] changes what the media session's metadata shows; position and play state do not. */
     internal fun metadataChanged(previous: CarPlayNowPlaying, next: CarPlayNowPlaying): Boolean =
         previous.copy(elapsedMillis = null, playing = false) != next.copy(elapsedMillis = null, playing = false)
+
+    private fun publishedMetadata(info: CarPlayNowPlaying): MediaMetadata = androidMetadata(
+        if (pinyinMetadata) info.copy(
+            title = KtmMetadataTransformer.convert(info.title),
+            artist = KtmMetadataTransformer.convert(info.artist),
+        ) else info,
+        shownArtworkLocked(),
+    )
 
     internal fun androidMetadata(info: CarPlayNowPlaying, artwork: Bitmap? = null): MediaMetadata =
         MediaMetadata.Builder().apply {

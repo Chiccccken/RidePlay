@@ -6,4 +6,6 @@
     <string name="settings_orientation_landscape">橫向</string>
     <string name="settings_orientation_portrait">直向</string>
     <string name="settings_orientation_lock_description">鎖定首頁、設定與 CarPlay 畫面的方向。CarPlay 連線中更改此設定，會在確認後重新連線。自動模式恢復原有旋轉行為。</string>
+    <string name="settings_pinyin_metadata">歌曲資訊拼音（實驗性）</string>
+    <string name="settings_pinyin_metadata_description">離線轉換中文歌名與歌手。Android 媒體卡片也會顯示拼音，CarPlay 保留原文。多音字與人名可能讀錯。下次連線生效。</string>
 </resources>

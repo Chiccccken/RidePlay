@@ -6,4 +6,6 @@
     <string name="settings_orientation_landscape">أفقي</string>
     <string name="settings_orientation_portrait">عمودي</string>
     <string name="settings_orientation_lock_description">يقفل اتجاه الشاشة الرئيسية والإعدادات وCarPlay. يؤدي تغيير الإعداد إلى إعادة اتصال جلسة CarPlay النشطة بعد التأكيد. يعيد الوضع التلقائي سلوك التدوير الأصلي.</string>
+    <string name="settings_pinyin_metadata">معلومات الوسائط بالبينيين (تجريبي)</string>
+    <string name="settings_pinyin_metadata_description">تحويل أسماء الأغاني والفنانين الصينيين دون إنترنت. تظهر البينيين أيضاً في بطاقات Android، ويبقى النص الأصلي في CarPlay. قد يختلف النطق. يسري عند الاتصال التالي.</string>
 </resources>

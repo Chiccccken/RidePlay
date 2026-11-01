@@ -6,4 +6,6 @@
     <string name="settings_orientation_landscape">Orizzontale</string>
     <string name="settings_orientation_portrait">Verticale</string>
     <string name="settings_orientation_lock_description">Blocca le schermate iniziale, impostazioni e CarPlay. La modifica riconnette la sessione CarPlay attiva dopo la conferma. La modalità automatica ripristina la rotazione originale.</string>
+    <string name="settings_pinyin_metadata">Informazioni musicali in pinyin (sperimentale)</string>
+    <string name="settings_pinyin_metadata_description">Converte titoli e artisti cinesi offline. Anche le schede Android mostrano pinyin; CarPlay conserva il testo originale. La pronuncia può essere errata. Si applica alla prossima connessione.</string>
 </resources>

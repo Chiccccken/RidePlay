@@ -6,4 +6,6 @@
     <string name="settings_orientation_landscape">Yatay</string>
     <string name="settings_orientation_portrait">Dikey</string>
     <string name="settings_orientation_lock_description">Ana ekran, ayarlar ve CarPlay yönünü kilitler. Değişiklik, onaydan sonra etkin CarPlay oturumunu yeniden bağlar. Otomatik mod özgün döndürme davranışını geri yükler.</string>
+    <string name="settings_pinyin_metadata">Pinyin müzik bilgisi (deneysel)</string>
+    <string name="settings_pinyin_metadata_description">Çince şarkı ve sanatçı adlarını çevrimdışı dönüştürür. Android medya kartları da pinyin gösterir; CarPlay özgün metni korur. Telaffuz yanlış olabilir. Sonraki bağlantıda uygulanır.</string>
 </resources>

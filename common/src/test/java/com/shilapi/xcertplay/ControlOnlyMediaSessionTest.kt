@@ -59,10 +59,23 @@ class ControlOnlyMediaSessionTest {
     }
     @After fun cleanup() {
         owners.forEach(CarPlayMediaKeys::detach)
+        AirPlayPersistence.savePinyinMetadata(app, false)
         AirPlayPersistence.saveControlOnlyMediaSession(app, false)
         AirPlayPersistence.saveDisableMediaKeyAudioFocus(app, false)
         CarPlayBackgroundSession.clear()
         idle()
+    }
+    @Test @Config(sdk = [33]) fun pinyinOnlyChangesPublishedTitlesAndArtists() {
+        AirPlayPersistence.savePinyinMetadata(app, true)
+        AirPlayPersistence.saveControlOnlyMediaSession(app, true)
+        val original = CarPlayNowPlaying(title = "晴天", artist = "周杰伦", album = "叶惠美", durationMillis = 12000)
+        attach(owner(original))
+        val published = metadata(session()!!)
+        assertEquals("Qing Tian", published.getString(MediaMetadata.METADATA_KEY_TITLE))
+        assertEquals("Zhou Jie Lun", published.getString(MediaMetadata.METADATA_KEY_ARTIST))
+        assertEquals("叶惠美", published.getString(MediaMetadata.METADATA_KEY_ALBUM))
+        assertEquals("晴天", original.title)
+        assertEquals(12000L, published.getLong(MediaMetadata.METADATA_KEY_DURATION))
     }
     @Test fun defaultIsOffAndAudioEnabledConnectionsKeepUpstreamBehaviour() {
         assertFalse(AirPlayPersistence.loadControlOnlyMediaSession(app))

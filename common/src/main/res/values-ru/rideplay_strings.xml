@@ -6,4 +6,6 @@
     <string name="settings_orientation_landscape">Альбомная</string>
     <string name="settings_orientation_portrait">Книжная</string>
     <string name="settings_orientation_lock_description">Фиксирует ориентацию главного экрана, настроек и CarPlay. Изменение переподключает активный CarPlay после подтверждения. Автоматический режим возвращает исходное поведение поворота.</string>
+    <string name="settings_pinyin_metadata">Музыкальные данные пиньинь (экспериментально)</string>
+    <string name="settings_pinyin_metadata_description">Преобразует китайские названия и исполнителей офлайн. Карточки Android тоже показывают пиньинь, CarPlay сохраняет оригинал. Произношение может быть неверным. Со следующего подключения.</string>
 </resources>

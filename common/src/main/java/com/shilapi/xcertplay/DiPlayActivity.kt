@@ -2081,6 +2081,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
                 reconnectIfRunning()
             }
             controlOnlyMediaControls(card)
+            if (Build.VERSION.SDK_INT >= 29) pinyinMetadataControls(card)
         }
         filteredSection(content, SettingsSection.CAR_BUTTON,
             getString(R.string.car_button_in_carplay), R.drawable.ic_dp_car) { card -> carButtonCard = card; carButtonControls(card) }
@@ -6244,6 +6245,14 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
         ), modes.indexOf(RidePlayOrientation.load(this))) { index ->
             RidePlayOrientation.save(this, modes[index])
             RidePlayOrientation.apply(this, android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+        }
+    }
+
+    private fun pinyinMetadataControls(card: LinearLayout) {
+        toggle(card, getString(R.string.settings_pinyin_metadata),
+            getString(R.string.settings_pinyin_metadata_description), AirPlayPersistence.loadPinyinMetadata(this)) {
+            AirPlayPersistence.savePinyinMetadata(this, it)
+            markReconnectNeeded()
         }
     }
 

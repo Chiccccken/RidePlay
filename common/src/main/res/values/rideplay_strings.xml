@@ -6,4 +6,6 @@
     <string name="settings_orientation_landscape">Landscape</string>
     <string name="settings_orientation_portrait">Portrait</string>
     <string name="settings_orientation_lock_description">Locks the home, settings and CarPlay screens. Changing this setting reconnects an active CarPlay session after confirmation. Auto restores the original rotation behaviour.</string>
+    <string name="settings_pinyin_metadata">Pinyin media information (experimental)</string>
+    <string name="settings_pinyin_metadata_description">Convert Chinese song titles and artists offline. Android media cards also show pinyin; CarPlay keeps the original text. Pronunciations may be incorrect. Applies on the next connection.</string>
 </resources>
