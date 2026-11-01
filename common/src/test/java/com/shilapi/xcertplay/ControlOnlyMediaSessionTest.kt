@@ -73,6 +73,10 @@ class ControlOnlyMediaSessionTest {
         val published = metadata(session()!!)
         assertEquals("Qing Tian", published.getString(MediaMetadata.METADATA_KEY_TITLE))
         assertEquals("Zhou Jie Lun", published.getString(MediaMetadata.METADATA_KEY_ARTIST))
+        assertEquals(published.getString(MediaMetadata.METADATA_KEY_TITLE),
+            published.getString(MediaMetadata.METADATA_KEY_DISPLAY_TITLE))
+        assertEquals(published.getString(MediaMetadata.METADATA_KEY_ARTIST),
+            published.getString(MediaMetadata.METADATA_KEY_DISPLAY_SUBTITLE))
         assertEquals("叶惠美", published.getString(MediaMetadata.METADATA_KEY_ALBUM))
         assertEquals("晴天", original.title)
         assertEquals(12000L, published.getLong(MediaMetadata.METADATA_KEY_DURATION))

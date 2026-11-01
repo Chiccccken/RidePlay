@@ -13,6 +13,10 @@ class KtmMetadataTransformerTest {
     @Test fun hanIsConvertedAndLatinPunctuationRemainUnchanged() {
         assertEquals("君の名は", KtmMetadataTransformer.convert("君の名は"))
         assertEquals("Nv", KtmMetadataTransformer.convert("女"))
+        assertEquals("Lv", KtmMetadataTransformer.convert("吕"))
+        assertEquals("Lv", KtmMetadataTransformer.convert("绿"))
+        assertEquals("Lv Xing", KtmMetadataTransformer.convert("旅行"))
+        assertEquals("Beyoncé Lv Xing 🎵", KtmMetadataTransformer.convert("Beyoncé旅行 🎵"))
         assertEquals("Chong Qing Yin Yue", KtmMetadataTransformer.convert("重庆音乐"))
         assertEquals("Shan Yi Chun", KtmMetadataTransformer.convert("单依纯"))
         assertEquals("Qing Tian", KtmMetadataTransformer.convert("晴天"))
