@@ -2,13 +2,17 @@
 
 *A personalized CarPlay experience for motorcycles.*
 
-RidePlay is a personal customization of [DiPlay](https://github.com/shihabal3amri/DiPlay). The first integration target is **KTM MY RIDE**; the project can expand to other motorcycle brands. KTM features are planned and have not been verified on a physical motorcycle.
+RidePlay is a personal fork and customization of [DiPlay](https://github.com/shihabal3amri/DiPlay). The `custom` branch contains RidePlay work; `main` remains the upstream mirror. A fork keeps its relationship to the original project so changes can be reviewed and selectively brought in later.
 
-Development lives on `custom` in `Chiccccken/DiPlay`. The repository and Android app display name remain unchanged. See the [implementation plan](docs/KTM_CUSTOM_PLAN.md) and [upstream synchronization design](docs/KTM_UPSTREAM_SYNC.md).
+RidePlay is a personalized CarPlay experience for motorcycles. **KTM MY RIDE is the first integration target.** KTM-specific features are still planned and have not been verified on a physical motorcycle. The Android app is named RidePlay. See the [implementation plan](docs/KTM_CUSTOM_PLAN.md) and [upstream synchronization design](docs/KTM_UPSTREAM_SYNC.md).
+
+![RidePlay app icon](site/assets/icon.png)
+
+Repository: [`Chiccccken/RidePlay`](https://github.com/Chiccccken/RidePlay).
 
 ---
 
-## Upstream DiPlay documentation
+## Upstream DiPlay documentation (BYD)
 
 The following describes upstream DiPlay, including its BYD support scope and release downloads; it does not establish RidePlay compatibility or provide a RidePlay release.
 
@@ -20,7 +24,7 @@ The following describes upstream DiPlay, including its BYD support scope and rel
 
 [Download & website](https://shihabal3amri.github.io/DiPlay/) · [Release](https://github.com/shihabal3amri/DiPlay/releases/tag/v0.2.22) · [Report a problem](https://github.com/shihabal3amri/DiPlay/issues/new/choose)
 
-![DiPlay home](site/assets/home.png)
+![Upstream DiPlay home](site/assets/home.png)
 
 ## 0.2.22 — public preview
 
