@@ -15,18 +15,34 @@ import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
+import org.robolectric.shadow.api.Shadow
+import org.robolectric.shadows.ShadowMediaSession
+import org.robolectric.annotation.Implementation
+import org.robolectric.annotation.Implements
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
 import org.robolectric.util.ReflectionHelpers
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [28, 33], manifest = Config.NONE)
+@Config(sdk = [28, 33], manifest = Config.NONE, shadows = [ControlOnlyMediaSessionTest.RecordingSession::class])
 @LooperMode(LooperMode.Mode.PAUSED)
 class ControlOnlyMediaSessionTest {
     private val app get() = RuntimeEnvironment.getApplication()
     private val owners = mutableListOf<CarPlayController>()
     private fun idle() = shadowOf(Looper.getMainLooper()).idle()
     private fun session(): MediaSession? = ReflectionHelpers.getField(CarPlayMediaKeys, "session")
+    // Robolectric does not route MediaController Binder calls to its MediaSession service.
+    // Inspect the session's published state and invoke the callback bound to that session;
+    // actual controller/Bluetooth dispatch is reserved for device verification.
+    @Implements(MediaSession::class)
+    class RecordingSession : ShadowMediaSession() {
+        var publishedMetadata: MediaMetadata? = null
+        var publishedState: PlaybackState? = null
+        @Implementation fun setMetadata(value: MediaMetadata?) { publishedMetadata = value }
+        @Implementation fun setPlaybackState(value: PlaybackState?) { publishedState = value }
+    }
+    private fun metadata(current: MediaSession): MediaMetadata = Shadow.extract<RecordingSession>(current).publishedMetadata!!
+    private fun state(current: MediaSession): PlaybackState = Shadow.extract<RecordingSession>(current).publishedState!!
     private fun owner(info: CarPlayNowPlaying = CarPlayNowPlaying()): CarPlayController =
         mock(CarPlayController::class.java).also {
             owners += it
@@ -61,14 +77,14 @@ class ControlOnlyMediaSessionTest {
         attach(owner(CarPlayNowPlaying(title = "Song", artist = "Artist", playing = false)))
         val current = session()!!
         assertTrue(current.isActive)
-        assertEquals("Song", current.controller.metadata.getString(MediaMetadata.METADATA_KEY_TITLE))
-        assertEquals(PlaybackState.STATE_PAUSED, current.controller.playbackState.state)
+        assertEquals("Song", metadata(current).getString(MediaMetadata.METADATA_KEY_TITLE))
+        assertEquals(PlaybackState.STATE_PAUSED, state(current).state)
         assertNoFocus()
         CarPlayMediaKeys.onMediaAudioChanged(true)
         CarPlayMediaKeys.onMediaAudioChanged(false)
         idle()
         assertSame(current, session())
-        assertEquals(PlaybackState.STATE_PAUSED, current.controller.playbackState.state)
+        assertEquals(PlaybackState.STATE_PAUSED, state(current).state)
         assertNoFocus()
     }
     @Test fun metadataAndPlaybackUpdatesDoNotClaimFocus() {
@@ -81,8 +97,8 @@ class ControlOnlyMediaSessionTest {
         CarPlayMediaKeys::class.java.getDeclaredMethod("onIphonePlaying", CarPlayController::class.java, Boolean::class.javaPrimitiveType)
             .apply { isAccessible = true }.invoke(CarPlayMediaKeys, phone, true)
         idle()
-        assertEquals("Next", session()!!.controller.metadata.getString(MediaMetadata.METADATA_KEY_TITLE))
-        assertEquals(PlaybackState.STATE_PLAYING, session()!!.controller.playbackState.state)
+        assertEquals("Next", metadata(session()!!).getString(MediaMetadata.METADATA_KEY_TITLE))
+        assertEquals(PlaybackState.STATE_PLAYING, state(session()!!).state)
         assertNoFocus()
     }
     @Test fun controlsUseExistingCarPlayHidAndDetachReleasesSession() {
@@ -90,7 +106,9 @@ class ControlOnlyMediaSessionTest {
         val phone = owner()
         attach(phone)
         val current = session()!!
-        with(current.controller.transportControls) { play(); pause(); skipToNext(); skipToPrevious() }
+        val handler = ReflectionHelpers.getField<Any>(current, "mCallback")
+        val callback = ReflectionHelpers.getField<MediaSession.Callback>(handler, "mCallback")
+        with(callback) { onPlay(); onPause(); onSkipToNext(); onSkipToPrevious() }
         idle()
         listOf(CarPlayMediaButton.PLAY, CarPlayMediaButton.PAUSE,
             CarPlayMediaButton.NEXT, CarPlayMediaButton.PREVIOUS).forEach { verify(phone).sendMediaButton(it) }
