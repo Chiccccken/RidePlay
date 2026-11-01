@@ -1,83 +1,50 @@
-# RidePlay · DiPlay for KTM
+# RidePlay
 
 *A personalized CarPlay experience for motorcycles.*
 
-RidePlay is a personal fork and customization of [DiPlay](https://github.com/shihabal3amri/DiPlay). The `custom` branch contains RidePlay work; `main` remains the upstream mirror. A fork keeps its relationship to the original project so changes can be reviewed and selectively brought in later.
+[简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
 
-RidePlay is a personalized CarPlay experience for motorcycles. **KTM MY RIDE is the first integration target.** KTM-specific features are still planned and have not been verified on a physical motorcycle. The Android app is named RidePlay. See the [implementation plan](docs/KTM_CUSTOM_PLAN.md) and [upstream synchronization design](docs/KTM_UPSTREAM_SYNC.md).
+<img src="site/assets/icon.png" alt="RidePlay icon" width="160">
 
-![RidePlay app icon](site/assets/icon.png)
+RidePlay is a personal fork of [DiPlay](https://github.com/shihabal3amri/DiPlay), adapted for a motorcycle setup with an Android receiver and an iPhone. **KTM MY RIDE is the first integration target; motorcycle compatibility has not yet been verified on a physical bike.**
 
-Repository: [`Chiccccken/RidePlay`](https://github.com/Chiccccken/RidePlay).
+## What's different
 
----
+- A separate RidePlay app identity and the selected motorcycle/road icon.
+- Optional control-only Android media sessions while CarPlay audio reception is disabled. This is experimental; the iPhone's audio route must be verified separately.
+- Optional offline pinyin for song, artist and album metadata, plus exact artist-name replacements. The CarPlay picture retains the original text.
+- A saved rotation preference for the home, settings and CarPlay screens; startup rotation mitigation is awaiting device confirmation.
 
-## Upstream DiPlay documentation (BYD)
+The wired/wireless receiver and the existing head-unit integrations come from upstream. BYD-specific features do not establish KTM compatibility.
 
-The following describes upstream DiPlay, including its BYD support scope and release downloads; it does not establish RidePlay compatibility or provide a RidePlay release.
+## Current validation
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
+The user has reported successful iPhone connection, Android media-card display, play/pause/previous/next controls and metadata restoration after reconnecting. These are device reports, not a complete compatibility certification. KTM instrument display and handlebar controls, helmet audio routing, background/lock-screen recovery and startup rotation still need end-to-end tests. See [media-session validation](docs/RIDEPLAY_P1.md), [pinyin](docs/RIDEPLAY_PINYIN.md) and [rotation](docs/RIDEPLAY_ORIENTATION.md).
 
-**CarPlay for compatible BYD Android head units.** Wired and wireless, with the familiar DiAuto interface. Independent app: `com.shihab.diplay`.
+## Install and build
 
-> **BYD support scope:** These projects focus on BYD cars. They may work on other brands, but other brands are unsupported and there are no plans to add support or fix brand-specific incompatibilities.
+Install RidePlay on the **Android receiver**, not the iPhone. Android 7.0+ (API 24) is required. The personal release package is `com.chiccccken.rideplay`; debug builds use `com.chiccccken.rideplay.debug` and can coexist with upstream DiPlay.
 
-[Download & website](https://shihabal3amri.github.io/DiPlay/) · [Release](https://github.com/shihabal3amri/DiPlay/releases/tag/v0.2.22) · [Report a problem](https://github.com/shihabal3amri/DiPlay/issues/new/choose)
+[RidePlay releases](https://github.com/Chiccccken/RidePlay/releases) are separate from upstream releases. Do not treat an upstream DiPlay APK as a RidePlay update. Ordinary source/CI builds omit runtime accessory authentication assets; they are not standalone connection packages. Read [Build from source](docs/BUILD.md) before preparing a device-test build.
 
-![Upstream DiPlay home](site/assets/home.png)
+```sh
+./gradlew :mobile:assembleDebug
+```
 
-## 0.2.22 — public preview
+Follow [AGENTS.md](AGENTS.md) for the complete unit-test, lint and build command. A successful APK build alone does not establish that the full checks or physical-device tests passed.
 
-Install on the **car**, not the iPhone. No jailbreak, dongle, Mac, account or authentication server is required for use. Core CarPlay does not require ADB; optional dashboard, battery, wheel-speed and parked-video features do. Your head unit must permit APK installation. The APK supports Android 7.0+ (API 24); on Android 7.0–8.1, wired CarPlay is confirmed on one car and wireless is not yet confirmed on a vehicle. Wireless supports Wi-Fi Direct, the car’s existing hotspot or Existing Wi-Fi / Same LAN. Android 7.0–9 Wi-Fi Direct uses a firmware-dependent legacy path with generated group credentials and unverified requested frequency; see [Android 9 Wi-Fi Direct](docs/ANDROID9_WIFI_DIRECT.md). Android 10+ verifies its negotiated group frequency.
+## Repository and maintenance
 
-- Wired USB and wireless CarPlay with local authentication.
-- BYD HUD navigation with arrows, distance and street names on verified firmware.
-- Car hotspot support, improved audio buffering and saved receive diagnostics.
-- Automatic address discovery, fixed-channel Wi-Fi fallbacks and successful-configuration memory.
-- Icon/text size, resolution and frame rate; applying a display change reconnects CarPlay.
-- Local diagnostic export. Reports are sent only if you choose to share them.
-- Separate installation alongside DiAuto. Run one projection app at a time.
+- [`custom`](https://github.com/Chiccccken/RidePlay/tree/custom) is the RidePlay development branch and the intended repository homepage.
+- `main` is the upstream mirror. Do not add RidePlay branding commits to it.
+- Automatic upstream synchronization has not been deployed. Follow the [synchronization design](docs/KTM_UPSTREAM_SYNC.md) before enabling it.
+- The inherited app updater still queries upstream DiPlay. A RidePlay release channel, version policy and stable signing must be completed before distributing app updates.
+- The inherited website deploy job is restricted to the upstream repository; this fork does not claim to host the upstream download site.
 
-This is **not an Apple-certified product**. The APK bundles an experimental accessory identity recovered from public Carlinkit firmware, not a newly provisioned MFi identity for DiPlay. A bundled private key is extractable. Acceptance after future iOS updates, reliability across head units and suitability of that identity for general distribution are unresolved. This release invites community testing; it is not a guarantee of universal compatibility.
+[Implementation plan](docs/KTM_CUSTOM_PLAN.md) · [Release checklist](docs/RIDEPLAY_RELEASE_CHECKLIST.md) · [Install and connect](docs/INSTALL.md) · [Compatibility](docs/COMPATIBILITY.md) · [Privacy](docs/PRIVACY.md)
 
-Earlier releases were tested on the development DiLink5.1 car: live windshield guidance and street names work, Car hotspot now starts CarPlay, and Wi-Fi Direct performance is substantially improved. Audio underrun recovery is improved in 0.2.15; remaining cutouts need current diagnostic reports. The 0.2.16 software Opus microphone fallback was accepted on a BOS Mini A1 head unit (Android 9) with an iPhone 12 on iOS 27. The floating-map test build was installed on the development DiLink 5.1 car; feedback led to the pinch corrections in 0.2.9. Earlier wheel-speed and video contributions were tested on a BYD Tang with DiLink 5.0 and an iPhone 15 Pro on iOS 27; wheel-speed dead reckoning in tunnels remains unverified. Broader head-unit and iOS compatibility is not guaranteed. The HUD firmware scope and cleanup limits are documented in [BYD navigation](docs/BYD_NAVIGATION.md).
-
-## What’s new in 0.2.22
-
-- Wireless CarPlay over the car hotspot connects again on BYD DiLink 3.0 and 4.0 head units where 0.2.21 stayed on "Opening CarPlay"; the **Hotspot interface (optional)** workaround can be cleared.
-- Music plays at the iPhone's speed over Wi-Fi again, from the first second of every song, without the 0.2.21 speed-up and stutter.
-- Over USB, WeChat voice messages, Voice Memos and dictation record your voice instead of silence.
-- Wired CarPlay connects on the first attempt after a replug, and the CarPlay screen and Home say why a connection failed and what to change.
-- DiPlay is available in Korean and Turkish.
-- New options, off by default: keep CarPlay in the launcher card, navigation prompts that ask for audio focus, calls at the call's own rate, a full-screen DiLink 3.0 dashboard map and the dashboard map on the Denza N9.
-
-See [0.2.22 release notes](docs/RELEASE-NOTES-0.2.22.md) and [validation](docs/VALIDATION.md) for contribution links and remaining physical tests. General stutter, calls/Siri, decoder and model-specific reports still need current-device evidence. [0.2.21 notes](docs/RELEASE-NOTES-0.2.21.md) remain available as historical guidance.
-
-If a problem remains, reproduce it on **0.2.22**, then use **Settings → Diagnostics → Save diagnostic report**. Android 10+ normally saves to **Downloads/DiPlay**; Android 7.0–9 asks for storage access and saves there too. If unavailable, use **View report** or **Share** from the confirmation, which identifies external/private fallback storage. Review the `.txt` and attach it as a file to a matching [existing issue](https://github.com/shihabal3amri/DiPlay/issues), or [create one](https://github.com/shihabal3amri/DiPlay/issues/new/choose). Include vehicle/head-unit model, exact firmware and Android/DiLink, phone/iOS, connection backend, relevant settings, steps and failure time. Reports are shared only when you choose; never post your hotspot password.
-
-## Documentation
-
-[Existing Wi-Fi / Same LAN](docs/EXISTING_WIFI.md) keeps the iPhone and head unit
-on an external router. See the guide for setup, build requirements and the
-BYD DiLink 4.0 / Android 10 clean-install validation result.
-
-- [Install and connect](docs/INSTALL.md)
-- [Compatibility and troubleshooting](docs/COMPATIBILITY.md)
-- [Smooth wireless CarPlay](docs/SMOOTH_WIRELESS.md)
-- [Privacy and diagnostic reports](docs/PRIVACY.md)
-- [Build from source](docs/BUILD.md) — select `mobile` for the main DiPlay app; `maphost` is a map sample.
-- [Validation](docs/VALIDATION.md)
-- [Release notes](CHANGELOG.md)
-- [Credits and licenses](docs/THIRD_PARTY_NOTICES.md)
-
-The app and the website include English, Arabic, Russian, Ukrainian, Spanish, Simplified Chinese, Traditional Chinese (Taiwan), Japanese, Italian, Korean and Turkish. Traditional Chinese uses Taiwan wording; the app also recognizes Hong Kong/Macao and explicit Hant selections without claiming separate regional translations. Choose the app language in Settings; on Android 13+, it stays synchronized with Android’s per-app language setting. See the [Traditional Chinese guide](README.zh-TW.md) for installation, settings, troubleshooting, privacy and build instructions.
+The installation, compatibility and privacy guides retain upstream context. Diagnostics currently use `Downloads/DiPlay`; the path is intentionally unchanged so existing reports and instructions stay accurate.
 
 ## Source and credits
 
-Based on [xcertplay](https://github.com/shilapi/xcertplay), GPL-3.0. The home/settings UI and website adapt [DiAuto](https://github.com/shihabal3amri/DiAuto), AGPL-3.0; that license is included in `docs/licenses`. Preserve those notices when distributing modifications. CarPlay and its icon belong to Apple Inc.; no Apple or BYD affiliation or endorsement is implied.
-
-This repository starts with a clean public source snapshot. Local research, tester reports and release-signing secrets are excluded. The complete source corresponding to the APK is provided with every release; experimental runtime identity assets are described separately in the build instructions and notices.
-
-## Local release packaging
-
-The release APK intentionally contains the experimental accessory identity. The Git repository and source archive exclude all accessory and Android signing keys; tests generate synthetic identities at runtime. Source/CI builds omit runtime identity assets by default. Local release builds explicitly select an external asset directory. Publishing the APK makes its bundled identity extractable; building locally does not preserve that identity's confidentiality.
+RidePlay is based on DiPlay and [xcertplay](https://github.com/shilapi/xcertplay), GPL-3.0. Upstream's interface and website adapt [DiAuto](https://github.com/shihabal3amri/DiAuto), AGPL-3.0. Preserve the [license and third-party notices](docs/THIRD_PARTY_NOTICES.md). RidePlay is independent and is not affiliated with Apple, KTM or BYD.

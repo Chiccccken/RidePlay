@@ -1,6 +1,6 @@
 # RidePlay：安全上游同步设计
 
-RidePlay 基于 DiPlay，首个适配目标为 KTM MY RIDE，后续可扩展到其他摩托车。项目命名不改变仓库 `Chiccccken/DiPlay`、开发分支 `custom` 或官方上游地址。
+RidePlay 基于 DiPlay，首个适配目标为 KTM MY RIDE，后续可扩展到其他摩托车。个人仓库已改名为 `Chiccccken/RidePlay`，开发分支仍为 `custom`，官方上游地址不变。
 
 状态：设计完成，自动任务尚未部署或启用。2026-11-01 核查。
 
@@ -16,7 +16,7 @@ GitHub schedule 只从默认分支运行。因此默认分支保持 `main`、同
 
 ## 推荐拓扑
 
-将个人 Fork 默认分支设为 `custom`，把同步控制工作流放在 `custom`，使 `main` 始终保持纯上游历史。该设置变更尚未执行；先完成并评审工作流，再切换默认分支和启用定时。其他可选方案为独立控制仓库或外部调度器，但不在本项目默认引入额外凭据或服务。
+将个人 Fork 默认分支设为 `custom`，把同步控制工作流放在 `custom`，使 `main` 始终保持纯上游历史。默认分支切换用于展示 RidePlay；它本身不会创建或启用上游同步。上游网站部署已增加仅限官方仓库的条件；自动同步仍需另行实现、评审和演练后才能启用。其他可选方案为独立控制仓库或外部调度器，但不在本项目默认引入额外凭据或服务。
 
 ```text
 官方 upstream/main
@@ -31,7 +31,7 @@ Fork custom
 
 ## 工作流实现合同
 
-1. 入口限定仓库 `Chiccccken/DiPlay`、默认分支 `custom`；固定官方上游 URL 和 `main`，不接受任意网络地址或 shell 输入。
+1. 入口限定仓库 `Chiccccken/RidePlay`、默认分支 `custom`；固定官方上游 URL 和 `main`，不接受任意网络地址或 shell 输入。
 2. 按仓库设置 concurrency，`cancel-in-progress: false`，限制同时写入；全局权限默认只读。
 3. **同步 job** 只处理 Git 对象和 API，不执行拉取的上游脚本或构建。仅此 job 配置 `contents: write`、`pull-requests: write`。使用经过核实的 action 完整 SHA 固定依赖；checkout 不持久化凭据到可被构建读取的配置。
 4. 完整 fetch 官方 main 与 Fork main/custom，记录全部 SHA。Fork main 不是官方 SHA 的祖先时停止。上游改写历史、main 出现本地提交、保护规则或权限拒绝时均不 force/reset。官方 SHA 已被 custom 包含时只跳过 PR，仍检查 main 是否需要快进。
@@ -50,7 +50,7 @@ Fork custom
 1. 在 custom 增加工作流，并补充 custom push/PR 的 Android 检查；先手动运行。将上游 Pages workflow 在个人 custom 分支上禁用/限制为官方仓库后，再启用相关 Actions。
 2. 在临时仓库/分支演练：无变化、正常快进、custom 无冲突、custom 冲突、main 分叉、上游历史改写、并发更新、token 无权限、CI 失败；确认所有异常都不写 custom。
 3. 配置默认分支 custom、必要 PR 创建权限和分支保护；核对 Actions API 与实际一次运行结果。不要笼统提高所有工作流默认写权限。
-4. 完成人工验证后开启 schedule。当前仍为 main 默认分支，故此处是待执行步骤。
+4. 完成人工验证后开启 schedule。此项是自动同步的待执行步骤，与仓库首页分支的切换分开验收。
 5. 停用时 disable 同步 workflow / 去掉 schedule；关闭待处理 PR。已更新的 main 保留上游历史，custom 若需回退使用 revert；不强推。
 
 长期应检查定时任务是否仍启用；公开仓库 60 天无活动时 GitHub 可能停用 schedule，调度也可能延迟。不要以每天产生空提交的方式制造活跃度。

@@ -1,91 +1,52 @@
-# RidePlay · DiPlay for KTM
+# RidePlay
 
-*A personalized CarPlay experience for motorcycles.*
+*為摩托車提供個人化 CarPlay 體驗。*
 
-RidePlay 是 [DiPlay](https://github.com/shihabal3amri/DiPlay) 的個人 fork（分支副本）與客製專案。`custom` 分支放置 RidePlay 的改動，`main` 維持為上游鏡像。保留 fork 關係後，仍可查看原專案，並在評估後選擇性同步更新。
+[English](README.md) · [简体中文](README.zh-CN.md)
 
-RidePlay 為摩托車提供個人化 CarPlay 體驗，首個適配目標是 **KTM MY RIDE**。KTM 專屬功能仍在規劃中，尚未通過實車驗證。Android 應用程式顯示名稱為 RidePlay。詳見[實施計畫](docs/KTM_CUSTOM_PLAN.md)與[上游同步設計](docs/KTM_UPSTREAM_SYNC.md)。
+<img src="site/assets/icon.png" alt="RidePlay 圖示" width="160">
 
-![RidePlay 應用程式圖示](site/assets/icon.png)
+RidePlay 是基於 [DiPlay](https://github.com/shihabal3amri/DiPlay) 的個人客製專案，搭配 Android 接收端與 iPhone 使用。**首個適配目標為 KTM MY RIDE，目前尚未完成 KTM 實車相容性驗證。**名稱不限定摩托車品牌。
 
-儲存庫：[`Chiccccken/RidePlay`](https://github.com/Chiccccken/RidePlay)。
+## 相較上游的變更
 
----
+- 獨立的 RidePlay 應用程式名稱與套件名稱，使用已選定的摩托車／道路圖示。
+- 可選的無音訊媒體控制：停用 CarPlay 音訊接收時，仍向 Android 發布媒體工作階段。這是實驗性功能，iPhone 實際的音訊路由需另行驗證。
+- 歌名、歌手及專輯名稱的離線拼音，以及完整歌手名稱的自訂替換；CarPlay 畫面保留原文。
+- 首頁、設定及 CarPlay 的方向偏好；啟動方向閃爍的緩解變更仍待真機確認。
 
-## 上游 DiPlay 文件（比亞迪）
+有線／無線 CarPlay 接收能力與現有車機整合來自上游。比亞迪專屬功能不代表已適配 KTM。
 
-以下內容介紹上游 DiPlay，其比亞迪支援範圍、版本與下載連結不代表 RidePlay 的相容性或發布狀態。
+## 驗證狀態
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
+使用者已回報：連線 iPhone、Android 媒體卡片、播放／暫停／上一首／下一首，以及重新連線後的中繼資料恢復正常。這些屬於裝置回饋，尚非完整相容性驗收。
 
-為相容的比亞迪 Android 車機提供有線與無線 CarPlay，採用熟悉的 DiAuto 介面。DiPlay 是獨立應用程式，正式版套件名稱為 `com.shihab.diplay`。
+KTM 儀表顯示與把手按鍵、安全帽音訊路由、背景／鎖定畫面恢復及啟動方向仍需實測。請見[媒體控制驗證](docs/RIDEPLAY_P1.md)、[拼音說明](docs/RIDEPLAY_PINYIN.md)與[方向說明](docs/RIDEPLAY_ORIENTATION.md)。
 
-> 專案以比亞迪汽車為主要支援對象。其他品牌可能可以執行，但不在一般支援範圍內；特定韌體的個別整合不代表整個品牌受到支援。
+## 安裝與建置
 
-[下載與繁體中文網站](https://shihabal3amri.github.io/DiPlay/zh-Hant/) · [0.2.22 版本](https://github.com/shihabal3amri/DiPlay/releases/tag/v0.2.22) · [回報問題](https://github.com/shihabal3amri/DiPlay/issues/new/choose)
+安裝在 **Android 接收端**，不是 iPhone。最低支援 Android 7.0（API 24）。個人正式版套件名稱為 `com.chiccccken.rideplay`；debug 版為 `com.chiccccken.rideplay.debug`，可與上游 DiPlay 並存。
 
-![DiPlay 主畫面](site/assets/home.png)
+[RidePlay 發布頁](https://github.com/Chiccccken/RidePlay/releases)與上游發布頁各自獨立。請勿將上游 APK 當成 RidePlay 更新。一般原始碼／CI 建置不含執行階段配件認證材料，不能當作可獨立連線的完整測試套件。準備真機測試套件前請閱讀[建置說明](docs/BUILD.md)。
 
-## 開始使用
+```sh
+./gradlew :mobile:assembleDebug
+```
 
-請將 DiPlay 安裝在**車機上，而非 iPhone**。車機需要允許安裝 APK，且 Android 版本須為 7.0 以上（API 24+）；Android 7.0–8.1 的有線 CarPlay 已在一台實車上確認，無線連線尚待實車驗證。使用時無須越獄、轉接盒、Mac、帳號或遠端認證伺服器。
+完整單元測試、Lint 與建置指令見 [AGENTS.md](AGENTS.md)。成功產生 APK 不代表完整檢查或實車測試已通過。
 
-有線與無線 CarPlay 的核心功能不需要 ADB。部分儀表板、車輛資料、方向盤或停車影片功能需要相容韌體及已授權的網路 ADB，請依各設定的說明操作。
+## 儲存庫與維護
 
-1. 停車後安裝 APK，開啟 DiPlay 並授予所需權限。
-2. 無線模式可選車載熱點、Wi-Fi Direct 或現有 Wi-Fi／同一區域網路；有線模式請使用支援資料傳輸的 USB 連接埠與傳輸線。
-3. 在 iPhone 上接受 CarPlay 提示。連線前先關閉其他手機投影應用程式。
+- [`custom`](https://github.com/Chiccccken/RidePlay/tree/custom) 是 RidePlay 開發分支，也是預期的儲存庫首頁分支。
+- `main` 保留為上游鏡像，不加入 RidePlay 品牌提交。
+- 上游自動同步尚未部署，啟用前請依[同步設計](docs/KTM_UPSTREAM_SYNC.md)完成實作與演練。
+- 繼承的應用程式更新檢查仍查詢上游 DiPlay；正式散布前需要獨立更新來源、版本規則及固定簽章。
+- 上游網站部署工作已限制為只在上游儲存庫執行；此 fork 不宣稱提供上游下載網站。
 
-完整步驟請見[安裝與連線指南](docs/INSTALL.zh-TW.md)。
+[實施計畫](docs/KTM_CUSTOM_PLAN.md) · [發布前清單](docs/RIDEPLAY_RELEASE_CHECKLIST.md) · [安裝與連線](docs/INSTALL.md) · [相容性](docs/COMPATIBILITY.md) · [隱私](docs/PRIVACY.md)
 
-## 切換為繁體中文
+安裝、相容性及隱私文件仍保留上游背景；診斷報告目錄繼續使用 `Downloads/DiPlay`，讓既有報告位置與說明保持一致。
 
-開啟 **設定 → 語言 → 應用程式語言**，選擇 **繁體中文**，再按 **套用**。也可選擇 **跟隨系統**。
+## 來源與致謝
 
-Android 13 以上會與 Android 的個別應用程式語言設定同步；Android 7.0–12 由 DiPlay 儲存語言選擇。繁體中文使用臺灣用語；香港、澳門及明確指定 `Hant` 的語言選擇共用這份翻譯，並未提供獨立的地區版本。DiPlay 的語言選擇控制其自身介面，CarPlay 內的應用程式語言則由 iPhone 及各應用程式管理。
-
-選用的 **DiPlay Home** 啟動器與 **DiPlay map host** 範例也提供繁體中文，依各自的 Android 系統語言顯示，不共用主要 DiPlay 應用程式的語言偏好。第三方小工具與應用程式名稱由提供者決定。
-
-## 主要功能與 0.2.22 更新
-
-- 有線 USB 與無線 CarPlay，使用本機認證。
-- 相容韌體上的比亞迪抬頭顯示器（HUD）與儀表板導航提示。
-- 解析度、影格率、圖示與文字大小調整；依設定說明，在重新連線後套用。
-- 0.2.22 修正 0.2.21 在比亞迪 DiLink 3.0／4.0 等車機上透過車機熱點無線連線時一直停在「正在開啟 CarPlay」的問題，之前填寫的「熱點網路介面（選填）」可以清空；透過 Wi-Fi 播放音樂時恢復 iPhone 的原始速度，不再先快 1.5% 再卡頓。
-- USB 連線時，微信語音、語音備忘錄和聽寫能錄到聲音；插著線重新連線時，有線 CarPlay 第一次就能連上；連線失敗時，CarPlay 畫面和主畫面會說明原因與修改方式。新增韓文與土耳其文。新選項預設關閉：在桌面卡片中保留 CarPlay、導航提示音請求音訊焦點、依通話本身的取樣率通話、DiLink 3.0 全螢幕儀表地圖，以及騰勢 N9 的儀表地圖。
-- 可在 **設定 → 關於 → 在手機上備份或還原** 透過 QR 碼備份設定，更新時可選其他安裝程式。
-- 本機診斷報告匯出，只有在你選擇分享後才會傳送。
-- 實驗性選項預設關閉，請停車後依說明測試。
-
-[英文版本說明](docs/RELEASE-NOTES-0.2.22.md)與[驗證紀錄](docs/VALIDATION.md)記錄完整變更、已知限制及尚待實車測試的項目。自動化測試通過不代表所有車型、iOS、Siri 或通話情境都已驗證。
-
-## 繁體中文文件
-
-| 文件 | 內容 |
-| --- | --- |
-| [安裝與連線](docs/INSTALL.zh-TW.md) | 首次使用、權限、USB、熱點及 Wi-Fi 模式 |
-| [設定與疑難排解](docs/SETTINGS.zh-TW.md) | 設定分類、重新連線、畫面與聲音、診斷回報 |
-| [隱私權與診斷](docs/PRIVACY.zh-TW.md) | 資料儲存、權限、報告分享及更新檢查 |
-| [從原始碼建置](docs/BUILD.zh-TW.md) | Windows／Android Studio、建置環境、APK 路徑及認證素材 |
-| [翻譯維護](docs/LOCALIZATION.zh-TW.md) | 臺灣用語、資源檢查與文件同步方式 |
-| [本次繁體中文驗證紀錄](docs/VALIDATION.zh-TW.md) | 測試、建置結果及完整 CI 的未解失敗 |
-
-進階車型整合可參考[比亞迪導航](docs/BYD_NAVIGATION.md)、[Wi-Fi Direct 舊版限制](docs/ANDROID9_WIFI_DIRECT.md)及[現有 Wi-Fi 指南](docs/EXISTING_WIFI.md)；這些深入文件目前為英文。
-
-## 相容性與公開預覽版限制
-
-這是**未經 Apple 認證的公開預覽版**。公開 APK 包含從公開 Carlinkit 韌體取得的實驗性配件身分，並非為 DiPlay 新核發的 MFi 身分；內含私密金鑰可被擷取。未來 iOS 是否接受、各車機的可靠性及該身分是否適合公開散布，仍有未解問題。
-
-Wi-Fi Direct 在 Android 7.0–9 使用依賴韌體的舊版路徑，無法驗證實際協商頻率；Android 10 以上可驗證。車機支援連上 5 GHz Wi-Fi，不代表能建立 5 GHz Wi-Fi Direct 群組。遇到卡頓可先使用車載熱點、30 fps、預設圖示大小及較低解析度，保留 HEVC 關閉。
-
-更新時使用相同套件與相符簽章才能保留設定及配對資料；請勿只憑 APK 檔名判斷更新相容性。安裝限制取決於車機韌體。
-
-## 回報問題
-
-重現問題後，開啟 **設定 → 診斷 → 儲存診斷報告**，記錄故障時間並檢查 TXT 內容，再附到[相關問題](https://github.com/shihabal3amri/DiPlay/issues)或[新增問題](https://github.com/shihabal3amri/DiPlay/issues/new/choose)。請提供車型／車機、Android／DiLink／完整韌體版本、iPhone／iOS、連線方式、相關設定與重現步驟。不要公開熱點密碼或認證檔案。詳見[診斷回報步驟](docs/SETTINGS.zh-TW.md#匯出診斷報告與回報問題)。
-
-## 原始碼與授權
-
-專案基於 [xcertplay](https://github.com/shilapi/xcertplay)（GPL-3.0）。主畫面、設定介面及網站改編自 [DiAuto](https://github.com/shihabal3amri/DiAuto)（AGPL-3.0）；相關授權位於 `docs/licenses`。散布修改版本時請保留[第三方聲明與授權](docs/THIRD_PARTY_NOTICES.md)。CarPlay 與其圖示屬於 Apple Inc.；專案不代表 Apple 或比亞迪的認可。
-
-一般原始碼／CI 建置預設不包含執行時認證素材；獨立連線測試需要外部素材。Git 與公開原始碼壓縮檔排除認證私密金鑰、Android 簽章金鑰及本機設定；將認證素材打包進 APK 後，接收者仍可擷取。詳見[建置指南](docs/BUILD.zh-TW.md)。
+RidePlay 基於 DiPlay 與 [xcertplay](https://github.com/shilapi/xcertplay)（GPL-3.0）。上游介面與網站參考 [DiAuto](https://github.com/shihabal3amri/DiAuto)（AGPL-3.0），保留[授權及第三方聲明](docs/THIRD_PARTY_NOTICES.md)。本專案獨立開發，與 Apple、KTM、比亞迪無隸屬或背書關係。

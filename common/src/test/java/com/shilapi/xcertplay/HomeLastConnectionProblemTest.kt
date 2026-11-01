@@ -78,14 +78,14 @@ class HomeLastConnectionProblemTest {
     @Test fun homeSaysWhatTheLastAttemptRanInto() {
         fail(ConnectionFailureCause.CHOSEN_IPHONE_NOT_PAIRED)
         val shown = shown(openHome())
-        val line = Regex("Last connection attempt \\($time\\): The iPhone chosen in DiPlay is no longer paired with the car")
+        val line = Regex("Last connection attempt \\($time\\): The iPhone chosen in RidePlay is no longer paired with the car")
         assertEquals(shown.toString(), 1, shown.count(line::matches))
     }
 
     @Test @Config(qualifiers = "zh-rTW-w1000dp-h700dp-land") fun homeSaysItInTraditionalChinese() {
         fail(ConnectionFailureCause.CHOSEN_IPHONE_NOT_PAIRED)
         val shown = shown(openHome())
-        val line = Regex("上次連線嘗試（$time）：在 DiPlay 選擇的 iPhone 已不再與車機配對")
+        val line = Regex("上次連線嘗試（$time）：在 RidePlay 選擇的 iPhone 已不再與車機配對")
         assertEquals(shown.toString(), 1, shown.count(line::matches))
     }
 

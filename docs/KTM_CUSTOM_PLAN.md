@@ -4,15 +4,15 @@ RidePlay · A personalized CarPlay experience for motorcycles.
 
 RidePlay 是基于 [DiPlay](https://github.com/shihabal3amri/DiPlay) 的个人定制项目，首个适配目标为 KTM MY RIDE；项目名称不限定摩托车品牌，后续可扩展到其他车型。完整标题中的 KTM 表示当前适配重点，不代表已完成兼容验证。
 
-名称约定：Codex 项目名称为 `RidePlay`；当前完整标题为 `RidePlay · DiPlay for KTM`；GitHub 仓库保持 `Chiccccken/DiPlay`，开发分支保持 `custom`。Android 应用显示名称暂不修改，后续再决定。命名调整不改变 P1 优先级。
+名称约定：Codex 项目名称为 `RidePlay`；当前完整标题为 `RidePlay · DiPlay for KTM`；GitHub 仓库为 `Chiccccken/RidePlay`，开发分支保持 `custom`。Android 应用显示名称已确定为 RidePlay，沿用用户选定的摩托车／道路图标。命名调整不改变 P1 优先级。
 
 核查日期：2026-11-01（Asia/Shanghai）。状态：P1 实验实现已通过完整 Linux CI，用户反馈无音频连接及 Android 媒体卡片正常；P1–P3 均未在 KTM 实测。最新验证见 [RIDEPLAY_P1.md](RIDEPLAY_P1.md)。
 
 ## 1. 仓库与本轮范围
 
-- 用户 Fork：`Chiccccken/DiPlay`；官方上游：`shihabal3amri/DiPlay`。
+- 用户 Fork：`Chiccccken/RidePlay`；官方上游：`shihabal3amri/DiPlay`。
 - 核查时两者 `main` 都是 `615b32ce0b40cd0b99ce94ba23a512001553684f`，领先/落后均为 0。
-- 已从该提交建立远端和本地 `custom`，用于长期个人定制；默认分支暂保留 `main`。
+- 已从该提交建立远端和本地 `custom`，用于长期个人定制；`main` 保持上游镜像；仓库首页使用 `custom`，切换前限制上游网站部署任务。
 - `main`、`custom` 在核查时均没有分支保护；账号拥有 admin/push 权限。
 - 已阅读根目录 `AGENTS.md`；仓库内未发现更深层的同名说明文件。
 - 本轮只增加实施与同步设计文档，不修改 CarPlay、蓝牙、电话或构建配置。
