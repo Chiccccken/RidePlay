@@ -1,4 +1,16 @@
-# DiPlay
+# RidePlay · DiPlay for KTM
+
+*A personalized CarPlay experience for motorcycles.*
+
+RidePlay 是基于 [DiPlay](https://github.com/shihabal3amri/DiPlay) 的个人定制项目，首个适配目标为 **KTM MY RIDE**，未来可扩展到其他品牌的摩托车。KTM 功能仍处于规划阶段，尚未通过真实车辆验证。
+
+仓库保持 `Chiccccken/DiPlay`，开发分支为 `custom`；Android 应用显示名称暂不修改。详见[实施计划](docs/KTM_CUSTOM_PLAN.md)与[上游同步设计](docs/KTM_UPSTREAM_SYNC.md)。
+
+---
+
+## 上游 DiPlay 文档
+
+以下内容介绍上游 DiPlay，其比亚迪支持范围、版本与下载链接不代表 RidePlay 的兼容性或发布状态。
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
 

@@ -1,4 +1,6 @@
-# 安全上游同步设计
+# RidePlay：安全上游同步设计
+
+RidePlay 基于 DiPlay，首个适配目标为 KTM MY RIDE，后续可扩展到其他摩托车。项目命名不改变仓库 `Chiccccken/DiPlay`、开发分支 `custom` 或官方上游地址。
 
 状态：设计完成，自动任务尚未部署或启用。2026-11-01 核查。
 

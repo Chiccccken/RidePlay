@@ -1,4 +1,10 @@
-# DiPlay × KTM MY RIDE：实施计划与验收边界
+# RidePlay · DiPlay for KTM：实施计划与验收边界
+
+RidePlay · A personalized CarPlay experience for motorcycles.
+
+RidePlay 是基于 [DiPlay](https://github.com/shihabal3amri/DiPlay) 的个人定制项目，首个适配目标为 KTM MY RIDE；项目名称不限定摩托车品牌，后续可扩展到其他车型。完整标题中的 KTM 表示当前适配重点，不代表已完成兼容验证。
+
+名称约定：Codex 项目名称为 `RidePlay`；当前完整标题为 `RidePlay · DiPlay for KTM`；GitHub 仓库保持 `Chiccccken/DiPlay`，开发分支保持 `custom`。Android 应用显示名称暂不修改，后续再决定。命名调整不改变 P1 优先级。
 
 核查日期：2026-11-01（Asia/Shanghai）。状态：方案阶段，P1–P3 均未在 KTM 实测。
 
