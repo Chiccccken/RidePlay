@@ -14,13 +14,11 @@ APK SHA256: `20cafb862534ca93494bc09a432f3abcb6c40c49c99fb2192e0a18772176891b`.
 ## Device acceptance
 
 The owner reported successful in-place installation, connection, app reconnect,
-connection after restarting the Redmi and repeated real-vehicle tests. Handlebar
-play/pause/track changes and iPhone-to-headset music were explicitly confirmed.
-The system hotspot and saved app description both used WPA2.
+connection after restarting the Android receiver and repeated real-vehicle tests.
+Handlebar play/pause/track changes and iPhone-to-headset music were explicitly confirmed.
 
 This feedback is separate from automated checks. It does not establish Siri/call
-audio, every background-recovery scenario or other vehicles/ROMs. The instrument
-play/pause icon remains a known display issue.
+audio, every background-recovery scenario or other vehicles/ROMs.
 
 ## Release artifacts
 

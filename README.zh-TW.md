@@ -6,7 +6,7 @@
 
 <img src="site/assets/icon.png" alt="RidePlay 圖示" width="160">
 
-RidePlay 是基於 [DiPlay](https://github.com/shihabal3amri/DiPlay) 的個人客製專案，搭配 Android 接收端與 iPhone 使用。**首個適配目標為 KTM MY RIDE；使用者已在 2019 KTM 390 Duke、紅米 Note 9 Pro 移植版 HyperOS 組合上連續多日驗證車把操作正常，其他組合仍待驗證。**名稱不限定摩托車品牌。
+RidePlay 是基於 [DiPlay](https://github.com/shihabal3amri/DiPlay) 的個人客製專案，搭配 Android 接收端與 iPhone 使用。**首個適配目標為 KTM MY RIDE；使用者已在 2019 KTM 390 Duke 上連續多日驗證車把操作正常，其他組合仍待驗證。**名稱不限定摩托車品牌。
 
 ## 相較上游的變更
 
@@ -21,7 +21,7 @@ RidePlay 是基於 [DiPlay](https://github.com/shihabal3amri/DiPlay) 的個人�
 
 使用者已回報：連線 iPhone、Android 媒體卡片、播放／暫停／上一首／下一首，以及重新連線後的中繼資料恢復正常。這些屬於裝置回饋，尚非完整相容性驗收。
 
-把手控制已有上述實車回饋。儀表播放／暫停圖示固定顯示播放三角形，暫緩處理；儀表其他顯示、安全帽完整音訊路由、背景／鎖定畫面恢復及啟動方向仍應按實際證據分別確認。請見[媒體控制驗證](docs/RIDEPLAY_P1.md)、[拼音說明](docs/RIDEPLAY_PINYIN.md)與[方向說明](docs/RIDEPLAY_ORIENTATION.md)。
+把手控制已有上述實車回饋。儀表顯示、安全帽完整音訊路由、背景／鎖定畫面恢復及啟動方向仍應按實際證據分別確認。請見[媒體控制驗證](docs/RIDEPLAY_P1.md)、[拼音說明](docs/RIDEPLAY_PINYIN.md)與[方向說明](docs/RIDEPLAY_ORIENTATION.md)。
 
 ## 安裝與建置
 

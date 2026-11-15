@@ -1,9 +1,8 @@
 # RidePlay 0.3.1 — public preview
 
 RidePlay is a DiPlay-based CarPlay receiver with opt-in adaptations for motorcycle
-media controls. This preview has been tested on a 2019 KTM 390 Duke with a Redmi
-Note 9 Pro running a ported HyperOS build and an iPhone 14. Other vehicles and ROMs
-need their own testing.
+media controls. This preview has been tested with a 2019 KTM 390 Duke and an
+iPhone 14. Other vehicles and Android firmware need their own testing.
 
 ## Changes
 
@@ -25,18 +24,11 @@ need their own testing.
 ## Tested and known limitations
 
 The owner confirmed installation, reconnecting within the app, connecting after a
-Redmi reboot, repeated vehicle use, handlebar play/pause/track changes and music
+receiver reboot, repeated vehicle use, handlebar play/pause/track changes and music
 from the iPhone to the headset. The app's runtime diagnostics reported iOS 27.2.1.
 These results do not establish Siri/call audio, every background-recovery scenario,
 other vehicles or other ROMs.
 
-- On this tested HyperOS combination, set **both the system hotspot and RidePlay's
-  saved hotspot description to WPA2**, with matching name and password. WPA3 and
-  transition-mode attempts failed; the exact failing layer is unresolved. This is
-  not a claim that all devices require WPA2. RidePlay does not change the system
-  hotspot automatically.
-- The instrument's play/pause icon may stay on the play triangle while the buttons
-  work normally. This display issue is deferred.
 - Routing bootstrap is off by default and takes effect after reconnecting. When
   enabled, returning to CarPlay may take media-key ownership from another Android
   player. The tested control-only setup keeps music output on the iPhone/headset.
@@ -63,7 +55,7 @@ Android release-signing key. See [third-party notices](THIRD_PARTY_NOTICES.md) a
 
 ## 中文摘要
 
-0.3.1 是面向有限实测范围的公开测试版。已确认安装连接、App 内重连、红米重启后
+0.3.1 是面向有限实测范围的公开测试版。已确认安装连接、App 内重连、接收设备重启后
 连接、多次实车使用、车把播放／暂停／切歌，以及 iPhone 到头盔的音乐输出正常。
 
 新增默认关闭的媒体按键选路引导，改善实测 ROM 的车把媒体键选路；更新检查改为
@@ -71,9 +63,7 @@ RidePlay 自有仓库，设置备份补齐个性化项目，诊断增加安全�
 本版保留原有完整协议订阅及发送行为，不包含临时跳过订阅或限制发送节奏的实验。
 原生库诊断文件名已映射为项目相对路径，公开包不再包含构建机器的用户名或源码目录。
 
-实测红米组合请让系统热点和 App 已保存的热点描述**同时使用 WPA2**，名称、密码
-一致。WPA3 的具体失败原因尚未定位，不推广为所有设备的限制。仪表播放／暂停图标
-固定显示播放三角形仍为已知问题；Siri／电话等未确认的路径不扩大验收。
+Siri／电话等未确认的路径不扩大验收。
 
 同正式签名的候选／诊断版可覆盖安装并保留数据；旧 `.debug` 包与正式包互相独立。
 安装会结束当前连接，之后重新连接即可。源码、许可证和校验文件随发布提供。
