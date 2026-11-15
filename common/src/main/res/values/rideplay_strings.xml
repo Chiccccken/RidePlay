@@ -1,6 +1,6 @@
 <resources>
     <string name="settings_control_only_media_session">Audio-free media controls (experimental)</string>
-    <string name="settings_control_only_media_session_description">Publish a media session without local audio or audio focus. Requires CarPlay audio through vehicle Bluetooth. Applies on the next connection. Bluetooth instrument compatibility needs device testing.</string>
+    <string name="settings_control_only_media_session_description">Publish a media session without local audio. Does not request audio focus unless the separate focus experiment is enabled. Requires CarPlay audio through vehicle Bluetooth. Applies on the next connection; instrument compatibility needs device testing.</string>
     <string name="settings_orientation_lock">Rotation</string>
     <string name="settings_orientation_auto">Auto</string>
     <string name="settings_orientation_landscape">Landscape</string>
@@ -16,4 +16,6 @@
     <string name="settings_artist_original">Original artist name</string>
     <string name="settings_artist_replacement">Display name (blank removes rule)</string>
     <string name="settings_artist_invalid">Enter a valid name: up to 200 characters per name and 100 rules.</string>
+    <string name="settings_control_only_audio_focus">Audio-free control focus (experimental)</string>
+    <string name="settings_control_only_audio_focus_description">Try audio focus for audio-free media controls. May pause or lower other Android audio; does not guarantee Bluetooth instrument controls. Requires audio-free media controls on and Disable media-key audio focus off. Applies on the next connection. Turn off and reconnect to undo.</string>
 </resources>

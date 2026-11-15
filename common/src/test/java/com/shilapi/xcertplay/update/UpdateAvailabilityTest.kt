@@ -67,10 +67,22 @@ class UpdateAvailabilityTest {
         assertTrue(UpdateAvailability.shouldCheck(context, now - 1))
     }
 
+    @Test fun discardsPreviouslyCachedUpstreamRelease() {
+        val current = release("v99.0.0")
+        for (upstream in listOf(
+            current.copy(apkUrl = "https://github.com/shihabal3amri/DiPlay/releases/download/v99.0.0/DiPlay.apk"),
+            current.copy(checksumsUrl = "https://github.com/shihabal3amri/DiPlay/releases/download/v99.0.0/SHA256SUMS.txt"),
+        )) {
+            UpdateAvailability.save(context, upstream)
+            assertNull(UpdateAvailability.available(context, "0.2.22"))
+            assertFalse(UpdateAvailability.report(context, 1L).contains("cachedRelease=v99.0.0"))
+        }
+    }
+
     private fun release(tag: String) = UpdateRelease(
         tagName = tag,
         apkName = "DiPlay-$tag.apk",
-        apkUrl = "https://example.com/DiPlay-$tag.apk",
-        checksumsUrl = "https://example.com/SHA256SUMS.txt",
+        apkUrl = "https://github.com/Chiccccken/RidePlay/releases/download/$tag/DiPlay-$tag.apk",
+        checksumsUrl = "https://github.com/Chiccccken/RidePlay/releases/download/$tag/SHA256SUMS.txt",
     )
 }

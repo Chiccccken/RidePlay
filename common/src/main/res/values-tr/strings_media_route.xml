@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_control_only_route_bootstrap">Medya tuşu yönlendirmesi (deneysel)</string>
+    <string name="settings_control_only_route_bootstrap_description">Sessiz denetimler açıkken CarPlay bağlantısında veya ekranına dönüldüğünde kısa sessiz ses çalarak medya tuşlarını ister. Diğer Android oynatıcıların denetimini alabilir. Yeniden bağlantıda uygulanır. Kapatmak sonraki istekleri durdurur; önceki oynatıcıyı geri getirmez.</string>
+</resources>

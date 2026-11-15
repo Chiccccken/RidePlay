@@ -1,6 +1,6 @@
 <resources>
     <string name="settings_control_only_media_session">無音訊媒體控制（實驗性）</string>
-    <string name="settings_control_only_media_session_description">不接收本機音訊、不要求音訊焦點，仍發佈媒體工作階段。須開啟透過車輛藍牙播放 CarPlay 音訊。下次連線生效，藍牙儀表相容性須實機驗證。</string>
+    <string name="settings_control_only_media_session_description">不接收本機音訊，仍發布媒體工作階段。預設不申請音訊焦點，另開焦點實驗後才嘗試申請。須開啟透過車輛藍牙播放 CarPlay 音訊。下次連線生效，儀表相容性須實機驗證。</string>
     <string name="settings_orientation_lock">螢幕方向</string>
     <string name="settings_orientation_auto">自動</string>
     <string name="settings_orientation_landscape">橫向</string>
@@ -16,4 +16,6 @@
     <string name="settings_artist_original">原歌手名稱</string>
     <string name="settings_artist_replacement">顯示名稱（留空刪除）</string>
     <string name="settings_artist_invalid">請填寫有效名稱：每項最多 200 字元，最多 100 條規則。</string>
+    <string name="settings_control_only_audio_focus">無音訊控制申請焦點（實驗性）</string>
+    <string name="settings_control_only_audio_focus_description">為無音訊媒體控制嘗試申請音訊焦點，可能暫停或降低其他 Android App 的音量，不保證儀表控制有效。須開啟無音訊媒體控制，並關閉「停用媒體按鍵音訊焦點」。下次連線生效；關閉並重新連線即可還原。</string>
 </resources>

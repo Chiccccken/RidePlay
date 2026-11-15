@@ -119,6 +119,7 @@ class Iap2LinkEngine(
         val payload: ByteArray,
         var retransmissions: Int = 0,
         var deadlineMillis: Long = 0,
+        val diagnosticMessageId: Int? = null,
     )
 
     private var state = State.IDLE
@@ -248,7 +249,7 @@ class Iap2LinkEngine(
     }
 
     /** Queues one raw payload on a negotiated iAP2 session. */
-    fun sendSession(sessionId: Int, bytes: ByteArray, nowMillis: Long) {
+    fun sendSession(sessionId: Int, bytes: ByteArray, nowMillis: Long, diagnosticMessageId: Int? = null) {
         require(sessionId in 0..0xff) { "iAP2 session id must fit in one byte" }
         require(bytes.size <= MAX_PAYLOAD_BYTES) {
             "iAP2 session payload exceeds $MAX_PAYLOAD_BYTES bytes"
@@ -258,7 +259,8 @@ class Iap2LinkEngine(
                 "iAP2 session payload exceeds peer maxLength ${peerSynchronization.maxLength}"
             }
         }
-        sendPacket(Packet(0, sessionId, bytes.copyOf()), nowMillis)
+        // Host-side attribution only; never encoded into the link packet or used for flow control.
+        sendPacket(Packet(0, sessionId, bytes.copyOf(), diagnosticMessageId = diagnosticMessageId), nowMillis)
     }
 
     private fun parseAvailable(nowMillis: Long): Boolean {
@@ -396,7 +398,7 @@ class Iap2LinkEngine(
             if (!missing.any { u8(it) == packet.sequence }) continue
             packet.retransmissions += 1
             if (packet.retransmissions == peerSynchronization.maxRetransmissions) {
-                die("iAP2 packet ${packet.sequence} was not acknowledged")
+                die(acknowledgementFailure(packet))
                 return
             }
             sendData(packet.sequence, packet.sessionId, packet.payload)
@@ -487,11 +489,20 @@ class Iap2LinkEngine(
         next.deadlineMillis = nowMillis + peerSynchronization.retransmissionTimeoutMillis
         next.retransmissions += 1
         if (next.retransmissions == peerSynchronization.maxRetransmissions) {
-            die("iAP2 packet ${next.sequence} was not acknowledged")
+            die(acknowledgementFailure(next))
             return
         }
         sendData(next.sequence, next.sessionId, next.payload)
         receiveAcknowledgementDeadlineMillis = secondDeadline ?: next.deadlineMillis
+    }
+
+    private fun acknowledgementFailure(packet: Packet): String {
+        val message = packet.diagnosticMessageId?.let { "0x${(it and 0xffff).toString(16).padStart(4, '0')}" } ?: "unknown"
+        return "iAP2 packet ${packet.sequence} was not acknowledged " +
+            "(session=${packet.sessionId} command=$message bytes=${packet.payload.size} " +
+            "peerAck=${lastSentAcknowledged ?: "none"} lastRx=$lastReceivedInOrder sent=$sentSequence " +
+            "inFlight=${unacknowledged.size} queued=${queued.size} " +
+            "peerWindow=${peerSynchronization.maxOutgoing} attempts=${packet.retransmissions})"
     }
 
     private fun sendSynchronization() {

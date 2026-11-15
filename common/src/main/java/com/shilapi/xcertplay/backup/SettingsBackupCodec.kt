@@ -20,6 +20,12 @@ object SettingsBackupCodec {
      * DiPlay trust their device. So a key travels only once it is listed here; car-specific values (the
      * detected screen size, the car's hotspot) and consents (sharing the map with other apps) stay out too.
      */
+    private val RIDEPLAY_BOOLEAN_KEYS = setOf(
+        "rideplay_pinyin_album", "rideplay_pinyin_metadata",
+        "rideplay_control_only_media_session", "rideplay_control_only_audio_focus",
+        "rideplay_control_only_route_bootstrap",
+    )
+
     private val AIRPLAY_KEYS = setOf(
         "display_scale_tenths", "ui_scale_percent", "hevc_enabled", "hevc_software_decoder",
         // The resolution percentage; display_scale_tenths is its older key, still read when this one is missing.
@@ -43,7 +49,7 @@ object SettingsBackupCodec {
         "adapt_pip_resolution", "auto_start_on_boot", "bt_suspend_during_carplay", "hide_byd_call_popup",
         "launcher_bubble", "launcher_bubble_size",
         "bt_suspend_delay_seconds", "location_reporting_enabled", "external_controller", "usb_charging_current",
-    )
+    ) + RIDEPLAY_BOOLEAN_KEYS
 
     /** Families of layout settings with many keys and nothing sensitive in them. */
     private val AIRPLAY_PREFIXES = listOf("cluster_", "carplay_night_")
@@ -61,7 +67,10 @@ object SettingsBackupCodec {
     // The driver's choices only. "ignore_off_report" records what one car's firmware reports, so it stays out.
     private val CAR_HOTSPOT_KEYS = setOf("auto_enable", "config_write")
     private val FILES = mapOf(
-        "xcertplay_airplay" to Policy.Allow(AIRPLAY_KEYS, AIRPLAY_PREFIXES),
+        "xcertplay_airplay" to Policy.Allow(AIRPLAY_KEYS, AIRPLAY_PREFIXES,
+            types = RIDEPLAY_BOOLEAN_KEYS.associateWith { KeyType.BOOLEAN }),
+        "rideplay_orientation" to Policy.Allow(setOf("mode"), types = mapOf("mode" to KeyType.STRING)),
+        "rideplay_artist_names" to Policy.Allow(setOf("rules"), types = mapOf("rules" to KeyType.STRING)),
         "diplay" to Policy.Allow(DIPLAY_KEYS),
         // These readers call getInt and getBoolean, which throw on any other stored type. A key that is not stored yet
         // has no type to compare with, so the type is declared here.
@@ -69,7 +78,7 @@ object SettingsBackupCodec {
         "diplay_car_hotspot" to Policy.Allow(CAR_HOTSPOT_KEYS, types = CAR_HOTSPOT_KEYS.associateWith { KeyType.BOOLEAN }),
     )
 
-    private enum class KeyType { BOOLEAN, INT }
+    private enum class KeyType { BOOLEAN, INT, STRING }
 
     private sealed interface Policy {
         fun includes(key: String): Boolean
@@ -152,6 +161,7 @@ object SettingsBackupCodec {
 
     private fun storeTyped(editor: Editor, key: String, value: Any?, type: KeyType): Boolean = when (type) {
         KeyType.BOOLEAN -> if (value is Boolean) { editor.putBoolean(key, value); true } else false
+        KeyType.STRING -> if (value is String) { editor.putString(key, value); true } else false
         KeyType.INT -> integral(value)?.takeIf { it in Int.MIN_VALUE..Int.MAX_VALUE }?.let { editor.putInt(key, it.toInt()); true } ?: false
     }
 

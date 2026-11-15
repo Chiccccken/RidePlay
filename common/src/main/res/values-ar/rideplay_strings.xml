@@ -1,6 +1,6 @@
 <resources>
     <string name="settings_control_only_media_session">التحكم بالوسائط دون صوت (تجريبي)</string>
-    <string name="settings_control_only_media_session_description">نشر جلسة وسائط دون صوت محلي أو تركيز صوتي. يتطلب تشغيل صوت CarPlay عبر بلوتوث السيارة. يسري عند الاتصال التالي. يلزم اختبار توافق لوحة العدادات على الجهاز.</string>
+    <string name="settings_control_only_media_session_description">ينشر جلسة وسائط دون صوت محلي. لا يطلب التركيز الصوتي إلا عند تفعيل تجربة التركيز المنفصلة. يتطلب صوت CarPlay عبر بلوتوث السيارة. يسري عند الاتصال التالي، ويجب اختبار توافق لوحة العدادات على الجهاز.</string>
     <string name="settings_orientation_lock">اتجاه الشاشة</string>
     <string name="settings_orientation_auto">تلقائي</string>
     <string name="settings_orientation_landscape">أفقي</string>
@@ -16,4 +16,6 @@
     <string name="settings_artist_original">اسم الفنان الأصلي</string>
     <string name="settings_artist_replacement">اسم العرض (فارغ للحذف)</string>
     <string name="settings_artist_invalid">أدخل اسماً صالحاً: حتى 200 حرف لكل اسم و100 قاعدة.</string>
+    <string name="settings_control_only_audio_focus">تركيز التحكم بلا صوت (تجريبي)</string>
+    <string name="settings_control_only_audio_focus_description">يطلب التركيز الصوتي للتحكم بلا صوت. قد يوقف أصوات Android الأخرى أو يخفضها، ولا يضمن عمل تحكم لوحة العدادات. يجب تفعيل التحكم بلا صوت وإيقاف تعطيل التركيز الصوتي لأزرار الوسائط. يسري عند الاتصال التالي. للإلغاء أوقفه وأعد الاتصال.</string>
 </resources>

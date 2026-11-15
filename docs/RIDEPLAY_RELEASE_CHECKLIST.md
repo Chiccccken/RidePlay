@@ -1,27 +1,42 @@
-# RidePlay 发布前清单
+# RidePlay 0.3.1 release validation
 
-核查日期：2026-11-01。功能接近个人使用需求，不等于已完成正式发布验收。
+Package: `com.chiccccken.rideplay`, version `0.3.1`, versionCode `45`.
 
-## 个人使用前必须确认
+APK SHA256: `20cafb862534ca93494bc09a432f3abcb6c40c49c99fb2192e0a18772176891b`.
 
-- 在红米 Note 9 Pro / Android 17 上，分别验证冷启动、回到首页、打开 CarPlay 和重连时的强制竖屏；启动缓解改动不能仅凭单元测试宣告通过。
-- 实车停车验证 KTM MY RIDE：曲名／歌手／专辑、中文拼音、车把播放／暂停／切歌、断连后恢复。
-- 核对 iPhone → 头盔的音乐、导航、电话、Siri 音频路由；Android 的媒体卡片成功不能代替音频验证。
-- 验证锁屏、后台、电池限制、Wi-Fi 中断、iPhone 重连和接收端重启后的恢复。
-- 运行 AGENTS.md 的完整 CI 命令，保留报告；失败必须区分源码、工具链、依赖和设备问题。
+## Build checks
 
-## 正式分发前完成
+- Full Android check command completed: shared 1801, common 1800 and Home 11 tests, with no failures (3612 total).
+- Mobile, Home and MapHost Debug builds and lint passed; standalone release build and release lint passed.
+- Release signature, package and non-debuggable status verified. All DEX, resources, manifest and authentication assets match the field-tested candidate; native libraries were rebuilt solely to map machine-specific diagnostic paths to relative paths. All four ABIs were rescanned.
+- Temporary subscription and packet-pacing experiments removed. Original subscriptions, window and retransmission behavior retained.
 
-- 固定应用 ID 与签名密钥，备份密钥，确认覆盖升级保留设置。当前 debug 为 `com.chiccccken.rideplay.debug`，不能直接覆盖不同包名的正式版。
-- 制定 RidePlay 独立版本号、GitHub Releases 与更新源。当前继承的更新客户端仍查询 `shihabal3amri/DiPlay`；不可将上游安装包宣称为 RidePlay 更新。
-- 测试从已有版本升级，而不只是全新安装；确认方向、媒体控制、拼音及歌手规则保留。
-- 区分 source-only APK 与具备本地运行时材料的完整测试包，按 BUILD.md 打包；当前普通 `assembleDebug` 不包含独立连接所需材料。
-- 提供对应版本的源码、更新记录与许可证／第三方声明；发布页明确实测设备和未验证场景。
+## Device acceptance
 
-## 仓库收尾
+The owner reported successful in-place installation, connection, app reconnect,
+connection after restarting the Redmi and repeated real-vehicle tests. Handlebar
+play/pause/track changes and iPhone-to-headset music were explicitly confirmed.
+The system hotspot and saved app description both used WPA2.
 
-- README 使用 RidePlay 主说明，上游 DiPlay 作为来源保留。
-- 默认分支使用 `custom` 展示 RidePlay；`main` 继续作为上游镜像。
-- 切换默认分支前，确认继承的网站部署只允许在上游仓库执行。
-- 自动同步另按 KTM_UPSTREAM_SYNC.md 实施，完成演练后启用；切换默认分支本身不会创建同步工作流。
-- 上游网站与历史文档仍保留原品牌与适用范围，未来需要自有网站时再独立改造。
+This feedback is separate from automated checks. It does not establish Siri/call
+audio, every background-recovery scenario or other vehicles/ROMs. The instrument
+play/pause icon remains a known display issue.
+
+## Release artifacts
+
+Publish one main APK, `SHA256SUMS.txt` and corresponding source under `v0.3.1` as a
+prerelease. Preserve the original license and third-party notices. Source archives
+exclude private signing/authentication files and internal device reports.
+
+After publication, verify the actual release JSON, APK download/checksum and the
+RidePlay update endpoint. Public hosting is not established by local build checks.
+
+See [release notes](RELEASE-NOTES-0.3.1.md) for installation and compatibility scope.
+
+## Publication privacy review
+
+A prepublication audit found machine-local paths in the native echo library. The
+release rebuild normalizes compiler file paths; no Kotlin/Java, protocol, DSP
+algorithm or feature setting changed. The field-tested candidate and release
+APK therefore differ in native rebuild outputs and signing data only. The full
+Android check command and standalone release/lint passed after this change.

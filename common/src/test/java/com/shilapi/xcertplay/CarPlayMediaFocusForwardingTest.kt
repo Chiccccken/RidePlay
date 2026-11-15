@@ -38,8 +38,27 @@ class CarPlayMediaFocusForwardingTest {
         controllers.forEach(CarPlayMediaKeys::detach)
         sinks.forEach(AndroidMediaSink::close)
         CarPlayBackgroundSession.clear()
+        AirPlayPersistence.saveControlOnlyMediaSession(app, false)
+        AirPlayPersistence.saveControlOnlyAudioFocus(app, false)
         AirPlayPersistence.saveDisableMediaKeyAudioFocus(app, false)
         shadowOf(Looper.getMainLooper()).idle()
+    }
+
+    @Test fun controlOnlyFocusNeverChangesTheLocalAudioSink() {
+        AirPlayPersistence.saveControlOnlyMediaSession(app, true)
+        AirPlayPersistence.saveControlOnlyAudioFocus(app, true)
+        val controller = mock(CarPlayController::class.java).also(controllers::add)
+        `when`(controller.nowPlayingSnapshot()).thenReturn(CarPlayNowPlaying(playing = true))
+        val sink = spy(AndroidMediaSink()).also(sinks::add)
+        CarPlayBackgroundSession.store(controller, sink, 800, 480, Any(),
+            CarPlaySessionDisplay(800, 480, Surface.ROTATION_0, false, false, 800, 480)) {}
+        CarPlayMediaKeys.attach(app, controller, audioOutputDisabled = true)
+        shadowOf(Looper.getMainLooper()).idle()
+        val request = ReflectionHelpers.getField<AudioFocusRequestCompat>(CarPlayMediaKeys, "focusRequest")
+        val listener = ReflectionHelpers.getField<AudioManager.OnAudioFocusChangeListener>(request, "listener")
+        listener.onAudioFocusChange(AudioManager.AUDIOFOCUS_LOSS_TRANSIENT)
+        listener.onAudioFocusChange(AudioManager.AUDIOFOCUS_GAIN)
+        verify(sink, never()).onMediaAudioFocusChanged(anyInt())
     }
 
     @Test fun currentMediaKeyFocusReachesMatchingSinkOutsideOwnerLocks() {

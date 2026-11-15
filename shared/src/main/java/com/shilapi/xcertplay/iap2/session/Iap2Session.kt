@@ -92,6 +92,7 @@ class Iap2Session private constructor(
 
     private fun emitFrameTrace(direction: Iap2TraceDirection, frame: Iap2Frame) {
         try {
+            emitTrace(Iap2FrameFormatter.summary(direction, traceContext, frame))
             emitTrace(Iap2FrameFormatter.format(direction, traceContext, frame))
         } catch (failure: Exception) {
             emitTrace(

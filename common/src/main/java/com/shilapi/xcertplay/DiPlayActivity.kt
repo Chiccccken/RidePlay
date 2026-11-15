@@ -375,7 +375,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        RidePlayOrientation.apply(this, android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+        RidePlayOrientation.prepareLaunch(this, android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
         // Back on the home page finishes this activity while the session runs on, so the icon lands here.
         if (savedInstanceState == null && isLauncherIntent(intent) && CarPlayBackgroundSession.hasSession()) {
             openProjection(); finish(); return
@@ -5987,6 +5987,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
         appendLine("Authentication: local experimental beta identity; no remote fallback")
         appendLine("CarPlay setup: ${if (setupError == null) "ready" else "authentication unavailable"}")
         appendLine("Saved video preference (may differ from active session): ${if (AirPlayPersistence.loadHevcEnabled(appContext)) "HEVC" else "H.264"}; ${AirPlayPersistence.loadFps(appContext)} fps")
+        appendLine(CarPlayMediaKeys.diagnosticSnapshot())
         appendLine("Media-key audio focus: ${if (AirPlayPersistence.loadDisableMediaKeyAudioFocus(appContext)) "disabled" else "enabled"}")
         appendLine("MTK decoder tuning preference: ${if (AirPlayPersistence.loadMtkDecoderTuning(appContext)) "enabled" else "disabled"}")
         appendLine("CarPlay size: ${AirPlayPersistence.loadWidthPhysicalMm(appContext).let { mm -> "${com.shilapi.xcertplay.airplay.CarPlaySize.exact(mm)?.label ?: "Custom"}, $mm mm" }}")
@@ -6329,6 +6330,18 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
             getString(R.string.settings_control_only_media_session_description),
             AirPlayPersistence.loadControlOnlyMediaSession(this)) {
             AirPlayPersistence.saveControlOnlyMediaSession(this, it)
+            markReconnectNeeded()
+        }
+        toggle(card, getString(R.string.settings_control_only_route_bootstrap),
+            getString(R.string.settings_control_only_route_bootstrap_description),
+            AirPlayPersistence.loadControlOnlyRouteBootstrap(this)) {
+            AirPlayPersistence.saveControlOnlyRouteBootstrap(this, it)
+            markReconnectNeeded()
+        }
+        toggle(card, getString(R.string.settings_control_only_audio_focus),
+            getString(R.string.settings_control_only_audio_focus_description),
+            AirPlayPersistence.loadControlOnlyAudioFocus(this)) {
+            AirPlayPersistence.saveControlOnlyAudioFocus(this, it)
             markReconnectNeeded()
         }
     }
@@ -6997,7 +7010,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
     private fun rememberLaunchAppearance() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
         val light = AirPlayPersistence.loadAppAppearance(this) == AppAppearance.LIGHT
-        splashScreen.setSplashScreenTheme(if (light) R.style.Theme_Xcertplay_Light else R.style.Theme_Xcertplay)
+        splashScreen.setSplashScreenTheme(if (light) R.style.Theme_Xcertplay_Light_Launch else R.style.Theme_Xcertplay_Launch)
     }
 
     private fun applyWindowAppearance() {

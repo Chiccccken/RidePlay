@@ -19,6 +19,14 @@
         <item name="android:windowBackground">@color/window_background_light</item>
         <item name="android:windowSplashScreenBackground" tools:targetApi="31">#E9EEF6</item>
     </style>
+    <!-- Starting windows run before preferences can be read. Keep the previous window visible
+         until the Activity has applied the saved rotation instead of previewing the wrong rotation. -->
+    <style name="Theme.Xcertplay.Launch" parent="Theme.Xcertplay">
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+    <style name="Theme.Xcertplay.Light.Launch" parent="Theme.Xcertplay.Light">
+        <item name="android:windowDisablePreview">true</item>
+    </style>
     <style name="Theme.Xcertplay.Dialog.Dark" parent="android:Theme.Material.Dialog.Alert">
         <item name="android:fontFamily">sans</item>
         <item name="android:colorAccent">#A6C8FF</item>

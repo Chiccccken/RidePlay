@@ -36,6 +36,12 @@
         </intent>
     </queries>
     <application>
+        <receiver android:name="com.shilapi.xcertplay.CarPlayMediaButtonReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
         <provider
             android:name="com.shilapi.xcertplay.CrashRecordInstaller"
             android:authorities="${applicationId}.crash-record"
@@ -60,9 +66,10 @@
         </provider>
         <activity android:name="com.shilapi.xcertplay.DiPlayActivity"
             android:exported="true" android:launchMode="singleTop"
+            android:screenOrientation="behind"
             android:resizeableActivity="true"
             android:configChanges="density|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
-            android:theme="@style/Theme.Xcertplay">
+            android:theme="@style/Theme.Xcertplay.Launch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -78,8 +85,8 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:resizeableActivity="true"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.Xcertplay"
+            android:screenOrientation="behind"
+            android:theme="@style/Theme.Xcertplay.Launch"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
@@ -97,8 +104,8 @@
             android:exported="false"
             android:launchMode="singleTask"
             android:resizeableActivity="true"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.Xcertplay"
+            android:screenOrientation="behind"
+            android:theme="@style/Theme.Xcertplay.Launch"
             android:windowSoftInputMode="adjustResize" />
 
         <activity

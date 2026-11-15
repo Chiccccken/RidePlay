@@ -16,8 +16,8 @@ class UpdateCatalogTest {
             "tag_name": "v0.2.15",
             "draft": true,
             "assets": [
-              {"name": "DiPlay-0.2.15.apk", "browser_download_url": "https://github.com/shihabal3amri/DiPlay/releases/download/v0.2.15/DiPlay-0.2.15.apk"},
-              {"name": "SHA256SUMS.txt", "browser_download_url": "https://github.com/shihabal3amri/DiPlay/releases/download/v0.2.15/SHA256SUMS.txt"}
+              {"name": "DiPlay-0.2.15.apk", "browser_download_url": "https://github.com/Chiccccken/RidePlay/releases/download/v0.2.15/DiPlay-0.2.15.apk"},
+              {"name": "SHA256SUMS.txt", "browser_download_url": "https://github.com/Chiccccken/RidePlay/releases/download/v0.2.15/SHA256SUMS.txt"}
             ]
           },
           {
@@ -25,8 +25,8 @@ class UpdateCatalogTest {
             "draft": false,
             "prerelease": true,
             "assets": [
-              {"name": "DiPlay-0.2.14.apk", "browser_download_url": "https://github.com/shihabal3amri/DiPlay/releases/download/v0.2.14/DiPlay-0.2.14.apk"},
-              {"name": "SHA256SUMS.txt", "browser_download_url": "https://github.com/shihabal3amri/DiPlay/releases/download/v0.2.14/SHA256SUMS.txt"}
+              {"name": "DiPlay-0.2.14.apk", "browser_download_url": "https://github.com/Chiccccken/RidePlay/releases/download/v0.2.14/DiPlay-0.2.14.apk"},
+              {"name": "SHA256SUMS.txt", "browser_download_url": "https://github.com/Chiccccken/RidePlay/releases/download/v0.2.14/SHA256SUMS.txt"}
             ]
           }
         ]
@@ -38,11 +38,11 @@ class UpdateCatalogTest {
         assertEquals("v0.2.14", release?.tagName)
         assertEquals("DiPlay-0.2.14.apk", release?.apkName)
         assertEquals(
-            "https://github.com/shihabal3amri/DiPlay/releases/download/v0.2.14/DiPlay-0.2.14.apk",
+            "https://github.com/Chiccccken/RidePlay/releases/download/v0.2.14/DiPlay-0.2.14.apk",
             release?.apkUrl,
         )
         assertEquals(
-            "https://github.com/shihabal3amri/DiPlay/releases/download/v0.2.14/SHA256SUMS.txt",
+            "https://github.com/Chiccccken/RidePlay/releases/download/v0.2.14/SHA256SUMS.txt",
             release?.checksumsUrl,
         )
     }
@@ -98,7 +98,7 @@ class UpdateCatalogTest {
     @Test
     fun refusesDownloadUrlsThatAreNotHttpsOnGithub() {
         for (url in listOf(
-            "http://github.com/shihabal3amri/DiPlay/releases/download/v0.2.22/DiPlay-0.2.22.apk",
+            "http://github.com/Chiccccken/RidePlay/releases/download/v0.2.22/DiPlay-0.2.22.apk",
             "https://evil.example/DiPlay-0.2.22.apk",
             "https://github.com.evil.example/DiPlay-0.2.22.apk",
             "https://github.com@evil.example/DiPlay-0.2.22.apk",
@@ -111,7 +111,19 @@ class UpdateCatalogTest {
         }
     }
 
+    @Test
+    fun refusesAssetsFromUpstreamOrAnotherRepository() {
+        for (url in listOf(
+            "https://github.com/shihabal3amri/DiPlay/releases/download/v0.2.22/DiPlay.apk",
+            "https://github.com/another/RidePlay/releases/download/v0.2.22/RidePlay.apk",
+            "https://github.com/Chiccccken/RidePlay-other/releases/download/v0.2.22/RidePlay.apk",
+        )) {
+            assertNull(UpdateCatalog.parse(releaseWith(apkUrl = url)))
+            assertNull(UpdateCatalog.parse(releaseWith(apkUrl = GITHUB + "x.apk", checksumsUrl = url)))
+        }
+    }
+
     private companion object {
-        const val GITHUB = "https://github.com/shihabal3amri/DiPlay/releases/download/v0.2.22/"
+        const val GITHUB = "https://github.com/Chiccccken/RidePlay/releases/download/v0.2.22/"
     }
 }

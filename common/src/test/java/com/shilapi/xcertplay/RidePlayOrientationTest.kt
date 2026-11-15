@@ -3,6 +3,7 @@ package com.shilapi.xcertplay
 import android.app.Activity
 import android.content.Context
 import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
@@ -50,5 +51,36 @@ class RidePlayOrientationTest {
             RidePlayOrientation.apply(controller.get(), ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
             assertEquals(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE, controller.get().requestedOrientation)
         } finally { controller.pause().stop().destroy() }
+    }
+
+    @Test fun launchWaitsForRotationButTimesOutWhenTheSystemIgnoresIt() {
+        RidePlayOrientation.save(app, RidePlayOrientation.Mode.PORTRAIT)
+        val controller = Robolectric.buildActivity(Activity::class.java).setup()
+        val initial = Configuration(controller.get().resources.configuration)
+        try {
+            val activity = controller.get()
+            val decor = activity.window.decorView
+            val configuration = Configuration(decor.resources.configuration)
+            configuration.orientation = Configuration.ORIENTATION_LANDSCAPE
+            @Suppress("DEPRECATION")
+            decor.resources.updateConfiguration(configuration, decor.resources.displayMetrics)
+            RidePlayOrientation.prepareLaunch(activity, ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR)
+            assertEquals(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT, activity.requestedOrientation)
+            assertTrue(decor.viewTreeObserver.dispatchOnPreDraw()) // true means cancelled
+            org.robolectric.Shadows.shadowOf(android.os.Looper.getMainLooper())
+                .idleFor(java.time.Duration.ofSeconds(1))
+            assertFalse(decor.viewTreeObserver.dispatchOnPreDraw())
+
+            RidePlayOrientation.prepareLaunch(activity, ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR)
+            assertTrue(decor.viewTreeObserver.dispatchOnPreDraw())
+            configuration.orientation = Configuration.ORIENTATION_PORTRAIT
+            @Suppress("DEPRECATION")
+            decor.resources.updateConfiguration(configuration, decor.resources.displayMetrics)
+            assertFalse(decor.viewTreeObserver.dispatchOnPreDraw())
+        } finally {
+            @Suppress("DEPRECATION")
+            controller.get().resources.updateConfiguration(initial, controller.get().resources.displayMetrics)
+            controller.pause().stop().destroy()
+        }
     }
 }

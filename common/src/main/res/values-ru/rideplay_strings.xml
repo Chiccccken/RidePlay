@@ -1,6 +1,6 @@
 <resources>
     <string name="settings_control_only_media_session">Управление медиа без звука (экспериментально)</string>
-    <string name="settings_control_only_media_session_description">Публикует медиасеанс без локального звука и аудиофокуса. Требуется звук CarPlay через Bluetooth автомобиля. Применяется при следующем подключении. Совместимость приборной панели Bluetooth требует проверки на устройстве.</string>
+    <string name="settings_control_only_media_session_description">Публикует медиасеанс без локального звука. Аудиофокус не запрашивается, если отдельный эксперимент выключен. Требуется звук CarPlay через Bluetooth автомобиля. Действует при следующем подключении. Совместимость панели требует проверки на устройстве.</string>
     <string name="settings_orientation_lock">Экран</string>
     <string name="settings_orientation_auto">Авто</string>
     <string name="settings_orientation_landscape">Альбомная</string>
@@ -16,4 +16,6 @@
     <string name="settings_artist_original">Исходное имя</string>
     <string name="settings_artist_replacement">Отображаемое имя (пусто — удалить)</string>
     <string name="settings_artist_invalid">Введите имя: до 200 символов, не более 100 правил.</string>
+    <string name="settings_control_only_audio_focus">Аудиофокус управления без звука (экспериментально)</string>
+    <string name="settings_control_only_audio_focus_description">Запрашивает аудиофокус для управления без звука. Может приостановить или приглушить другой звук Android; управление приборной панелью не гарантируется. Включите управление без звука и выключите запрет аудиофокуса медиакнопок. Действует при следующем подключении. Для отмены выключите и переподключитесь.</string>
 </resources>

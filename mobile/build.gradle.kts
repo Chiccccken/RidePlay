@@ -18,8 +18,8 @@ android {
         applicationId = "com.chiccccken.rideplay"
         minSdk = 24
         targetSdk = 37
-        versionCode = 41
-        versionName = "0.2.22"
+        versionCode = 45
+        versionName = "0.3.1"
 
     }
 

@@ -1,6 +1,6 @@
 <resources>
     <string name="settings_control_only_media_session">Sessiz medya denetimleri (deneysel)</string>
-    <string name="settings_control_only_media_session_description">Yerel ses veya ses odağı olmadan medya oturumu sunar. Araç Bluetooth üzerinden CarPlay sesi gerektirir. Sonraki bağlantıda uygulanır. Bluetooth gösterge uyumluluğu gerçek cihazda test edilmelidir.</string>
+    <string name="settings_control_only_media_session_description">Yerel ses olmadan medya oturumu yayınlar. Ayrı odak deneyi açılmadıkça ses odağı istemez. Araç Bluetooth üzerinden CarPlay sesi gerektirir. Sonraki bağlantıda uygulanır. Gösterge uyumluluğu cihazda test edilmelidir.</string>
     <string name="settings_orientation_lock">Ekran</string>
     <string name="settings_orientation_auto">Otomatik</string>
     <string name="settings_orientation_landscape">Yatay</string>
@@ -16,4 +16,6 @@
     <string name="settings_artist_original">Özgün sanatçı adı</string>
     <string name="settings_artist_replacement">Görünen ad (boşsa silinir)</string>
     <string name="settings_artist_invalid">Geçerli ad girin: ad başına 200 karakter, en fazla 100 kural.</string>
+    <string name="settings_control_only_audio_focus">Sessiz kontrol ses odağı (deneysel)</string>
+    <string name="settings_control_only_audio_focus_description">Sessiz medya kontrolleri için ses odağı ister. Diğer Android seslerini duraklatabilir veya kısabilir; gösterge kontrolünü garanti etmez. Sessiz kontrolleri açın ve medya tuşu ses odağını devre dışı bırakma seçeneğini kapatın. Sonraki bağlantıda uygulanır. Geri almak için kapatıp yeniden bağlanın.</string>
 </resources>

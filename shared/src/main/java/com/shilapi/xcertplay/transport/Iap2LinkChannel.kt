@@ -22,7 +22,7 @@ class Iap2LinkChannel private constructor(
     private val initiateNegotiation: Boolean,
     private val onArtwork: (Iap2ArtworkTransfer) -> Unit,
 ) : AutoCloseable {
-    private data class Command(val sessionId: Int, val payload: ByteArray)
+    private data class Command(val sessionId: Int, val payload: ByteArray, val diagnosticMessageId: Int? = null)
 
     private val lock = Object()
     private val commands = ArrayDeque<Command>()
@@ -78,7 +78,7 @@ class Iap2LinkChannel private constructor(
      * Like [sendControl], but waits for command-queue capacity.  CSM uses this to queue every
      * fragment of one frame without converting link backpressure into a partial CSM write.
      */
-    internal fun sendControlAwaitCapacity(bytes: ByteArray, timeoutMillis: Long): Boolean {
+    internal fun sendControlAwaitCapacity(bytes: ByteArray, timeoutMillis: Long, diagnosticMessageId: Int? = null): Boolean {
         require(bytes.size <= Iap2LinkEngine.MAX_PAYLOAD_BYTES) {
             "iAP2 control payload exceeds ${Iap2LinkEngine.MAX_PAYLOAD_BYTES} bytes"
         }
@@ -90,7 +90,7 @@ class Iap2LinkChannel private constructor(
             }
             throwTerminalFailureLocked()
             if (terminated || closing) return false
-            return enqueueCommandLocked(Iap2LinkEngine.CONTROL_SESSION_ID, copy)
+            return enqueueCommandLocked(Iap2LinkEngine.CONTROL_SESSION_ID, copy, diagnosticMessageId)
         }
     }
 
@@ -188,7 +188,7 @@ class Iap2LinkChannel private constructor(
                     }
                 }
             } ?: return
-            engine.sendSession(command.sessionId, command.payload, nowMillis())
+            engine.sendSession(command.sessionId, command.payload, nowMillis(), command.diagnosticMessageId)
             if (isClosing()) return
         }
     }
@@ -309,9 +309,9 @@ class Iap2LinkChannel private constructor(
         commands.size < MAX_PENDING_COMMANDS && bytes <= MAX_PENDING_COMMAND_BYTES - commandBytes
 
     /** lock must already be held. */
-    private fun enqueueCommandLocked(sessionId: Int, bytes: ByteArray): Boolean {
+    private fun enqueueCommandLocked(sessionId: Int, bytes: ByteArray, diagnosticMessageId: Int? = null): Boolean {
         if (!hasCommandCapacityLocked(bytes.size)) return false
-        commands += Command(sessionId, bytes)
+        commands += Command(sessionId, bytes, diagnosticMessageId)
         commandBytes += bytes.size
         lock.notifyAll()
         return true

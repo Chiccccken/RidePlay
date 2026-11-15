@@ -25,6 +25,14 @@ object Iap2FrameFormatter {
     private const val MAX_PARAMETERS = 80
     private const val MAX_STRING_CHARS = 240
     private const val MAX_HEX_BYTES = 24
+    private val SAFE_CONTEXT = Regex("[a-zA-Z0-9_-]{1,40}")
+
+    /** Single-line metadata for saved diagnostics; no field values or raw bytes are inspected. */
+    fun summary(direction: Iap2TraceDirection, context: String, frame: Iap2Frame): String {
+        val safeContext = context.takeIf(SAFE_CONTEXT::matches) ?: "other"
+        return "IAP2 FRAME ${direction.label} [$safeContext] " +
+            "id=0x${frame.messageId.toString(16).padStart(4, '0')} frameBytes=${frame.encodedFrame().size}"
+    }
 
     fun format(
         direction: Iap2TraceDirection,

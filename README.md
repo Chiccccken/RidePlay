@@ -6,7 +6,7 @@
 
 <img src="site/assets/icon.png" alt="RidePlay icon" width="160">
 
-RidePlay is a personal fork of [DiPlay](https://github.com/shihabal3amri/DiPlay), adapted for a motorcycle setup with an Android receiver and an iPhone. **KTM MY RIDE is the first integration target; motorcycle compatibility has not yet been verified on a physical bike.**
+RidePlay is a personal fork of [DiPlay](https://github.com/shihabal3amri/DiPlay), adapted for a motorcycle setup with an Android receiver and an iPhone. **KTM MY RIDE is the first integration target; the owner reports normal handlebar operation over several days on a 2019 KTM 390 Duke with a Redmi Note 9 Pro running a ported HyperOS ROM. This does not establish compatibility with other setups.**
 
 ## What's different
 
@@ -19,7 +19,7 @@ The wired/wireless receiver and the existing head-unit integrations come from up
 
 ## Current validation
 
-The user has reported successful iPhone connection, Android media-card display, play/pause/previous/next controls and metadata restoration after reconnecting. These are device reports, not a complete compatibility certification. KTM instrument display and handlebar controls, helmet audio routing, background/lock-screen recovery and startup rotation still need end-to-end tests. See [media-session validation](docs/RIDEPLAY_P1.md), [pinyin](docs/RIDEPLAY_PINYIN.md) and [rotation](docs/RIDEPLAY_ORIENTATION.md).
+The user has reported successful iPhone connection, Android media-card display, play/pause/previous/next controls and metadata restoration after reconnecting. These are device reports, not a complete compatibility certification. Handlebar control has since been confirmed by the field feedback above. The instrument play/pause icon stays on the play triangle (deferred); other instrument display behavior, full helmet audio routing, background/lock-screen recovery and startup rotation need their own evidence. See [media-session validation](docs/RIDEPLAY_P1.md), [pinyin](docs/RIDEPLAY_PINYIN.md) and [rotation](docs/RIDEPLAY_ORIENTATION.md).
 
 ## Install and build
 

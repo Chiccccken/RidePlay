@@ -1,6 +1,6 @@
 <resources>
     <string name="settings_control_only_media_session">Controlli multimediali senza audio (sperimentale)</string>
-    <string name="settings_control_only_media_session_description">Pubblica una sessione multimediale senza audio locale né focus audio. Richiede audio CarPlay tramite Bluetooth del veicolo. Si applica alla prossima connessione. La compatibilità del quadro Bluetooth richiede prove sul dispositivo.</string>
+    <string name="settings_control_only_media_session_description">Pubblica una sessione multimediale senza audio locale. Non richiede focus salvo attivazione del relativo esperimento. Richiede audio CarPlay tramite Bluetooth del veicolo. Si applica alla prossima connessione. La compatibilità del quadro richiede prove sul dispositivo.</string>
     <string name="settings_orientation_lock">Schermo</string>
     <string name="settings_orientation_auto">Automatico</string>
     <string name="settings_orientation_landscape">Orizzontale</string>
@@ -16,4 +16,6 @@
     <string name="settings_artist_original">Nome originale</string>
     <string name="settings_artist_replacement">Nome visualizzato (vuoto elimina)</string>
     <string name="settings_artist_invalid">Nome valido: massimo 200 caratteri e 100 regole.</string>
+    <string name="settings_control_only_audio_focus">Focus dei controlli senza audio (sperimentale)</string>
+    <string name="settings_control_only_audio_focus_description">Richiede il focus audio per i controlli senza audio. Può sospendere o abbassare altri suoni Android; non garantisce i comandi del quadro. Attiva i controlli senza audio e disattiva la disabilitazione del focus dei tasti multimediali. Si applica alla prossima connessione. Disattiva e riconnetti per ripristinare.</string>
 </resources>

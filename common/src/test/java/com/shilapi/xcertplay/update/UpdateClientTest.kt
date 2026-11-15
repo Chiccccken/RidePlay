@@ -34,6 +34,10 @@ class UpdateClientTest {
         server.stop(0)
     }
 
+    @Test fun updateEndpointUsesRidePlayRepository() {
+        assertEquals("https://api.github.com/repos/Chiccccken/RidePlay/releases?per_page=3", UpdateClient.RELEASES_URL)
+    }
+
     @Test
     fun fetchTextReturnsTheBody() {
         val body = "[{\"tag_name\": \"v0.2.14\"}]"

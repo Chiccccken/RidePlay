@@ -1,5 +1,6 @@
 package com.shilapi.xcertplay
 
+import android.media.AudioManager
 import android.media.MediaMetadata
 import android.media.session.MediaSession
 import android.media.session.PlaybackState
@@ -62,11 +63,141 @@ class ControlOnlyMediaSessionTest {
         ArtistNameOverrides.save(app, emptyMap())
         AirPlayPersistence.savePinyinAlbum(app, false)
         AirPlayPersistence.savePinyinMetadata(app, false)
+        AirPlayPersistence.saveControlOnlyRouteBootstrap(app, false)
+        AirPlayPersistence.saveControlOnlyAudioFocus(app, false)
         AirPlayPersistence.saveControlOnlyMediaSession(app, false)
         AirPlayPersistence.saveDisableMediaKeyAudioFocus(app, false)
         CarPlayBackgroundSession.clear()
         idle()
     }
+    @Test fun mediaButtonBroadcastForwardsOnlyToCurrentActiveController() {
+        AirPlayPersistence.saveControlOnlyMediaSession(app, true)
+        val phone = owner(CarPlayNowPlaying(title = "Song", playing = true))
+        attach(phone)
+        val intent = android.content.Intent(android.content.Intent.ACTION_MEDIA_BUTTON)
+            .putExtra(android.content.Intent.EXTRA_KEY_EVENT,
+                android.view.KeyEvent(android.view.KeyEvent.ACTION_DOWN, android.view.KeyEvent.KEYCODE_MEDIA_NEXT))
+        CarPlayMediaButtonReceiver().onReceive(app, intent)
+        idle()
+        verify(phone).sendMediaButton(CarPlayMediaButton.NEXT)
+        clearInvocations(phone)
+        CarPlayMediaKeys.detach(phone)
+        CarPlayMediaButtonReceiver().onReceive(app, intent)
+        idle()
+        verify(phone, never()).sendMediaButton(anyInt())
+        assertNull(session())
+    }
+
+    @Test fun mediaButtonReceiverIgnoresOtherBroadcastActions() {
+        AirPlayPersistence.saveControlOnlyMediaSession(app, true)
+        val phone = owner(CarPlayNowPlaying(title = "Song", playing = true))
+        attach(phone)
+        CarPlayMediaButtonReceiver().onReceive(app, android.content.Intent(android.content.Intent.ACTION_VIEW)
+            .putExtra(android.content.Intent.EXTRA_KEY_EVENT,
+                android.view.KeyEvent(android.view.KeyEvent.ACTION_DOWN, android.view.KeyEvent.KEYCODE_MEDIA_NEXT)))
+        idle()
+        verify(phone, never()).sendMediaButton(anyInt())
+    }
+
+    @Test fun bootstrapWaitsForIphoneDataDuringConnectionAttempts() {
+        AirPlayPersistence.saveControlOnlyMediaSession(app, true)
+        AirPlayPersistence.saveControlOnlyRouteBootstrap(app, true)
+        attach(owner())
+        assertNotNull(session())
+        CarPlayMediaKeys.onHostResumed()
+        assertTrue(ReflectionHelpers.getField(CarPlayMediaKeys, "routeBootstrapPending"))
+        assertTrue(CarPlayMediaKeys.diagnosticSnapshot().contains("routeBootstrap=cancelled"))
+        CarPlayMediaKeys.detach(owners.last())
+        assertFalse(ReflectionHelpers.getField(CarPlayMediaKeys, "routeBootstrapPending"))
+    }
+
+    @Test fun routeBootstrapDefaultsOffAndPersistsIndependentlyOfFocus() {
+        assertFalse(AirPlayPersistence.loadControlOnlyRouteBootstrap(app))
+        AirPlayPersistence.saveControlOnlyRouteBootstrap(app, true)
+        assertTrue(AirPlayPersistence.loadControlOnlyRouteBootstrap(app))
+        assertFalse(AirPlayPersistence.loadControlOnlyAudioFocus(app))
+        AirPlayPersistence.saveControlOnlyRouteBootstrap(app, false)
+        assertFalse(AirPlayPersistence.loadControlOnlyRouteBootstrap(app))
+    }
+
+    @Test fun disabledBootstrapDoesNotRunOnSessionCreationOrHostResume() {
+        AirPlayPersistence.saveControlOnlyMediaSession(app, true)
+        attach(owner(CarPlayNowPlaying(title = "Song", playing = true)))
+        CarPlayMediaKeys.onHostResumed()
+        assertTrue(CarPlayMediaKeys.diagnosticSnapshot().contains("routeBootstrapEnabled=false"))
+        assertTrue(CarPlayMediaKeys.diagnosticSnapshot().contains("routeBootstrap=cancelled"))
+    }
+
+    @Test fun bootstrapOptInDoesNotApplyToLocalAudioSessions() {
+        AirPlayPersistence.saveControlOnlyRouteBootstrap(app, true)
+        attach(owner(CarPlayNowPlaying(title = "Song", playing = true)), disabled = false)
+        CarPlayMediaKeys.onHostResumed()
+        assertTrue(CarPlayMediaKeys.diagnosticSnapshot().contains("controlOnly=false"))
+        assertTrue(CarPlayMediaKeys.diagnosticSnapshot().contains("routeBootstrap=cancelled"))
+    }
+
+    @Test fun focusExperimentDefaultsOff() {
+        assertFalse(AirPlayPersistence.loadControlOnlyAudioFocus(app))
+        AirPlayPersistence.saveControlOnlyMediaSession(app, true)
+        attach(owner())
+        assertNoFocus()
+    }
+
+    @Test fun optedInFocusIsRequestedAndReleasedWithoutLocalAudio() {
+        AirPlayPersistence.saveControlOnlyMediaSession(app, true)
+        AirPlayPersistence.saveControlOnlyAudioFocus(app, true)
+        shadowOf(app.getSystemService(AudioManager::class.java))
+            .setNextFocusRequestResponse(AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
+        val phone = owner(CarPlayNowPlaying(title = "Song", playing = true))
+        attach(phone)
+        assertTrue(session()!!.isActive)
+        assertTrue(CarPlayMediaKeys.diagnosticSnapshot().contains("focusHeld=true"))
+        assertNotNull(ReflectionHelpers.getField<Any?>(CarPlayMediaKeys, "focusRequest"))
+        CarPlayMediaKeys.detach(phone)
+        assertNoFocus()
+        assertNull(session())
+    }
+
+    @Test fun globalDisableWinsOverFocusExperiment() {
+        AirPlayPersistence.saveControlOnlyMediaSession(app, true)
+        AirPlayPersistence.saveControlOnlyAudioFocus(app, true)
+        AirPlayPersistence.saveDisableMediaKeyAudioFocus(app, true)
+        attach(owner(CarPlayNowPlaying(playing = true)))
+        assertNoFocus()
+        assertTrue(session()!!.isActive)
+    }
+
+    @Test fun deniedFocusStillPublishesAndForwardsMediaControls() {
+        AirPlayPersistence.saveControlOnlyMediaSession(app, true)
+        AirPlayPersistence.saveControlOnlyAudioFocus(app, true)
+        shadowOf(app.getSystemService(AudioManager::class.java))
+            .setNextFocusRequestResponse(AudioManager.AUDIOFOCUS_REQUEST_FAILED)
+        val phone = owner(CarPlayNowPlaying(title = "Song", playing = true))
+        attach(phone)
+        assertEquals(PlaybackState.STATE_PLAYING, state(session()!!).state)
+        assertTrue(CarPlayMediaKeys.diagnosticSnapshot().contains("focusHeld=false"))
+        val handler = ReflectionHelpers.getField<Any>(session()!!, "mCallback")
+        ReflectionHelpers.getField<MediaSession.Callback>(handler, "mCallback").onSkipToNext()
+        verify(phone).sendMediaButton(CarPlayMediaButton.NEXT)
+        assertTrue(CarPlayMediaKeys.diagnosticSnapshot().contains("forwardedKeys=1"))
+    }
+
+    @Test fun experimentChangesWaitForReconnectAndTurningOffRestoresNoFocus() {
+        AirPlayPersistence.saveControlOnlyMediaSession(app, true)
+        val phone = owner()
+        attach(phone)
+        AirPlayPersistence.saveControlOnlyAudioFocus(app, true)
+        attach(phone)
+        assertNoFocus()
+        shadowOf(app.getSystemService(AudioManager::class.java))
+            .setNextFocusRequestResponse(AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
+        attach(owner())
+        assertNotNull(ReflectionHelpers.getField<Any?>(CarPlayMediaKeys, "focusRequest"))
+        AirPlayPersistence.saveControlOnlyAudioFocus(app, false)
+        attach(owner())
+        assertNoFocus()
+    }
+
     @Test @Config(sdk = [33]) fun pinyinOnlyChangesPublishedTitlesAndArtists() {
         AirPlayPersistence.savePinyinMetadata(app, true)
         AirPlayPersistence.saveControlOnlyMediaSession(app, true)

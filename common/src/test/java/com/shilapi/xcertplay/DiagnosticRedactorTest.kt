@@ -5,9 +5,40 @@ import org.junit.Test
 import com.shilapi.xcertplay.iap2.message.Iap2ControlMessages
 import com.shilapi.xcertplay.iap2.trace.Iap2FrameFormatter
 import com.shilapi.xcertplay.iap2.trace.Iap2TraceDirection
+import com.shilapi.xcertplay.iap2.wire.Iap2Frame
 import java.nio.file.Files
 
 class DiagnosticRedactorTest {
+    @Test fun safeControlSummariesReachSavedReportsWhileRawFramesStayExcluded() {
+        val privateText = "private-network-password-and-pairing-material"
+        val frame = Iap2Frame(0x5703, privateText.toByteArray())
+        val safe = Iap2FrameFormatter.summary(Iap2TraceDirection.TX, "wireless-rfcomm", frame)
+        assertEquals(safe, DiagnosticRedactor.redact(safe))
+        assertTrue(safe, safe.contains("id=0x5703"))
+        assertFalse(safe.contains(privateText))
+        val raw = Iap2FrameFormatter.format(Iap2TraceDirection.TX, "wireless-rfcomm", frame)
+        assertNull(DiagnosticRedactor.redact(raw))
+        val ack = "iAP2 packet 107 was not acknowledged (session=10 command=0x5703 bytes=42 peerAck=106 lastRx=10 sent=110 inFlight=4 queued=0 peerWindow=4 attempts=3)"
+        assertEquals(ack, DiagnosticRedactor.redact(ack))
+        val folder = Files.createTempDirectory("diplay-control-summary").toFile()
+        try {
+            val file = folder.resolve("diplay.log")
+            SessionLogFile(file).use { it.reset("started"); it.append(safe); it.append(raw); it.append(ack) }
+            val saved = file.readText()
+            assertTrue(saved.contains(safe))
+            assertTrue(saved.contains(ack))
+            assertFalse(saved.contains(privateText))
+            assertFalse(saved.contains("raw-body"))
+        } finally { folder.deleteRecursively() }
+    }
+
+    @Test fun safeControlSummaryRejectsAnUntrustedMultilineContext() {
+        val summary = Iap2FrameFormatter.summary(Iap2TraceDirection.RX, "wireless\nprivate-context-value", Iap2Frame(0x4300, byteArrayOf()))
+        assertTrue(summary, summary.contains("[other]"))
+        assertFalse(summary.contains("private-context-value"))
+        assertEquals(summary, DiagnosticRedactor.redact(summary))
+    }
+
     @Test fun additionalTroubleshootingMetadataSurvivesSavedReportWithoutPayloads() {
         val lines = listOf(
             "wireless startup elapsedMs=10000 authenticated=true wifiConfigs=2 startRequests=1 tcpAccepted=0 sessionActive=false waitingFor=WiFi_discovery_or_AirPlay_TCP startRequestAgeMs=9000 firstTcpAfterStartMs=none",

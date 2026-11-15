@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_control_only_route_bootstrap">Asignación de teclas multimedia (experimental)</string>
+    <string name="settings_control_only_route_bootstrap_description">Con los controles sin audio, reproduce un silencio breve al conectar CarPlay o volver a su pantalla para solicitar las teclas multimedia. Puede tomar el control de otros reproductores Android. Se aplica tras reconectar. Al desactivarlo cesan las solicitudes, pero no se restaura el reproductor anterior.</string>
+</resources>

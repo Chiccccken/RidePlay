@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_control_only_route_bootstrap">Выбор получателя медиакнопок (экспериментально)</string>
+    <string name="settings_control_only_route_bootstrap_description">При управлении без звука кратко воспроизводит тишину при подключении или возврате в CarPlay, чтобы запросить медиакнопки. Может перехватить управление у других Android-плееров. Действует после переподключения. Отключение прекращает запросы, но не восстанавливает прежний плеер.</string>
+</resources>

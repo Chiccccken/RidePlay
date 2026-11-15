@@ -36,6 +36,12 @@ internal object UpdateAvailability {
             apkUrl = values.getString(APK_URL, null) ?: return null,
             checksumsUrl = values.getString(CHECKSUMS_URL, null) ?: return null,
         )
+        // A previous build may have cached an upstream DiPlay release. Never offer it
+        // as a RidePlay update after migrating the catalog to our own repository.
+        if (!UpdateCatalog.isDownloadUrl(release.apkUrl) || !UpdateCatalog.isDownloadUrl(release.checksumsUrl)) {
+            clear(context)
+            return null
+        }
         if (UpdateVersion.isNewer(release.tagName, installedVersion)) return release
         clear(context)
         return null

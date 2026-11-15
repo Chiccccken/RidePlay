@@ -31,6 +31,7 @@ class ControlOnlyMediaSettingsScreenshotsTest {
             for ((filename, widthDp, language) in listOf(
                 Triple("compact-ja", 320, "ja-JP"),
                 Triple("full-en", 960, "en-US"),
+                Triple("compact-zh-high-density", 320, "zh-CN"),
                 Triple("compact-ar-rtl", 320, "ar-SA"),
             )) {
                 val locale = Locale.forLanguageTag(language)
@@ -38,14 +39,28 @@ class ControlOnlyMediaSettingsScreenshotsTest {
                     fontScale = 1.5f
                     setLocale(locale)
                     setLayoutDirection(locale)
+                    if (filename.contains("high-density")) densityDpi = 480
+                }
+                val metrics = android.util.DisplayMetrics().apply {
+                    setTo(activity.resources.displayMetrics)
+                    if (filename.contains("high-density")) {
+                        densityDpi = 480
+                        density = 3f
+                    }
                 }
                 @Suppress("DEPRECATION")
-                activity.resources.updateConfiguration(config, activity.resources.displayMetrics)
+                activity.resources.updateConfiguration(config, metrics)
                 val row = LinearLayout(activity).apply { orientation = LinearLayout.VERTICAL }
                 DiPlayActivity::class.java.getDeclaredMethod("controlOnlyMediaControls", LinearLayout::class.java)
                     .apply { isAccessible = true }.invoke(activity, row)
                 assertTrue(allViews(row).filterIsInstance<TextView>().any {
                     it.text.toString() == activity.getString(R.string.settings_control_only_media_session)
+                })
+                assertTrue(allViews(row).filterIsInstance<TextView>().any {
+                    it.text.toString() == activity.getString(R.string.settings_control_only_audio_focus)
+                })
+                assertTrue(allViews(row).filterIsInstance<TextView>().any {
+                    it.text.toString() == activity.getString(R.string.settings_control_only_route_bootstrap)
                 })
                 val width = (widthDp * activity.resources.displayMetrics.density).toInt()
                 row.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),

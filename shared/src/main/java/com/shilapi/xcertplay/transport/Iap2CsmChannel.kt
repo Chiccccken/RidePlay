@@ -73,7 +73,7 @@ class Iap2CsmChannel private constructor(
             val deadlineNanos = deadlineAfter(timeoutMillis)
             for (chunk in chunks) {
                 val queued = try {
-                    link.sendControlAwaitCapacity(chunk, remainingMillis(deadlineNanos))
+                    link.sendControlAwaitCapacity(chunk, remainingMillis(deadlineNanos), frame.messageId)
                 } catch (failure: Throwable) {
                     if (failure is Error) fatal(failure)
                     failClosed(failure)

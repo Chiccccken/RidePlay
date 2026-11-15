@@ -21,6 +21,37 @@ class SettingsBackupCodecTest {
 
     private fun prefs(name: String) = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
+    @Test fun ridePlayChoicesSurviveExportToAFreshInstallation() {
+        val keys = listOf("rideplay_pinyin_album", "rideplay_pinyin_metadata",
+            "rideplay_control_only_media_session", "rideplay_control_only_audio_focus",
+            "rideplay_control_only_route_bootstrap")
+        val editor = prefs("xcertplay_airplay").edit()
+        keys.forEach { editor.putBoolean(it, true) }
+        editor.putString("identity_private", "not-exported").apply()
+        prefs("rideplay_orientation").edit().putString("mode", "PORTRAIT").apply()
+        val rules = "{\"Artist\":\"Alias\"}"
+        prefs("rideplay_artist_names").edit().putString("rules", rules).apply()
+        val document = SettingsBackupCodec.export(context, "0.3.0")
+        assertFalse(String(document).contains("identity_private"))
+        for (file in listOf("xcertplay_airplay", "rideplay_orientation", "rideplay_artist_names")) {
+            prefs(file).edit().clear().commit()
+        }
+        assertFalse(SettingsBackupCodec.import(context, document).invalid)
+        keys.forEach { assertTrue(it, prefs("xcertplay_airplay").getBoolean(it, false)) }
+        assertEquals("PORTRAIT", prefs("rideplay_orientation").getString("mode", null))
+        assertEquals(rules, prefs("rideplay_artist_names").getString("rules", null))
+        assertFalse(prefs("xcertplay_airplay").contains("identity_private"))
+    }
+
+    @Test fun ridePlayImportRejectsWrongTypesOnAFreshInstallation() {
+        val document = """{"format":"diplay-settings","version":1,"settings":{
+          "xcertplay_airplay":{"rideplay_control_only_route_bootstrap":"true"},
+          "rideplay_orientation":{"mode":123},"rideplay_artist_names":{"rules":false}}}"""
+        val outcome = SettingsBackupCodec.import(context, document.toByteArray())
+        assertEquals(0, outcome.applied)
+        assertEquals(3, outcome.skipped)
+    }
+
     @Test
     fun navigationPromptAudioFocusTravelsWithTheAudioFocusSettings() {
         AirPlayPersistence.saveNavigationPromptAudioFocus(context, true)

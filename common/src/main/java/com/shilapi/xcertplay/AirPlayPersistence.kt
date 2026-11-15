@@ -760,6 +760,23 @@ object AirPlayPersistence {
             .putBoolean("rideplay_control_only_media_session", enabled).apply()
     }
 
+    /** Opt-in focus experiment; sampled only when a new CarPlay controller attaches. */
+    fun loadControlOnlyAudioFocus(context: Context): Boolean =
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getBoolean("rideplay_control_only_audio_focus", false)
+
+    fun saveControlOnlyAudioFocus(context: Context, enabled: Boolean) {
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
+            .putBoolean("rideplay_control_only_audio_focus", enabled).apply()
+    }
+
+    fun loadControlOnlyRouteBootstrap(context: Context): Boolean =
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getBoolean("rideplay_control_only_route_bootstrap", false)
+
+    fun saveControlOnlyRouteBootstrap(context: Context, enabled: Boolean) {
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
+            .putBoolean("rideplay_control_only_route_bootstrap", enabled).apply()
+    }
+
     fun loadSmoothVideo(context: Context): Boolean =
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getBoolean(KEY_SMOOTH_VIDEO, false)
 

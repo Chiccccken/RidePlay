@@ -1,6 +1,6 @@
 <resources>
     <string name="settings_control_only_media_session">音声なしのメディア操作（実験的機能）</string>
-    <string name="settings_control_only_media_session_description">ローカル音声やオーディオフォーカスなしでメディアセッションを公開します。車両の Bluetooth 経由で CarPlay 音声を再生する設定が必要です。次回の接続から適用されます。Bluetooth メーターとの互換性は実機での検証が必要です。</string>
+    <string name="settings_control_only_media_session_description">ローカル音声なしでメディアセッションを公開します。別のフォーカス実験を有効にしない限り音声フォーカスは要求しません。車両 Bluetooth 経由の CarPlay 音声が必要です。次回接続時に適用。メーター互換性は実機確認が必要です。</string>
     <string name="settings_orientation_lock">画面方向</string>
     <string name="settings_orientation_auto">自動</string>
     <string name="settings_orientation_landscape">横向き</string>
@@ -16,4 +16,6 @@
     <string name="settings_artist_original">元の歌手名</string>
     <string name="settings_artist_replacement">表示名（空欄で削除）</string>
     <string name="settings_artist_invalid">有効な名前を入力してください。各200文字、100ルールまでです。</string>
+    <string name="settings_control_only_audio_focus">音声なし操作のフォーカス（実験的機能）</string>
+    <string name="settings_control_only_audio_focus_description">音声なしのメディア操作で音声フォーカスを要求します。他の Android 音声が停止または小さくなる場合があり、メーター操作の動作は保証されません。音声なし操作をオン、メディアキーの音声フォーカス無効化をオフにしてください。次回接続時に適用。オフにして再接続すると元に戻ります。</string>
 </resources>

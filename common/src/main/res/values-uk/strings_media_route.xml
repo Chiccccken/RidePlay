@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_control_only_route_bootstrap">Вибір одержувача медіакнопок (експериментально)</string>
+    <string name="settings_control_only_route_bootstrap_description">За керування без звуку коротко відтворює тишу під час підключення або повернення до CarPlay, щоб запросити медіакнопки. Може перебрати керування в інших Android-програвачів. Діє після повторного підключення. Вимкнення припиняє запити, але не відновлює попередній програвач.</string>
+</resources>

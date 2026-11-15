@@ -400,15 +400,26 @@ class SettingsBackupServerTest {
     }
 
     // Connections end on their own threads while stop() walks the ones still open.
-    @Test
+    @Test(timeout = 30_000)
     fun stopDoesNotFailWhileConnectionsAreEnding() {
+        // Ordinary TCP close can spend about a second in native close() on macOS, even before
+        // busy.stop() runs. Reset these test clients so this exercises concurrent connection
+        // cleanup rather than repeatedly waiting for graceful TCP teardown.
         repeat(1000) {
             val busy = SettingsBackupServer(page = ByteArray(0), export = { ByteArray(0) },
                 import = { SettingsImportOutcome(0, 0, invalid = false) })
             val started = busy.start()!!
-            val sockets = List(3) { Socket("127.0.0.1", started.port) }
-            sockets.forEach { it.close() }
-            busy.stop()
+            val sockets = mutableListOf<Socket>()
+            try {
+                repeat(3) {
+                    sockets.add(Socket("127.0.0.1", started.port).apply { setSoLinger(true, 0) })
+                }
+                sockets.forEach { it.close() }
+                busy.stop()
+            } finally {
+                sockets.forEach { runCatching { it.close() } }
+                busy.stop()
+            }
         }
     }
 
