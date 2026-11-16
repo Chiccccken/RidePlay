@@ -8,7 +8,7 @@
 
 RidePlay 是基于 [DiPlay](https://github.com/shihabal3amri/DiPlay) 的个人定制项目，安装在 Android 接收端，与 iPhone 配合使用。首个适配目标是 **KTM MY RIDE**，项目名称不限定摩托车品牌。
 
-[下载安装包](https://github.com/Chiccccken/RidePlay/releases) · [0.3.1 发布说明](docs/RELEASE-NOTES-0.3.1.md) · [从源码构建](docs/BUILD.md)
+[下载安装包](https://github.com/Chiccccken/RidePlay/releases) · [安装与首次连接](docs/RIDEPLAY_QUICKSTART.zh-CN.md) · [0.3.1 发布说明](docs/RELEASE-NOTES-0.3.1.md) · [从源码构建](docs/BUILD.md)
 
 ## 为什么 Fork DiPlay
 

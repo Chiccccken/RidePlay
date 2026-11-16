@@ -8,7 +8,7 @@
 
 RidePlay is a personal fork of [DiPlay](https://github.com/shihabal3amri/DiPlay), installed on an Android receiver and used with an iPhone. **KTM MY RIDE** is the first integration target; the project name is not tied to one motorcycle brand.
 
-[Download](https://github.com/Chiccccken/RidePlay/releases) · [0.3.1 release notes](docs/RELEASE-NOTES-0.3.1.md) · [Build from source](docs/BUILD.md)
+[Download](https://github.com/Chiccccken/RidePlay/releases) · [简体中文入门指南](docs/RIDEPLAY_QUICKSTART.zh-CN.md) · [0.3.1 release notes](docs/RELEASE-NOTES-0.3.1.md) · [Build from source](docs/BUILD.md)
 
 ## Why I forked DiPlay
 

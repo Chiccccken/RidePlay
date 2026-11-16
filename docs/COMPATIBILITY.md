@@ -1,4 +1,10 @@
-# Compatibility
+# RidePlay compatibility
+
+For RidePlay 0.3.1, the owner confirmed repeated use on a 2019 KTM 390 Duke: handlebar play/pause/track changes, iPhone-to-headset music, app reconnect and connecting after reopening the app following an Android receiver restart. Other vehicles/firmware and Siri/call audio, complete background/lock-screen recovery and startup orientation need separate acceptance testing. See the [RidePlay release notes](RELEASE-NOTES-0.3.1.md) and [简体中文入门指南](RIDEPLAY_QUICKSTART.zh-CN.md).
+
+## Upstream DiPlay compatibility references
+
+The device reports and historical version numbers below come from upstream DiPlay. They remain useful context for inherited features, but are not additional RidePlay field-test results.
 
 This public preview is an independent receiver, not an Apple-certified CarPlay accessory. The experimental bundled accessory identity is extractable and its future acceptance is not guaranteed.
 
@@ -79,7 +85,7 @@ On the Denza N9 (firmware `BYD-AUTO/IVI/IVI:13/TP1A.220624.014/eng.build20260705
 - USB requires a data port and correct host/device-role behavior.
 - Calls, Siri, background reconnection, long journeys and future iOS releases need broader testing.
 
-For a current report, reproduce the problem on **0.2.14**, then open **Settings → Diagnostics → Save diagnostic report**. Android 10+ normally saves to **Downloads/DiPlay**; Android 9 uses a document picker. The confirmation identifies fallback storage and offers **View report** and **Share**. Attach the reviewed `.txt` to a matching [existing issue](https://github.com/shihabal3amri/DiPlay/issues), or [create an issue](https://github.com/shihabal3amri/DiPlay/issues/new/choose). Include car/head-unit, Android/DiLink/firmware, iPhone/iOS, connection mode, steps and failure time. Nothing uploads automatically.
+For a current RidePlay report, reproduce the problem on the current [RidePlay release](https://github.com/Chiccccken/RidePlay/releases), then open **Settings → Diagnostics → Save diagnostic report**. Keep the reported app/Android/iOS versions, connection mode, reproduction steps and failure time. Review the TXT file before sharing it with the RidePlay maintainer. See the [privacy guide](PRIVACY.md) for report storage and redaction limits. Nothing uploads automatically.
 
 Reports record requested frequencies, station association state, fallback failures and remembered-configuration events. Android 10+ can verify the actual group frequency; Android 9 reports its accepted channel request as unverified and system-default as channel 0. Wi-Fi credentials and protocol payloads are excluded. A successful hotspot is not itself a successful CarPlay session.
 
