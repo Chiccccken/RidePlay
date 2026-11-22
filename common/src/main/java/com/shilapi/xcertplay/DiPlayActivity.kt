@@ -4180,7 +4180,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
         })
         body.addView(button(getString(R.string.copy_command), false) {
             getSystemService(android.content.ClipboardManager::class.java).setPrimaryClip(
-                android.content.ClipData.newPlainText("DiPlay ADB Command", adbCmd)
+                android.content.ClipData.newPlainText("RidePlay ADB Command", adbCmd)
             )
             toast(getString(R.string.copied_to_the_car_clipboard_run_the_command_on_your_comput))
         }, matchButton(8, 50))
@@ -5908,7 +5908,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
         }, "adb-cluster-authorize").start()
     }
 
-    private fun reportFileName() = "DiPlay-${SimpleDateFormat("yyyyMMdd-HHmmss-SSS", Locale.US).format(Date())}.txt"
+    private fun reportFileName() = "RidePlay-${SimpleDateFormat("yyyyMMdd-HHmmss-SSS", Locale.US).format(Date())}.txt"
 
     private fun saveReportToDownloads() {
         if (exportInProgress) return
@@ -5976,7 +5976,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
 
     /** The text of a diagnostic report. It reads the session logs, so call it off the main thread. */
     private fun diagnosticReportText(appContext: Context): String = buildString {
-        appendLine("DiPlay ${version()} · private beta diagnostic report")
+        appendLine("RidePlay ${version()} · diagnostic report")
         appendLine(LastConnectionProblem.report(appContext))
         appendLine("Android ${Build.VERSION.RELEASE} / API ${Build.VERSION.SDK_INT}")
         appendLine("Head unit: ${Build.MANUFACTURER} ${Build.MODEL}")
@@ -6056,7 +6056,7 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
         appendLine("--- Recent own-app process exits (Android 11+) ---")
         appendLine(ProcessExitDiagnostics.report(appContext))
         appendLine()
-        appendLine("--- Last crash recorded by DiPlay ---")
+        appendLine("--- Last crash recorded by RidePlay ---")
         appendLine(CrashRecord.report(appContext))
         appendLine()
         for (name in SessionLogFile.REPORT_NAMES) {
@@ -6246,6 +6246,9 @@ class DiPlayActivity : ComponentActivity(), AppAppearanceOwner {
         ), modes.indexOf(RidePlayOrientation.load(this))) { index ->
             RidePlayOrientation.save(this, modes[index])
             RidePlayOrientation.apply(this, android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+            // The description promises a reconnect for active sessions; honour it so the
+            // CarPlay host activity re-applies the orientation on its next resume.
+            markReconnectNeeded()
         }
     }
 

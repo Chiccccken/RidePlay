@@ -303,7 +303,7 @@
     <string name="preparing_mfi_authentication">Preparazione dell’autenticazione MFi</string>
     <string name="ready">Pronto</string>
     <string name="ready_when_you_are">Pronto quando vuoi</string>
-    <string name="receiver_based_on_xcertplay_licensed_under_gpl_3_0_diplay">Ricevitore basato su xcertplay, con licenza GPL-3.0. L’interfaccia di DiPlay segue il design di DiAuto, con licenza AGPL-3.0.\n\nInclude AndroidX, Bouncy Castle, JmDNS e SLF4J. Il codice sorgente e gli avvisi di licenza accompagnano questa versione.\n\nCarPlay e l’icona di CarPlay appartengono ad Apple Inc. DiPlay è un progetto indipendente.</string>
+    <string name="receiver_based_on_xcertplay_licensed_under_gpl_3_0_diplay">Ricevitore basato su xcertplay, con licenza GPL-3.0. L’interfaccia di DiPlay segue il design di DiAuto, con licenza AGPL-3.0.\n\nInclude AndroidX, Bouncy Castle, JmDNS e SLF4J. Il codice sorgente e gli avvisi di licenza accompagnano questa versione.\n\nCarPlay e l’icona di CarPlay appartengono ad Apple Inc. RidePlay è un progetto indipendente.</string>
     <string name="reconnecting_to_your_iphone">Riconnessione all’iPhone…</string>
     <string name="remote">Remoto</string>
     <string name="remote_server_address_contains_u_0000">L’indirizzo del server remoto contiene U+0000</string>

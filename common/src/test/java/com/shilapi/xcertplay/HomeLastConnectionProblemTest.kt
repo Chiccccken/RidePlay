@@ -120,7 +120,7 @@ class HomeLastConnectionProblemTest {
     @Test @Config(qualifiers = "zh-rTW") fun theReportSaysTheLastProblemInEnglishOnItsSecondLine() {
         fail(ConnectionFailureCause.CAR_HOTSPOT_OFF)
         val lines = reportLines()
-        assertTrue(lines[0], lines[0].startsWith("DiPlay ") && lines[0].endsWith(" · private beta diagnostic report"))
+        assertTrue(lines[0], lines[0].startsWith("RidePlay ") && lines[0].endsWith(" · diagnostic report"))
         assertTrue(lines[1], lines[1].matches(Regex(
             "Last problem: Car hotspot is off \\(cause:CAR_HOTSPOT_OFF\\) at \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} [+-]\\d{4}")))
         assertTrue(lines[2], lines[2].startsWith("Android "))

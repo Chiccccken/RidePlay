@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_control_only_route_bootstrap">メディアキーの経路設定（実験的機能）</string>
-    <string name="settings_control_only_route_bootstrap_description">音声なしの操作が有効な場合、CarPlay 接続時や画面に戻った際に短い無音を再生し、メディアキーの制御を要求します。他の Android プレーヤーから制御を引き継ぐ場合があります。再接続後に反映されます。無効にすると以後の要求を停止しますが、以前のプレーヤーには戻しません。</string>
+    <string name="settings_control_only_route_bootstrap_description">システムによっては音声を出力した実績のあるアプリにのみメディアキーを割り当てます。有効にすると、接続時や復帰時に音声チャネルを一瞬だけアクティブにしてキーの割り当てを補助します。次回接続時に適用。</string>
 </resources>

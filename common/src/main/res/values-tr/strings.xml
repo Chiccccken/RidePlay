@@ -298,7 +298,7 @@
     <string name="preparing_mfi_authentication">MFi kimlik doğrulaması hazırlanıyor</string>
     <string name="ready">Hazır</string>
     <string name="ready_when_you_are">Hazır olduğunuzda hazır</string>
-    <string name="receiver_based_on_xcertplay_licensed_under_gpl_3_0_diplay">xcertplay tabanlı alıcı, GPL-3.0 altında lisanslanmıştır. DiPlay arayüzü, AGPL-3.0 altında lisanslanmış DiAuto tasarımını takip eder.\n\nAndroidX, Bouncy Castle, JmDNS ve SLF4J içerir. Kaynak kod ve lisans bildirimleri bu sürüme eşlik eder.\n\nCarPlay ve CarPlay simgesi Apple Inc.\'e aittir. DiPlay bağımsız bir projedir.</string>
+    <string name="receiver_based_on_xcertplay_licensed_under_gpl_3_0_diplay">xcertplay tabanlı alıcı, GPL-3.0 altında lisanslanmıştır. DiPlay arayüzü, AGPL-3.0 altında lisanslanmış DiAuto tasarımını takip eder.\n\nAndroidX, Bouncy Castle, JmDNS ve SLF4J içerir. Kaynak kod ve lisans bildirimleri bu sürüme eşlik eder.\n\nCarPlay ve CarPlay simgesi Apple Inc.\'e aittir. RidePlay bağımsız bir projedir.</string>
     <string name="reconnecting_to_your_iphone">iPhone\'unuza yeniden bağlanılıyor…</string>
     <string name="remote">Uzak</string>
     <string name="remote_server_address_contains_u_0000">Uzak sunucu adresi U+0000 içeriyor</string>

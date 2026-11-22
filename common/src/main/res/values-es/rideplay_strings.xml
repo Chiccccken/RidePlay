@@ -1,13 +1,13 @@
 <resources>
     <string name="settings_control_only_media_session">Controles multimedia sin audio (experimental)</string>
-    <string name="settings_control_only_media_session_description">Publica una sesión multimedia sin audio local. No solicita foco salvo que se active el experimento de foco. Requiere audio CarPlay por Bluetooth del vehículo. Se aplica en la próxima conexión. La compatibilidad del cuadro requiere pruebas en el dispositivo.</string>
+    <string name="settings_control_only_media_session_description">Para situaciones donde el iPhone emite audio directamente (como a un intercomunicador de casco o Bluetooth del vehículo). Publica información de reproducción y permite controles sin emitir sonido localmente. Requiere audio CarPlay por Bluetooth del vehículo. Se aplica en la próxima conexión.</string>
     <string name="settings_orientation_lock">Pantalla</string>
     <string name="settings_orientation_auto">Automática</string>
     <string name="settings_orientation_landscape">Horizontal</string>
     <string name="settings_orientation_portrait">Vertical</string>
     <string name="settings_orientation_lock_description">Fija la orientación de inicio, ajustes y CarPlay. Cambiar esta opción reconecta la sesión CarPlay activa tras confirmar. El modo automático restaura la rotación original.</string>
     <string name="settings_pinyin_metadata">Información musical en pinyin (experimental)</string>
-    <string name="settings_pinyin_metadata_description">Convierte títulos y artistas chinos sin conexión. Las tarjetas Android también muestran pinyin; CarPlay conserva el original. La pronunciación puede ser incorrecta. Se aplica en la próxima conexión.</string>
+    <string name="settings_pinyin_metadata_description">Convierte títulos de canciones y artistas chinos a pinyin sin conexión para cuadros de moto que no admiten texto chino. CarPlay conserva el texto original. Se aplica en la próxima conexión.</string>
     <string name="settings_pinyin_album">Pinyin del álbum</string>
     <string name="settings_pinyin_album_description">Convierte también el álbum al activar pinyin. Se aplica en la próxima conexión.</string>
     <string name="settings_artist_rules">Alias de artistas</string>
@@ -17,5 +17,5 @@
     <string name="settings_artist_replacement">Nombre mostrado (vacío elimina)</string>
     <string name="settings_artist_invalid">Nombre válido: hasta 200 caracteres y 100 reglas.</string>
     <string name="settings_control_only_audio_focus">Foco para controles sin audio (experimental)</string>
-    <string name="settings_control_only_audio_focus_description">Solicita foco de audio para los controles sin audio. Puede pausar o reducir otro audio de Android; no garantiza el control del cuadro. Activa los controles sin audio y desactiva la opción que deshabilita el foco de las teclas multimedia. Se aplica en la próxima conexión. Desactiva y reconecta para revertir.</string>
+    <string name="settings_control_only_audio_focus_description">Solicita foco de audio con los controles sin audio activados, ayudando a que ciertos sistemas prioricen los botones del manillar. Puede pausar otro audio de Android. Requiere mantener desactivada la opción de deshabilitar el foco de teclas multimedia. Se aplica en la próxima conexión.</string>
 </resources>

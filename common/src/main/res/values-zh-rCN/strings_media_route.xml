@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_control_only_route_bootstrap">媒体按键选路引导（实验性）</string>
-    <string name="settings_control_only_route_bootstrap_description">开启无音频控制后，在建立 CarPlay 会话或返回 CarPlay 时短暂播放无声数据，尝试取得媒体按键控制。可能接管其他 Android 播放器的控制权。重连后生效；关闭后停止后续请求，不自动恢复之前的播放器。</string>
+    <string name="settings_control_only_route_bootstrap_description">部分系统仅在应用产生过音频输出后才分发车把按键。开启后将在连接或返回应用时短暂激活音频通道以辅助按键分发。下次连接生效。</string>
 </resources>

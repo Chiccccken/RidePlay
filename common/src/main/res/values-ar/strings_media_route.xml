@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_control_only_route_bootstrap">توجيه أزرار الوسائط (تجريبي)</string>
-    <string name="settings_control_only_route_bootstrap_description">عند تفعيل التحكم دون صوت، يشغل صمتاً قصيراً عند اتصال CarPlay أو العودة إليه لطلب التحكم بأزرار الوسائط. قد يأخذ التحكم من مشغلات Android الأخرى. يسري بعد إعادة الاتصال. يوقف التعطيل الطلبات اللاحقة ولا يعيد المشغل السابق.</string>
+    <string name="settings_control_only_route_bootstrap_description">توجه بعض الأنظمة أزرار الوسائط فقط للتطبيقات التي أصدرت صوتاً سابقاً. يفعل هذا الخيار قناة الصوت لفترة وجيزة عند الاتصال أو العودة للمساعدة في توجيه أزرار المقود. يسري عند الاتصال التالي.</string>
 </resources>

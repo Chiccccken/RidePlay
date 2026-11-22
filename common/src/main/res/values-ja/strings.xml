@@ -306,7 +306,7 @@
     <string name="preparing_mfi_authentication">MFi認証を準備しています</string>
     <string name="ready">準備完了</string>
     <string name="ready_when_you_are">いつでも接続できます</string>
-    <string name="receiver_based_on_xcertplay_licensed_under_gpl_3_0_diplay">レシーバーはGPL-3.0のxcertplayを基にしています。DiPlayのインターフェースはAGPL-3.0のDiAutoの設計を参考にしています。\n\nAndroidX、Bouncy Castle、JmDNS、SLF4Jを使用しています。ソースコードとライセンスに関する表記はリリースに同梱されています。\n\nCarPlayおよびCarPlayアイコンはApple Inc.に帰属します。DiPlayは独立したプロジェクトです。</string>
+    <string name="receiver_based_on_xcertplay_licensed_under_gpl_3_0_diplay">レシーバーはGPL-3.0のxcertplayを基にしています。DiPlayのインターフェースはAGPL-3.0のDiAutoの設計を参考にしています。\n\nAndroidX、Bouncy Castle、JmDNS、SLF4Jを使用しています。ソースコードとライセンスに関する表記はリリースに同梱されています。\n\nCarPlayおよびCarPlayアイコンはApple Inc.に帰属します。RidePlayは独立したプロジェクトです。</string>
     <string name="reconnecting_to_your_iphone">iPhoneに再接続しています…</string>
     <string name="remote">リモート</string>
     <string name="remote_server_address_contains_u_0000">サーバーアドレスにU+0000が含まれています</string>

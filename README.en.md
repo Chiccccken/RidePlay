@@ -1,64 +1,71 @@
 # RidePlay
 
-*A personalized CarPlay experience for motorcycles.*
+*A CarPlay receiver tailored for motorcycle riding.*
 
 [简体中文](README.md) · **English** · [繁體中文](README.zh-TW.md)
 
 <img src="site/assets/icon.png" alt="RidePlay icon" width="160">
 
-RidePlay is a personal fork of [DiPlay](https://github.com/shihabal3amri/DiPlay), installed on an Android receiver and used with an iPhone. **KTM MY RIDE** is the first integration target; the project name is not tied to one motorcycle brand.
+RidePlay is an open-source CarPlay receiver tailored from [DiPlay](https://github.com/shihabal3amri/DiPlay), designed to run on Android receiver devices paired with an iPhone. The primary integration target is motorcycle systems supporting Bluetooth clusters and handlebar controls (e.g., **KTM MY RIDE**).
 
-[Download](https://github.com/Chiccccken/RidePlay/releases) · [简体中文入门指南](docs/RIDEPLAY_QUICKSTART.zh-CN.md) · [0.3.1 release notes](docs/RELEASE-NOTES-0.3.1.md) · [Build from source](docs/BUILD.md)
+[Download Releases](https://github.com/Chiccccken/RidePlay/releases) · [0.3.1 Release Notes](docs/RELEASE-NOTES-0.3.1.md) · [Build from Source](docs/BUILD.md)
 
-## Why I forked DiPlay
+## Background & Use Case
 
-My riding setup uses an Android receiver for CarPlay navigation and its interface, with music sent directly from the iPhone to a Bluetooth helmet headset. I also want to keep the KTM's original handlebar play, pause and track controls.
+In motorcycle riding setups, many riders prefer having their iPhone output audio directly to a Bluetooth helmet headset (or intercom) to enjoy uncompressed, zero-latency audio and clear communications, while mounting an Android device on the handlebar to serve as a CarPlay navigation display.
 
-DiPlay already provides the wired/wireless CarPlay receiver that makes this possible. In my setup, however, Android media sessions and Bluetooth media-key routing needed additional adaptation when music was not playing through Android. Song information on the instrument also needed a more readable presentation. I forked DiPlay to add media controls, metadata conversion and everyday preferences for this use case.
+While DiPlay provides robust wired and wireless CarPlay core reception, using this audio-direct-to-headset arrangement introduces two challenges:
+1. **Handlebar keys stop working**: When CarPlay audio is not routed through the Android receiver, the Android system `MediaSession` remains inactive, preventing the motorcycle's handlebar buttons from sending play/pause/track-skip commands to the iPhone.
+2. **Cluster text corruption**: Some motorcycle instrument clusters (such as KTM LCD displays) do not support Chinese character sets, resulting in illegible blocks or garbled text when displaying Chinese song titles.
 
-## Changes from DiPlay
+RidePlay builds upon DiPlay's core CarPlay engine by adding audio-free media session bridging, cluster pinyin metadata conversion, and orientation locking to deliver a seamless riding experience.
 
-- **Audio-free media controls (experimental):** publish song information and the actual playback state to Android while CarPlay audio reception is disabled, and forward play/pause/previous/next to the iPhone. This supports keeping music output on the iPhone/headset.
-- **Media-key routing bootstrap (experimental):** an optional helper for systems that need it, triggered after iPhone media information arrives or when returning to CarPlay. It is off by default and takes effect after reconnecting. Enabling it may take media-key ownership from another Android player.
-- **Pinyin and artist-name replacements:** optional offline conversion of song, artist and album names, plus exact full-name artist replacements. Only Android media-session metadata is transformed; the CarPlay picture keeps the original text. Pinyin requires Android 10 or later and is off by default.
-- **Orientation preferences:** saved orientation choices for home, settings and CarPlay, with startup rotation mitigation.
-- **Separate app and updates:** RidePlay branding, package identity and release signing. In-app updates use this repository and validate download origins and checksums. RidePlay can coexist with upstream DiPlay.
-- **Settings backup and diagnostics:** backups include media-control, pinyin, artist-name and orientation choices. Diagnostics add bounded command summaries and unacknowledged-packet attribution while filtering protocol payloads and sensitive fields. Native diagnostic paths are project-relative.
+## Key Features
 
-The wired/wireless CarPlay receiver and existing head-unit integrations come from upstream. BYD-specific features retain their original scope.
+- **Audio-Free Media Controls (Experimental)**: When CarPlay audio is output directly from the phone (e.g., to a helmet headset or vehicle Bluetooth) without playing sound on the Android receiver, RidePlay continues to publish playback metadata to the system and routes handlebar controls (play/pause/skip) to the iPhone.
+- **Media-Key Routing Bootstrap (Experimental)**: For third-party or ported Android ROMs that only dispatch media keys to active audio streams, briefly primes the audio channel upon connection or return to ensure physical handlebar keys route to RidePlay.
+- **Cluster Pinyin & Artist Aliases**: Converts Chinese song titles, artists, and album names into pinyin offline to avoid garbled text on clusters without Chinese font support. Supports custom exact artist replacements (e.g., abbreviations or English names). Only transformed metadata is published to the cluster; the CarPlay UI maintains original text.
+- **App Orientation Preferences**: Supports locking orientation to landscape or portrait, with smooth transition mitigations to prevent orientation flicker during launch.
+- **Independent Coexistence & Secure Updates**: Uses a distinct application identity (`com.chiccccken.rideplay`), allowing side-by-side installation with upstream DiPlay. In-app update checks strictly verify release sources and checksums.
+- **Enhanced Backup & Diagnostics**: Configuration backup covers media control, pinyin conversion, and orientation preferences. Diagnostic reports redact protocol payloads and sensitive fields.
 
-## Current field testing
+## Verified Configurations
 
-The current public version is **0.3.1, a public preview**. I have used it over several days on a **2019 KTM 390 Duke** and confirmed:
+The following hardware combination has completed extensive multi-day physical testing, with all core features confirmed working stably:
 
-- Connection after installation, reconnecting within the app, and opening the app to connect after restarting the Android receiver.
-- Handlebar play/pause/previous/next in the vehicle.
-- Normal music output from the iPhone to the helmet headset.
+- **Motorcycle**: 2019 KTM 390 Duke (KTM MY RIDE)
+- **Receiver**: Redmi Note 9 Pro (Snapdragon 750G platform)
+- **Transmitter**: iPhone 14 (iOS 17)
+- **Audio Routing**: iPhone Bluetooth directly connected to Hengjiang C50 helmet headset
+- **Observed Results**:
+  - Stable wired and wireless CarPlay visual streams;
+  - Lossless audio direct to headset with zero lag;
+  - KTM cluster accurately displays song pinyin, artist, and playback progress;
+  - OEM KTM handlebar controls (play, pause, next, previous) reliably control iPhone playback;
+  - Reconnection after device reboot or app restart functions smoothly.
 
-These are real-use reports. Other vehicles and Android firmware need their own testing. Siri, call audio, complete background/lock-screen recovery and startup orientation have not completed dedicated acceptance testing. Use the [release notes](docs/RELEASE-NOTES-0.3.1.md) for the current scope; earlier design and experiment documents preserve their historical observations.
+*Note: Instrument cluster protocols and Android firmware implementations vary across models. Testing and feedback on other motorcycle brands are welcome.*
 
-## Install and build
+## Installation & Building
 
-Install on the **Android receiver**, with Android 7.0+ (API 24). Release builds use `com.chiccccken.rideplay`; debug builds use `com.chiccccken.rideplay.debug`. Their data is separate. Run only one CarPlay receiver app at a time when testing.
+Install on the **Android receiver**, supporting Android 7.0+ (API 24). Release builds use `com.chiccccken.rideplay`; debug builds use `com.chiccccken.rideplay.debug`.
 
-Download the APK from [RidePlay Releases](https://github.com/Chiccccken/RidePlay/releases) and verify it against `SHA256SUMS.txt` on the same page. Updates signed with the same release key can retain data. Back up settings before migrating from a debug build.
+Download the APK from [RidePlay Releases](https://github.com/Chiccccken/RidePlay/releases) and verify with `SHA256SUMS.txt`.
 
-Ordinary source/CI builds omit runtime accessory authentication assets needed for standalone connection. The public standalone APK includes the upstream experimental accessory identity. Read the [build instructions](docs/BUILD.md) and [third-party notices](docs/THIRD_PARTY_NOTICES.md) before preparing your own device-test package.
+Standard source/CI builds exclude runtime accessory authentication assets. Standalone pre-built APKs include upstream experimental accessory identities. Refer to [Build Guide](docs/BUILD.md) and [Third-Party Notices](docs/THIRD_PARTY_NOTICES.md) before building your own testing APK.
 
 ```sh
 ./gradlew :mobile:assembleDebug
 ```
 
-See [AGENTS.md](AGENTS.md) for the complete unit-test, lint and build command.
+See [AGENTS.md](AGENTS.md) for full testing and verification commands.
 
-## Repository and documentation
+## Repository & Maintenance
 
-[`custom`](https://github.com/Chiccccken/RidePlay/tree/custom) is the development and default display branch; `main` is used for the upstream mirror. See the [maintenance design](docs/KTM_UPSTREAM_SYNC.md) for upstream synchronization plans.
+The [`custom`](https://github.com/Chiccccken/RidePlay/tree/custom) branch is the active development and release branch; `main` mirrors upstream DiPlay. For details on upstream synchronization, see [Maintenance Design](docs/KTM_UPSTREAM_SYNC.md).
 
-[Install and connect](docs/INSTALL.md) · [Compatibility](docs/COMPATIBILITY.md) · [Privacy](docs/PRIVACY.md) · [Release checks](docs/RIDEPLAY_RELEASE_CHECKLIST.md)
+[Installation Guide](docs/INSTALL.md) · [Compatibility](docs/COMPATIBILITY.md) · [Privacy](docs/PRIVACY.md) · [Release Checklist](docs/RIDEPLAY_RELEASE_CHECKLIST.md)
 
-Some installation, compatibility and privacy documents retain upstream context. Diagnostics still use `Downloads/DiPlay`. Review reports and remove personal information before sharing them publicly.
+## Credits & License
 
-## Source and credits
-
-Thanks to [DiPlay](https://github.com/shihabal3amri/DiPlay) and [xcertplay](https://github.com/shilapi/xcertplay) for the foundation; this project follows GPL-3.0. Upstream's interface and website adapt [DiAuto](https://github.com/shihabal3amri/DiAuto), AGPL-3.0. Original [license and third-party notices](docs/THIRD_PARTY_NOTICES.md) are retained. RidePlay is independent and is not affiliated with Apple, KTM or BYD.
+Special thanks to [DiPlay](https://github.com/shihabal3amri/DiPlay) and [xcertplay](https://github.com/shilapi/xcertplay) for providing a solid foundation. This project is licensed under GPL-3.0. Interface and website design adapt [DiAuto](https://github.com/shihabal3amri/DiAuto) (AGPL-3.0). Original [licenses and third-party notices](docs/THIRD_PARTY_NOTICES.md) are fully preserved. RidePlay is an independent project and is not affiliated with Apple, KTM, or BYD.

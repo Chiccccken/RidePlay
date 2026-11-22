@@ -36,8 +36,12 @@
         </intent>
     </queries>
     <application>
+        <!-- exported=true is required for the legacy setMediaButtonReceiver PendingIntent path
+             (API < 31): the system MediaSessionService sends ACTION_MEDIA_BUTTON from a
+             different UID. On API 31+ setMediaButtonBroadcastReceiver bypasses the receiver
+             entirely, so the extra surface is harmless there. -->
         <receiver android:name="com.shilapi.xcertplay.CarPlayMediaButtonReceiver"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>

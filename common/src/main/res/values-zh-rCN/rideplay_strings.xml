@@ -1,13 +1,13 @@
 <resources>
     <string name="settings_control_only_media_session">无音频媒体控制（实验性）</string>
-    <string name="settings_control_only_media_session_description">不接收本地音频，仍发布媒体会话。默认不申请音频焦点，单独开启焦点实验后才尝试申请。需开启通过车辆蓝牙播放 CarPlay 音频。下次连接生效，蓝牙仪表兼容性需真机验证。</string>
+    <string name="settings_control_only_media_session_description">适用于 iPhone 直连蓝牙耳机或车辆的场景。本机不输出声音，但仍向系统和仪表发布播放信息并响应切歌控制。需开启“车载蓝牙音频”，下次连接生效。</string>
     <string name="settings_orientation_lock">屏幕方向</string>
     <string name="settings_orientation_auto">自动</string>
     <string name="settings_orientation_landscape">横屏</string>
     <string name="settings_orientation_portrait">竖屏</string>
     <string name="settings_orientation_lock_description">锁定首页、设置和 CarPlay 界面的方向。有 CarPlay 连接时，更改此设置会在确认后重新连接。自动模式恢复原有旋转行为。</string>
     <string name="settings_pinyin_metadata">歌曲信息拼音（实验性）</string>
-    <string name="settings_pinyin_metadata_description">离线转换中文歌名和歌手。Android 媒体卡片也会显示拼音，CarPlay 保留原文。多音字和人名可能读错。下次连接生效。</string>
+    <string name="settings_pinyin_metadata_description">离线将中文歌名与歌手转换为拼音，便于不支持中文显示的摩托车仪表识别。CarPlay 界面保留原文。下次连接生效。</string>
     <string name="settings_pinyin_album">专辑名拼音</string>
     <string name="settings_pinyin_album_description">启用歌曲信息拼音后，同时转换专辑名。下次连接生效。</string>
     <string name="settings_artist_rules">歌手名称替换</string>
@@ -17,5 +17,5 @@
     <string name="settings_artist_replacement">显示名称（留空删除）</string>
     <string name="settings_artist_invalid">请填写有效名称：每项最多 200 字符，最多 100 条规则。</string>
     <string name="settings_control_only_audio_focus">无音频控制申请焦点（实验性）</string>
-    <string name="settings_control_only_audio_focus_description">为无音频媒体控制尝试申请音频焦点，可能暂停或压低其他 Android 应用的声音，不保证仪表控制生效。需开启无音频媒体控制，并关闭“禁用媒体按键音频焦点”。下次连接生效；关闭并重连即可回退。</string>
+    <string name="settings_control_only_audio_focus_description">在开启无音频媒体控制时请求音频焦点，有助于部分系统优先响应车把按键，但可能暂停其他正在播放的 Android 音频。需保持“禁用媒体按键音频焦点”处于关闭状态，下次连接生效。</string>
 </resources>

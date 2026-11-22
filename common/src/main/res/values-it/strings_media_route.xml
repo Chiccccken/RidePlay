@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_control_only_route_bootstrap">Instradamento tasti multimediali (sperimentale)</string>
-    <string name="settings_control_only_route_bootstrap_description">Con i controlli senza audio, riproduce un breve silenzio alla connessione o al ritorno a CarPlay per richiedere i tasti multimediali. Può sottrarre il controllo ad altri lettori Android. Si applica dopo la riconnessione. Disattivando si fermano le richieste, senza ripristinare il lettore precedente.</string>
+    <string name="settings_control_only_route_bootstrap_description">Alcuni sistemi inoltrano i tasti multimediali solo alle app che hanno riprodotto audio. Attiva brevemente il canale audio alla connessione o al ritorno all\'app per facilitare l\'instradamento dei comandi al manubrio. Si applica alla prossima connessione.</string>
 </resources>

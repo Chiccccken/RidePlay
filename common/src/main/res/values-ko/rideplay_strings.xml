@@ -1,13 +1,13 @@
 <resources>
     <string name="settings_control_only_media_session">오디오 없는 미디어 제어 (실험 기능)</string>
-    <string name="settings_control_only_media_session_description">로컬 오디오 없이 미디어 세션을 게시합니다. 별도 포커스 실험을 켜지 않으면 오디오 포커스를 요청하지 않습니다. 차량 Bluetooth를 통한 CarPlay 오디오가 필요합니다. 다음 연결부터 적용됩니다. 계기판 호환성은 실기기 확인이 필요합니다.</string>
+    <string name="settings_control_only_media_session_description">iPhone이 헬멧 헤드셋이나 차량 Bluetooth로 오디오를 직접 출력하는 환경에 적합합니다. 기기 본체에서 소리를 내지 않고 재생 정보를 게시하며 트랙 이동 제어를 처리합니다. 차량 Bluetooth를 통한 CarPlay 오디오가 필요합니다. 다음 연결부터 적용됩니다.</string>
     <string name="settings_orientation_lock">화면 방향</string>
     <string name="settings_orientation_auto">자동</string>
     <string name="settings_orientation_landscape">가로</string>
     <string name="settings_orientation_portrait">세로</string>
     <string name="settings_orientation_lock_description">홈, 설정 및 CarPlay 화면 방향을 고정합니다. 연결 중 변경하면 확인 후 CarPlay가 다시 연결됩니다. 자동 모드는 원래 회전 동작으로 복원합니다.</string>
     <string name="settings_pinyin_metadata">음악 정보 병음 변환 (실험 기능)</string>
-    <string name="settings_pinyin_metadata_description">중국어 곡명과 가수명을 오프라인으로 변환합니다. Android 미디어 카드도 병음으로 표시하며 CarPlay는 원문을 유지합니다. 발음이 틀릴 수 있습니다. 다음 연결부터 적용됩니다.</string>
+    <string name="settings_pinyin_metadata_description">중국어 텍스트를 지원하지 않는 모터사이클 계기판을 위해 곡 제목과 아티스트명을 오프라인에서 병음으로 변환합니다. CarPlay 화면에는 원문이 유지됩니다. 다음 연결부터 적용됩니다.</string>
     <string name="settings_pinyin_album">앨범명 병음</string>
     <string name="settings_pinyin_album_description">병음 활성화 시 앨범명도 변환합니다. 다음 연결부터 적용됩니다.</string>
     <string name="settings_artist_rules">가수명 바꾸기</string>
@@ -17,5 +17,5 @@
     <string name="settings_artist_replacement">표시 이름 (비우면 삭제)</string>
     <string name="settings_artist_invalid">유효한 이름을 입력하세요. 각 200자, 규칙 100개까지입니다.</string>
     <string name="settings_control_only_audio_focus">무음 제어 오디오 포커스 (실험 기능)</string>
-    <string name="settings_control_only_audio_focus_description">무음 미디어 제어에 오디오 포커스를 요청합니다. 다른 Android 오디오가 일시 정지되거나 작아질 수 있으며 계기판 제어는 보장되지 않습니다. 무음 제어를 켜고 미디어 키 오디오 포커스 비활성화를 꺼야 합니다. 다음 연결부터 적용되며 끄고 다시 연결하면 복원됩니다.</string>
+    <string name="settings_control_only_audio_focus_description">무음 제어가 활성화되었을 때 오디오 포커스를 요청하여 일부 시스템에서 핸들 버튼 응답을 우선하도록 돕습니다. 다른 Android 오디오가 일시 정지될 수 있습니다. \'미디어 키 오디오 포커스 비활성화\'를 꺼야 합니다. 다음 연결부터 적용됩니다.</string>
 </resources>

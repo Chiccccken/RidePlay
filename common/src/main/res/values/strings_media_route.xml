@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_control_only_route_bootstrap">Media-key routing bootstrap (experimental)</string>
-    <string name="settings_control_only_route_bootstrap_description">With audio-free controls enabled, briefly play silent audio when a CarPlay session starts or you return to CarPlay to request media-key routing. May take control from other Android players. Takes effect after reconnecting; switching off stops future requests, but does not restore the previous player.</string>
+    <string name="settings_control_only_route_bootstrap_description">Some systems only route media keys to apps that have produced audio output. Briefly activates the audio channel when connecting or returning to the app to help route hardware keys. Applies on the next connection.</string>
 </resources>

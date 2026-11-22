@@ -1,40 +1,76 @@
-# RidePlay 0.3.1 release validation
+# RidePlay 发布前清单
 
-Package: `com.chiccccken.rideplay`, version `0.3.1`, versionCode `45`.
+2026-11-15 发布完成：[v0.3.1 公开预发布](https://github.com/Chiccccken/RidePlay/releases/tag/v0.3.1)。隐私检查发现并移除了旧候选原生库中的本机编译路径；公开 APK 为同版本／签名的隐私修正版，SHA256 `20cafb862534ca93494bc09a432f3abcb6c40c49c99fb2192e0a18772176891b`。全部 DEX／资源／清单／认证资产与已实测候选相同；本地完整检查和 release/lint 通过，匿名下载及校验已验证。GitHub Actions 因账户执行限制未启动，未声称云端通过。详见 [发布记录](RIDEPLAY_PUBLISH_0.3.1.md)。以下“尚未发布”内容为早期阶段历史。
 
-APK SHA256: `20cafb862534ca93494bc09a432f3abcb6c40c49c99fb2192e0a18772176891b`.
+2026-11-15 最新状态：`0.3.1` / 45 候选已完成完整检查、正式签名及包核验，用户确认安装连接、App 内重连、红米重启后连接正常；今天又进行了多次测试，并明确确认实车车把播放／暂停／切歌及 iPhone 到头盔音乐输出均正常。该候选已具备面向本实测范围的公开测试版发布依据，不再增加连接实验或功能改动。系统热点和 App 描述保持 WPA2，临时协议实验已撤回；其他机型、Siri／电话等未由本轮明确确认的路径不扩大验收。尚未公开发布。详细证据见 [正式包连接排查](RIDEPLAY_RELEASE_CONNECTION_2026-11-14.md)。下文 0.3.0 包及校验值仍指历史归档。
 
-## Build checks
+## 当前发布判断
 
-- Full Android check command completed: shared 1801, common 1800 and Home 11 tests, with no failures (3612 total).
-- Mobile, Home and MapHost Debug builds and lint passed; standalone release build and release lint passed.
-- Release signature, package and non-debuggable status verified. All DEX, resources, manifest and authentication assets match the field-tested candidate; native libraries were rebuilt solely to map machine-specific diagnostic paths to relative paths. All four ABIs were rescanned.
-- Temporary subscription and packet-pacing experiments removed. Original subscriptions, window and retransmission behavior retained.
+建议将已实测的 `0.3.1` / 45 作为公开测试版候选，不继续叠加改动。除旧 debug 版连续多日实测外，用户现在也确认最终候选的车把按键及头盔音乐输出正常。仪表播放／暂停图标固定显示播放三角形仍按用户要求暂缓并列为已知问题；不把音乐输出验收扩展成 Siri、电话、所有车型或所有 ROM 验收。
 
-## Device acceptance
+更新客户端现已改为 `https://api.github.com/repos/Chiccccken/RidePlay/releases?per_page=3`，并拒绝其他仓库的下载资源、清理旧上游更新缓存。线上只读核查确认当前仓库为 `Chiccccken/RidePlay`、默认分支为 `custom`，尚无 Release；更新功能需在首个 Release 上传 APK 和 `SHA256SUMS.txt` 后做真实下载验证。
 
-The owner reported successful in-place installation, connection, app reconnect,
-connection after restarting the Android receiver and repeated real-vehicle tests.
-Handlebar play/pause/track changes and iPhone-to-headset music were explicitly confirmed.
+正式发布前仍须落实：
 
-This feedback is separate from automated checks. It does not establish Siri/call
-audio, every background-recovery scenario or other vehicles/ROMs.
+- 公开版包名为 `com.chiccccken.rideplay`。本机已创建并验证独立正式签名，位于仓库外的受限目录；发布前另做离线备份并长期沿用。手机实测包是 `.debug` 包，公开 release 包会并存安装，不能直接覆盖它保留设置；升级路径须明确告知用户。
+- 独立版本号及递增的 versionCode。建议首个公开测试版用数字 tag（例如 `v0.3.0`）并标记 GitHub prerelease；当前比较器只比较三段数字，相同数字的 beta 与正式版不会被视为更新，后续版本必须递增。
+- 一个更新目录中只放一种可安装主 APK；当前目录选择器不区分多个包名／签名通道，不能混放 debug、release、home 或 maphost APK。
+- 使用 standalone 构建准备实际可连接 iPhone 的包；发布 APK 和含准确文件名的 `SHA256SUMS.txt`，核验包名、签名、版本、认证材料来源及从上一公开版本覆盖升级的设置保留。
+- 首次公开发布前重新通过当前提交的完整 CI，并整理源码及发布说明。本轮仅在本地准备候选包，不代表已经发布。
 
-## Release artifacts
+以下为原发布检查项，按其实际验证范围继续核对。
 
-Publish one main APK, `SHA256SUMS.txt` and corresponding source under `v0.3.1` as a
-prerelease. Preserve the original license and third-party notices. Source archives
-exclude private signing/authentication files and internal device reports.
+## 个人使用前必须确认
 
-After publication, verify the actual release JSON, APK download/checksum and the
-RidePlay update endpoint. Public hosting is not established by local build checks.
+- 在红米 Note 9 Pro / Android 17 上，分别验证冷启动、回到首页、打开 CarPlay 和重连时的强制竖屏；启动缓解改动不能仅凭单元测试宣告通过。
+- 实车停车验证 KTM MY RIDE：曲名／歌手／专辑、中文拼音、车把播放／暂停／切歌、断连后恢复。
+- 核对 iPhone → 头盔的音乐、导航、电话、Siri 音频路由；Android 的媒体卡片成功不能代替音频验证。
+- 验证锁屏、后台、电池限制、Wi-Fi 中断、iPhone 重连和接收端重启后的恢复。
+- 运行 AGENTS.md 的完整 CI 命令，保留报告；失败必须区分源码、工具链、依赖和设备问题。
 
-See [release notes](RELEASE-NOTES-0.3.1.md) for installation and compatibility scope.
+## 正式分发前完成
 
-## Publication privacy review
+- 固定应用 ID 与签名密钥，备份密钥，确认覆盖升级保留设置。当前 debug 为 `com.chiccccken.rideplay.debug`，不能直接覆盖不同包名的正式版。
+- RidePlay 更新源已改为 `Chiccccken/RidePlay`。首个 Release 必须同时提供主 APK 和 `SHA256SUMS.txt`；不可混用上游安装包。
+- 测试从已有版本升级，而不只是全新安装；确认方向、媒体控制、拼音及歌手规则保留。
+- 区分 source-only APK 与具备本地运行时材料的完整测试包，按 BUILD.md 打包；当前普通 `assembleDebug` 不包含独立连接所需材料。
+- 提供对应版本的源码、更新记录与许可证／第三方声明；发布页明确实测设备和未验证场景。
 
-A prepublication audit found machine-local paths in the native echo library. The
-release rebuild normalizes compiler file paths; no Kotlin/Java, protocol, DSP
-algorithm or feature setting changed. The field-tested candidate and release
-APK therefore differ in native rebuild outputs and signing data only. The full
-Android check command and standalone release/lint passed after this change.
+## 仓库收尾
+
+- README 使用 RidePlay 主说明，上游 DiPlay 作为来源保留。
+- 当前线上默认分支已核实为 `custom`；`main` 继续作为上游镜像。
+- 切换默认分支前，确认继承的网站部署只允许在上游仓库执行。
+- 自动同步另按 KTM_UPSTREAM_SYNC.md 实施，完成演练后启用；切换默认分支本身不会创建同步工作流。
+- 上游网站与历史文档仍保留原品牌与适用范围，未来需要自有网站时再独立改造。
+
+## 更新源修改时的阶段记录（后续进展见下文）
+
+- 更新源为 `Chiccccken/RidePlay`；API 返回空 Release 列表，属于尚未发布，不回退查询上游。
+- 测试覆盖新端点、跨仓库资源拒绝及旧缓存清理；完整 CI 成功（9 分 12 秒），shared 1798、common 1796、Home 11 项测试零失败，lint 和三个 Debug 构建通过。
+- `scripts/check_public_tree.py` 通过，新签名密钥和密码均未进入仓库。
+- 当时独立正式签名已在本机生成并验证，尚未构建正式包或创建 tag／Release；正式候选构建进展见下文。
+- 当时红米未连接，旧临时 APK／认证材料已不在原路径；2026-11-14 已完成重新连接、实测包归档和运行时输入恢复，见下文。
+
+
+## 实测包归档与 0.3.0 候选准备
+
+红米 `bf7b20d` 已只读归档实测 APK 和 SharedPreferences 设置备份到仓库外受限目录。APK 的 SHA256 与此前验收包完全一致：`59d164eaa96e5e43e3283487bceeb14f241ca475ca8be6e1a3e475fbca01bac5`，包名 `com.chiccccken.rideplay.debug`，版本 `0.2.22-hud-test` / 41。两份运行时资产已从该包恢复为显式的本地构建输入。
+
+候选公开测试版为 `0.3.0` / versionCode 42，正式包名 `com.chiccccken.rideplay`，使用新独立正式签名。版本变更后的完整 Debug CI 已通过（35 秒，含增量任务）。本阶段尚未更新手机、创建 tag 或公开发布；release 构建、包验证和正式包设备验收分别记录，不将旧 debug 包的实车验收直接算作新正式包通过。
+
+
+## 0.3.0 正式候选包归档
+
+迁移检查补齐了设置备份白名单：RidePlay 的五个媒体控制／焦点／选路／拼音布尔项、屏幕方向和歌手规则现在可导出、导入，并声明期望类型，拒绝错误类型；配对密钥等敏感项不迁移。新增两项测试覆盖全新安装的往返迁移和错误类型拒绝。
+
+补丁后的完整 Debug CI 通过（4 分 22 秒；shared 1798、common 1798、Home 11，合计 3607 项零失败），三个 Debug 构建与 lint 均通过。重建后的 standalone 正式候选包及 release lint 通过；包名 `com.chiccccken.rideplay`，版本 `0.3.0` / 42，`debuggable=false`，签名证书 SHA256 为 `36d15562e611e4e88835131bef60675ea168db99ec28d4a3e3ba8f2220cde9a8`。
+
+最终主 APK SHA256 为 `60c754792e18f33a4ef8270a7556e3a3b07caeed3d3d9278a34e029522724ed7`。两份运行时资产与红米实测包逐字节一致，`SHA256SUMS.txt` 使用准确文件名。安装包、校验值、构建日志、验证 JSON 及未提交源码候选快照均保存在仓库外本机私有目录 `~/.local/share/rideplay-releases/candidate-0.3.0/`。源码快照拒绝密钥容器、私钥块和本地配置目录；实际发布前仍须整理对应 Git 提交／tag。
+
+2026-11-14 用户选择先保存候选包、稍后验证。本轮未安装、迁移设置或中断现有连接，也未创建 tag 或公开 Release。正式包首次安装、设置迁移、CarPlay 与音频路径验证仍待执行，旧 debug 包的实车结果不替代这些检查；独立签名还须做离线备份，首个公开 Release 上传后还需验证真实更新下载。
+
+
+## 0.3.1 / 45 正式候选
+
+临时协议实验已撤回，保留安全诊断及原协议行为；完整 CI 3612 项零失败，release lint／standalone／正式签名核验通过。认证资产及原生库与成功 control2 完全相同。主包 `RidePlay-0.3.1.apk`，SHA256 `6b0bbaf8f4407d898f191f8528ab66b9688c8faebb31302d69ec35532269706f`，正式包名与签名保持不变。仓库外候选目录为 `~/.local/share/rideplay-releases/candidate-0.3.1/`。这只是构建和包核验完成；本候选的实际覆盖安装、重连／冷启动、音频／按键验收与公开 Release 仍待完成。

@@ -1,13 +1,13 @@
 <resources>
     <string name="settings_control_only_media_session">音声なしのメディア操作（実験的機能）</string>
-    <string name="settings_control_only_media_session_description">ローカル音声なしでメディアセッションを公開します。別のフォーカス実験を有効にしない限り音声フォーカスは要求しません。車両 Bluetooth 経由の CarPlay 音声が必要です。次回接続時に適用。メーター互換性は実機確認が必要です。</string>
+    <string name="settings_control_only_media_session_description">iPhone がインカムや車両 Bluetooth へ音声を直接出力する環境向け。端末本体から音を出さずに、再生情報の通知や曲送り操作を受け付けます。車両 Bluetooth 経由の CarPlay 音声を有効にする必要があります。次回接続時に適用。</string>
     <string name="settings_orientation_lock">画面方向</string>
     <string name="settings_orientation_auto">自動</string>
     <string name="settings_orientation_landscape">横向き</string>
     <string name="settings_orientation_portrait">縦向き</string>
     <string name="settings_orientation_lock_description">ホーム、設定、CarPlay 画面の向きを固定します。接続中に変更すると、確認後に CarPlay が再接続されます。自動では元の回転動作に戻ります。</string>
     <string name="settings_pinyin_metadata">楽曲情報のピンイン変換（実験的機能）</string>
-    <string name="settings_pinyin_metadata_description">中国語の曲名と歌手名をオフライン変換します。Android のメディアカードもピンイン表示になり、CarPlay は原文を保持します。読みが誤る場合があります。次回の接続から適用されます。</string>
+    <string name="settings_pinyin_metadata_description">中国語の曲名と歌手名をオフラインでピンインに変換し、中国語フォント非対応のメーターでの文字化けを防ぎます。CarPlay 画面は元の表記を維持します。次回接続時に適用。</string>
     <string name="settings_pinyin_album">アルバム名のピンイン</string>
     <string name="settings_pinyin_album_description">ピンイン有効時にアルバム名も変換します。次回接続から適用します。</string>
     <string name="settings_artist_rules">歌手名の置換</string>
@@ -17,5 +17,5 @@
     <string name="settings_artist_replacement">表示名（空欄で削除）</string>
     <string name="settings_artist_invalid">有効な名前を入力してください。各200文字、100ルールまでです。</string>
     <string name="settings_control_only_audio_focus">音声なし操作のフォーカス（実験的機能）</string>
-    <string name="settings_control_only_audio_focus_description">音声なしのメディア操作で音声フォーカスを要求します。他の Android 音声が停止または小さくなる場合があり、メーター操作の動作は保証されません。音声なし操作をオン、メディアキーの音声フォーカス無効化をオフにしてください。次回接続時に適用。オフにして再接続すると元に戻ります。</string>
+    <string name="settings_control_only_audio_focus_description">音声なし操作の有効時に音声フォーカスを要求し、一部のシステムでハンドルキーへの応答を優先させます。他の Android 音声が一時停止する場合があります。「メディアキーの音声フォーカス無効化」をオフにする必要があります。次回接続時に適用。</string>
 </resources>

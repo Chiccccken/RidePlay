@@ -272,8 +272,8 @@ class SettingsBackupServer(
         const val IDLE_TIMEOUT_MILLIS = 10 * 60_000
         private const val ACCEPT_POLL_MILLIS = 250
         private const val MAX_REQUEST = 2 shl 20
-        const val EXPORT_FILE = "diplay-settings.json"
-        const val REPORT_FILE = "diplay-report.txt"
+        const val EXPORT_FILE = "rideplay-settings.json"
+        const val REPORT_FILE = "rideplay-report.txt"
         const val CODE_DIGITS = 6
         private const val CODE_SPACE = 1_000_000
         /** Five tries in a million codes: one page opening is guessed about once in 200,000. */

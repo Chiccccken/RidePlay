@@ -1,13 +1,13 @@
 <resources>
     <string name="settings_control_only_media_session">Управление медиа без звука (экспериментально)</string>
-    <string name="settings_control_only_media_session_description">Публикует медиасеанс без локального звука. Аудиофокус не запрашивается, если отдельный эксперимент выключен. Требуется звук CarPlay через Bluetooth автомобиля. Действует при следующем подключении. Совместимость панели требует проверки на устройстве.</string>
+    <string name="settings_control_only_media_session_description">Для сценариев, когда iPhone выводит звук напрямую (например, на гарнитуру в шлеме или Bluetooth мотоцикла). Публикует данные о воспроизведении и обрабатывает кнопки без локального звука. Требуется звук CarPlay через Bluetooth автомобиля. Действует при следующем подключении.</string>
     <string name="settings_orientation_lock">Экран</string>
     <string name="settings_orientation_auto">Авто</string>
     <string name="settings_orientation_landscape">Альбомная</string>
     <string name="settings_orientation_portrait">Книжная</string>
     <string name="settings_orientation_lock_description">Фиксирует ориентацию главного экрана, настроек и CarPlay. Изменение переподключает активный CarPlay после подтверждения. Автоматический режим возвращает исходное поведение поворота.</string>
     <string name="settings_pinyin_metadata">Музыкальные данные пиньинь (экспериментально)</string>
-    <string name="settings_pinyin_metadata_description">Преобразует китайские названия и исполнителей офлайн. Карточки Android тоже показывают пиньинь, CarPlay сохраняет оригинал. Произношение может быть неверным. Со следующего подключения.</string>
+    <string name="settings_pinyin_metadata_description">Преобразует китайские названия песен и исполнителей в пиньинь офлайн для приборных панелей мотоциклов без поддержки китайских символов. На экране CarPlay сохраняется исходный текст. Действует при следующем подключении.</string>
     <string name="settings_pinyin_album">Пиньинь альбома</string>
     <string name="settings_pinyin_album_description">Преобразует и альбом при включённом пиньинь. Со следующего подключения.</string>
     <string name="settings_artist_rules">Имена исполнителей</string>
@@ -17,5 +17,5 @@
     <string name="settings_artist_replacement">Отображаемое имя (пусто — удалить)</string>
     <string name="settings_artist_invalid">Введите имя: до 200 символов, не более 100 правил.</string>
     <string name="settings_control_only_audio_focus">Аудиофокус управления без звука (экспериментально)</string>
-    <string name="settings_control_only_audio_focus_description">Запрашивает аудиофокус для управления без звука. Может приостановить или приглушить другой звук Android; управление приборной панелью не гарантируется. Включите управление без звука и выключите запрет аудиофокуса медиакнопок. Действует при следующем подключении. Для отмены выключите и переподключитесь.</string>
+    <string name="settings_control_only_audio_focus_description">Запрашивает аудиофокус при включенном управлении без звука, помогая некоторым системам отдавать приоритет кнопкам на руле. Может приостанавливать другой звук Android. Требует выключенного запрета аудиофокуса медиакнопок. Действует при следующем подключении.</string>
 </resources>
