@@ -34,12 +34,12 @@ RidePlay builds upon DiPlay's core CarPlay engine by adding audio-free media ses
 The following hardware combination has completed extensive multi-day physical testing, with all core features confirmed working stably:
 
 - **Motorcycle**: 2019 KTM 390 Duke (KTM MY RIDE)
-- **Receiver**: Redmi Note 9 Pro (Snapdragon 750G platform)
-- **Transmitter**: iPhone 14 (iOS 17)
-- **Audio Routing**: iPhone Bluetooth directly connected to Hengjiang C50 helmet headset
+- **Receiver**: Redmi Note 9 Pro (Snapdragon 750G platform, HyperOS 4 / Android 17)
+- **Transmitter**: iPhone 14 (iOS 27)
+- **Audio Routing**: iPhone Bluetooth directly connected to Bluetooth headset (iPhone loudspeaker also works)
 - **Observed Results**:
   - Stable wired and wireless CarPlay visual streams;
-  - Lossless audio direct to headset with zero lag;
+  - Lossless audio direct to headset or speaker with zero lag;
   - KTM cluster accurately displays song pinyin, artist, and playback progress;
   - OEM KTM handlebar controls (play, pause, next, previous) reliably control iPhone playback;
   - Reconnection after device reboot or app restart functions smoothly.
