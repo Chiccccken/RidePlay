@@ -1,5 +1,6 @@
 package com.shilapi.xcertplay
 
+import android.content.Context
 import android.hardware.display.DisplayManager
 import android.os.Handler
 import android.os.Looper
@@ -38,7 +39,12 @@ class CarPlayHostClusterStartupTest {
 
     @Before fun setUp() {
         activity = Robolectric.buildActivity(CarPlayHostActivity::class.java).get()
+        activity.getSharedPreferences("xcertplay_airplay", Context.MODE_PRIVATE).edit().clear().commit()
         AirPlayPersistence.saveClusterMapEnabled(activity, true)
+        AirPlayPersistence.saveAdbClusterEnabled(activity, false)
+        AirPlayPersistence.saveLegacyClusterEnabled(activity, false)
+        AirPlayPersistence.saveClusterSmallWindowMode(activity, 0)
+        ClusterActivityOutput.stopForSettings()
         controller = mock(CarPlayController::class.java)
         sink = mock(AndroidMediaSink::class.java)
         session = mock(AirPlaySession::class.java)
@@ -53,13 +59,15 @@ class CarPlayHostClusterStartupTest {
 
     @After fun tearDown() {
         (get("mainHandler") as Handler).removeCallbacksAndMessages(null)
-        ClusterActivityOutput.stop(activity)
+        ClusterActivityOutput.stopForSettings()
         CarPlayBackgroundSession.clear()
         displays.forEach(ShadowDisplayManager::removeDisplay)
         for (name in listOf("teardownExecutor", "airPlayCommandExecutor")) {
             (get(name) as ExecutorService).shutdownNow()
         }
         MapMirrors.streamAspect = MapMirrors.PHYSICAL_STREAM_ASPECT
+        activity.getSharedPreferences("xcertplay_airplay", Context.MODE_PRIVATE).edit().clear().commit()
+        ShadowBuild.reset()
     }
 
     @Test fun anAvailableDisplayWaitsForTheMainFrameInsteadOfSessionActive() {
@@ -259,9 +267,14 @@ class CarPlayHostClusterStartupTest {
     }
 
     @Test fun dilink51ProfileDoesNotWaitForItsPhysicalDisplay() {
+        val original = android.os.Build.FINGERPRINT
         ShadowBuild.setFingerprint(DiLink51ClusterLayout.FINGERPRINT)
-        assertNull(ClusterMapPresentation.findDisplay(activity))
-        assertEquals(DiLink51ClusterLayout.streamConfig(), invoke("clusterDisplayConfig"))
+        try {
+            assertNull(ClusterMapPresentation.findDisplay(activity))
+            assertEquals(DiLink51ClusterLayout.streamConfig(), invoke("clusterDisplayConfig"))
+        } finally {
+            ShadowBuild.setFingerprint(original)
+        }
     }
 
     @Test fun losingTheSessionCancelsAPendingAdbLaunch() {
