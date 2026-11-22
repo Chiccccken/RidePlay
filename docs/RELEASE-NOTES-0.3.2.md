@@ -25,8 +25,8 @@ interface localization across all supported languages.
 - **Motorcycle**: 2019 KTM 390 Duke (KTM MY RIDE)
 - **Receiver**: Redmi Note 9 Pro (Snapdragon 750G platform, HyperOS 4 / Android 17)
 - **Transmitter**: iPhone 14 (iOS 27)
-- **Audio Routing**: iPhone Bluetooth directly connected to Bluetooth headset (iPhone loudspeaker also works)
-- **Status**: Visual CarPlay, lossless headset/speaker audio, cluster pinyin display, and
+- **Audio Routing**: iPhone Bluetooth direct to headset (supports helmet/vehicle Bluetooth headsets or phone speaker output)
+- **Status**: Visual CarPlay, direct headset/speaker audio, cluster pinyin display, and
   OEM handlebar control keys (play/pause/next/previous) confirmed working reliably.
 
 ## Installation
