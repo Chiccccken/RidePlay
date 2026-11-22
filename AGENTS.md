@@ -82,3 +82,22 @@ Spacing, size and shape in the Settings screen MUST come from one place.
    `AdaptiveSettingsUiTest.overviewLinksToEveryOtherCategory` checks this.
 5. A layout change MUST include compact and full screenshots with a large font scale.
    Add an Arabic (right-to-left) screenshot when the change touches row alignment.
+
+## Writing artifacts and user-facing text
+
+An artifact is anything you produce for people other than the person you're working with: an app's interface and its text, user docs, prompts, skills, and configuration. Its reader was never in your conversation, so write only what that reader needs.
+
+1. Write every artifact for its own reader, not for the person who asked for it. Leave out:
+   - decisions and the reasons for them;
+   - conversation history, personal prompts, and options that were rejected or removed;
+   - implementation details the reader doesn't need;
+   - evidence that a requirement was met (for example, no "data is preserved when you delete an item" note because that was a design goal, and no counter added only to show that a feature works).
+2. When something is removed, remove every trace of it, including any instruction that forbids it. For example, after dropping an export format, no "don't use the old export format" line remains in a prompt or doc.
+3. In an interface, every element and string must help the end user act. Don't repeat what's already shown (such as a "Healthy" label beside a green status dot), and make the interface clear enough to need no redundant instructions or hints.
+4. Use the end user's words, not internal names or developer terms used while building.
+5. Tone, style and avoiding LLM clichés:
+   - Never use defensive disclaimers in UI or docs (such as "needs real-device verification", "not guaranteed to work", "experimental - use at own risk", "added as requested").
+   - Avoid PR fluff, promotional buzzwords, and AI cliches (such as "lossless zero-latency", "designed to empower", "crucial", "seamlessly"). State facts and concrete actions directly.
+   - Keep UI copy concise, imperative, and focused strictly on the immediate user outcome.
+6. Before reporting interface work, list each visible element and string in the changed area, with one line on why the end user needs it.
+
